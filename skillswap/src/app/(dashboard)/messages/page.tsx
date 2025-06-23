@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { useAuth } from '@/context/AuthContext';
+import { useSocket } from '@/context/SocketContext';
 import { useSearchParams } from 'next/navigation';
-import { io, Socket } from 'socket.io-client';
 import { 
   Search, 
   Send, 
@@ -57,6 +57,7 @@ const quickReplies = [
 
 export default function MessagesPage() {
   const { user: currentUser } = useAuth();
+  const { socket, isConnected } = useSocket();
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -67,47 +68,59 @@ export default function MessagesPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const searchParams = useSearchParams();
 
-  const socketRef = useRef<Socket | null>(null);
   const menuRef = useRef<HTMLDivElement | null>(null);
   const selectedConversationRef = useRef<Conversation | null>(null);
+
+  // Debug authentication and socket status
+  console.log('MessagesPage: Auth & Socket status:', { 
+    currentUser: !!currentUser,
+    currentUserId: currentUser?.id,
+    currentUserEmail: currentUser?.email,
+    socket: !!socket, 
+    isConnected, 
+    socketId: socket?.id,
+    socketConnected: socket?.connected 
+  });
 
   // Update ref whenever selectedConversation changes
   useEffect(() => {
     selectedConversationRef.current = selectedConversation;
   }, [selectedConversation]);
 
-  // Effect to establish a single socket connection on component mount
+  // Effect to set up socket event listeners when socket is available
   useEffect(() => {
-    const token = localStorage.getItem('authToken');
-    console.log('Setting up socket connection...');
-    
-    // Establish connection, providing token for potential authentication
-    const socket = io(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5050', {
-      auth: {
-        token: token
-      }
-    });
-    socketRef.current = socket;
+    if (!socket) {
+      console.log('❌ Socket not available yet');
+      return;
+    }
 
-    socket.on('connect', () => {
-      console.log('Socket connected:', socket.id);
-    });
+    console.log('✅ Setting up socket event listeners for messages...');
+    console.log('Socket connected:', socket.connected);
+    console.log('Socket ID:', socket.id);
 
-    socket.on('disconnect', () => {
-      console.log('Socket disconnected');
-    });
+    // Test socket connection
+    socket.emit('test', { message: 'Hello from messages page' });
+    console.log('📤 Test message sent to server');
 
     // Set up global event listeners that don't depend on selectedConversation
     const handleNewMessage = (newMessage: Message) => {
-      console.log('Received new message:', newMessage);
+      console.log('🎉 RECEIVED NEW MESSAGE:', newMessage);
+
+      // Add the new message only if it's not already in the list
       setMessages(prevMessages => {
+        if (prevMessages.some(msg => msg._id === newMessage._id)) {
+          console.log('Message already exists, ignoring broadcast.');
+          return prevMessages;
+        }
+        
         // Only add if it's for the currently selected conversation
         const currentConv = selectedConversationRef.current;
         if (currentConv && newMessage.exchangeId === currentConv._id) {
-          console.log('Adding message to current conversation');
+          console.log('✅ Adding message to current conversation');
           return [...prevMessages, newMessage];
         }
-        console.log('Message not for current conversation');
+        
+        console.log('❌ Message not for current conversation');
         return prevMessages;
       });
       
@@ -131,13 +144,34 @@ export default function MessagesPage() {
     socket.on('newMessage', handleNewMessage);
     socket.on('chatCleared', handleChatCleared);
 
+    // Add test response handler
+    socket.on('testResponse', (data) => {
+      console.log('✅ Test response received:', data);
+    });
+
+    // Add connection status listeners
+    socket.on('connect', () => {
+      console.log('🔗 Socket connected in messages page');
+    });
+
+    socket.on('disconnect', () => {
+      console.log('🔌 Socket disconnected in messages page');
+    });
+
+    socket.on('connect_error', (error) => {
+      console.error('❌ Socket connection error in messages page:', error);
+    });
+
     return () => {
-      console.log('Cleaning up socket connection');
+      console.log('🧹 Cleaning up socket event listeners');
       socket.off('newMessage', handleNewMessage);
       socket.off('chatCleared', handleChatCleared);
-      socket.disconnect();
+      socket.off('testResponse');
+      socket.off('connect');
+      socket.off('disconnect');
+      socket.off('connect_error');
     };
-  }, []); // Empty dependency array ensures this runs only once
+  }, [socket]); // Only depend on socket, not empty array
 
   // Effect for fetching initial conversations
   useEffect(() => {
@@ -163,11 +197,15 @@ export default function MessagesPage() {
           setSelectedConversation(data[0]);
         }
 
-        if (socketRef.current) {
+        // Join rooms for all conversations when socket is connected
+        if (socket && isConnected) {
+          console.log('Joining rooms for all conversations...');
           data.forEach((conv: Conversation) => {
             console.log('Joining room:', conv._id);
-            socketRef.current?.emit('joinRoom', conv._id);
+            socket.emit('joinRoom', conv._id);
           });
+        } else {
+          console.log('Socket not ready for room joining:', { socket: !!socket, isConnected });
         }
 
       } catch (err) {
@@ -177,17 +215,38 @@ export default function MessagesPage() {
       }
     };
     fetchConversations();
-  }, [currentUser, searchParams]);
+  }, [currentUser, searchParams, socket, isConnected]);
 
   // Effect for joining and leaving socket rooms when conversation changes
   useEffect(() => {
-    if (selectedConversation && socketRef.current) {
-      console.log('Joining room:', selectedConversation._id);
-      socketRef.current.emit('joinRoom', selectedConversation._id);
+    if (selectedConversation && socket && isConnected) {
+      console.log('🏠 Joining room for selected conversation:', selectedConversation._id);
+      console.log('Socket connected:', socket.connected);
+      console.log('Socket ID:', socket.id);
+      
+      // Add a small delay to ensure socket is ready
+      setTimeout(() => {
+        if (socket.connected) {
+          socket.emit('joinRoom', selectedConversation._id);
+          console.log('📤 Room join request sent for:', selectedConversation._id);
+          
+          // We'll check if we're in the room by listening for a test message
+          setTimeout(() => {
+            console.log('🔍 Checking if we received any messages in the last 2 seconds...');
+          }, 2000);
+          
+        } else {
+          console.log('❌ Socket disconnected, cannot join room');
+        }
+      }, 100);
     } else {
-      console.log('Cannot join room - socket or conversation not ready');
+      console.log('❌ Cannot join room - socket not connected or conversation not ready');
+      console.log('Selected conversation:', selectedConversation?._id);
+      console.log('Socket available:', !!socket);
+      console.log('Socket connected:', socket?.connected);
+      console.log('Is connected state:', isConnected);
     }
-  }, [selectedConversation?._id]);
+  }, [selectedConversation?._id, socket, isConnected]);
 
   // Effect for fetching messages when a conversation is selected
   useEffect(() => {
@@ -216,27 +275,13 @@ export default function MessagesPage() {
         ? selectedConversation.receiver
         : selectedConversation.proposer;
 
-      // Optimistic UI update
-      const tempMessage: Message = {
-        _id: `temp-${Date.now()}`,
-        exchangeId: selectedConversation._id,
-        senderId: {
-          _id: currentUser.id,
-          profile: {
-            name: currentUser.profile?.name || 'You',
-            profilePicture: currentUser.profile?.profilePicture || '',
-          }
-        },
-        content: message,
-        createdAt: new Date().toISOString(),
-        status: 'delivered'
-      };
-
-      setMessages(prev => [...prev, tempMessage]);
+      // Store the message content and clear the input immediately for better UX
+      const contentToSend = message;
       setMessage('');
 
       try {
-        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/messages`, {
+        console.log('Sending message via API...');
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/messages`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -245,14 +290,51 @@ export default function MessagesPage() {
           body: JSON.stringify({
             exchangeId: selectedConversation._id,
             receiverId: partner._id,
-            content: message,
+            content: contentToSend,
           }),
         });
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        // No UI update needed here. The 'newMessage' socket event will handle it
+        // for both the sender and the receiver, ensuring a single source of truth.
+        console.log('Message sent successfully. Waiting for broadcast to update UI.');
+        
       } catch (err) {
         console.error('Failed to send message:', err);
-        // Optionally show an error to the user and remove the optimistic message
-        setMessages(prev => prev.filter(m => m._id !== tempMessage._id));
+        // If sending fails, restore the message to the input box
+        setMessage(contentToSend);
+        // Optionally, show an error toast to the user
       }
+    }
+  };
+
+  // Test function to manually test real-time messaging
+  const testRealTimeMessage = () => {
+    if (socket && selectedConversation) {
+      console.log('Testing real-time message...');
+      const testMessage: Message = {
+        _id: `test-${Date.now()}`,
+        exchangeId: selectedConversation._id,
+        senderId: {
+          _id: 'test-sender',
+          profile: {
+            name: 'Test User',
+            profilePicture: '',
+          }
+        },
+        content: 'This is a test message from ' + new Date().toLocaleTimeString(),
+        createdAt: new Date().toISOString(),
+        status: 'delivered'
+      };
+      
+      // Simulate receiving a message
+      setMessages(prev => [...prev, testMessage]);
+      console.log('Test message added to UI');
+    } else {
+      console.log('Cannot test - socket or conversation not available');
     }
   };
 
@@ -302,6 +384,16 @@ export default function MessagesPage() {
 
   return (
     <div className="h-[calc(100vh-2rem)] bg-gradient-to-br from-blue-50 via-white to-purple-50 rounded-2xl overflow-hidden shadow-lg">
+      {/* Debug Panel - Remove in production */}
+      {/* <div className="bg-yellow-100 p-2 text-xs border-b">
+        <div className="flex gap-4">
+          <span>Socket: {socket ? '✅' : '❌'}</span>
+          <span>Connected: {isConnected ? '✅' : '❌'}</span>
+          <span>Socket ID: {socket?.id || 'N/A'}</span>
+          <span>Selected Conv: {selectedConversation?._id || 'N/A'}</span>
+        </div>
+      </div> */}
+      
       <div className="h-full flex">
         
         {/* Conversations Sidebar */}
@@ -402,6 +494,13 @@ export default function MessagesPage() {
               
               {/* Action Buttons */}
               <div className="flex items-center gap-2">
+                <button 
+                  onClick={testRealTimeMessage}
+                  className="p-3 hover:bg-white/70 rounded-xl transition-colors duration-200 group text-xs"
+                  title="Test Real-time Message"
+                >
+                  🧪 Test
+                </button>
                 <button className="p-3 hover:bg-white/70 rounded-xl transition-colors duration-200 group">
                   <Phone className="w-5 h-5 text-gray-600 group-hover:text-blue-600" />
                 </button>

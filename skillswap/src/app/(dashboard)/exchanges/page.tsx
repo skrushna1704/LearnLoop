@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
+import { useSocket } from '@/context/SocketContext';
 import { 
   Search, 
   Calendar,
@@ -19,8 +20,10 @@ import {
   Plus,
   ArrowRight,
   Timer,
-  Loader
+  Loader,
 } from 'lucide-react';
+import Link from 'next/link';
+import { Button } from '@/components/ui';
 
 interface UserReference {
   _id: string;
@@ -87,44 +90,60 @@ export default function ExchangesPage() {
   const [activeFilter, setActiveFilter] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const { user: currentUser } = useAuth();
+  const { socket, isConnected } = useSocket();
   const router = useRouter();
 
+  // Effect to fetch exchange data when the user is available
   useEffect(() => {
-    const fetchExchanges = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const token = localStorage.getItem('authToken');
-        if (!token) {
-          throw new Error('Authentication token not found.');
+    if (currentUser) {
+      const fetchExchanges = async () => {
+        setLoading(true);
+        setError(null);
+        try {
+          const token = localStorage.getItem('authToken');
+          if (!token) throw new Error('Authentication token not found.');
+          
+          const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/exchanges`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+          });
+
+          if (!response.ok) throw new Error('Failed to fetch exchanges');
+          
+          const data = await response.json();
+          setExchanges(data);
+        } catch (err) {
+          if (err instanceof Error) setError(err.message);
+          else setError('An unknown error occurred.');
+        } finally {
+          setLoading(false);
         }
+      };
+      fetchExchanges();
+    } else {
+      // If there's no user, clear exchanges and stop loading.
+      setExchanges([]);
+      setLoading(false);
+    }
+  }, [currentUser]);
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/exchanges`, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
+  // Effect to join/leave socket rooms based on connection status and exchanges data
+  useEffect(() => {
+    if (isConnected && socket && exchanges.length > 0) {
+      const exchangeIds = exchanges.map(e => e._id);
+      
+      console.log('STABLE: Joining rooms for exchanges:', exchangeIds);
+      socket.emit('joinMultipleRooms', exchangeIds);
 
-        if (!response.ok) {
-          throw new Error('Failed to fetch exchanges');
+      // This cleanup function will ONLY run when the component is truly unmounted,
+      // not on every re-render.
+      return () => {
+        if (socket.connected) { // Check if socket is still connected before emitting
+          console.log('STABLE: Leaving rooms for exchanges:', exchangeIds);
+          socket.emit('leaveMultipleRooms', exchangeIds);
         }
-
-        const data = await response.json();
-        setExchanges(data);
-      } catch (err) {
-        if (err instanceof Error) {
-          setError(err.message);
-        } else {
-          setError('An unknown error occurred.');
-        }
-        console.error('Error fetching exchanges:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchExchanges();
-  }, []);
+      };
+    }
+  }, [isConnected, socket]); // REMOVED `exchanges` from dependency array
 
   const stats = {
     totalExchanges: exchanges.length,
@@ -138,7 +157,9 @@ export default function ExchangesPage() {
     const searchLower = searchTerm.toLowerCase();
     const partner = exchange.proposer._id === currentUser?.id ? exchange.receiver : exchange.proposer;
     const matchesSearch = exchange.title.toLowerCase().includes(searchLower) ||
-                         (partner && partner.profile.name && partner.profile.name.toLowerCase().includes(searchLower));
+                         (partner && partner.profile.name && partner.profile.name.toLowerCase().includes(searchLower)) ||
+                         (exchange.skillTaught && exchange.skillTaught.name.toLowerCase().includes(searchLower)) ||
+                         (exchange.skillLearned && exchange.skillLearned.name.toLowerCase().includes(searchLower));
     return matchesFilter && matchesSearch;
   });
 
@@ -247,6 +268,7 @@ export default function ExchangesPage() {
             const StatusIcon = statusInfo.icon;
             
             const partner = exchange.proposer._id === currentUser?.id ? exchange.receiver : exchange.proposer;
+            if (!partner) return null;
             
             return (
               <div key={exchange._id} className="bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 overflow-hidden">
@@ -369,43 +391,42 @@ export default function ExchangesPage() {
                       )}
                       
                       {/* Action Buttons */}
-                      <div className="flex gap-2 w-full">
-                        <button 
-                          onClick={() => router.push(`/messages?exchangeId=${exchange._id}`)}
-                          className="flex items-center justify-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-all duration-300 flex-1">
-                          <MessageSquare className="w-4 h-4" />
-                          Message
-                        </button>
+                      <div className="flex items-center gap-2 mt-4 pt-4 border-t border-gray-200">
+                        <Link href={`/messages?exchangeId=${exchange._id}`} passHref>
+                          <Button variant="outline" size="sm" className="flex items-center gap-2 flex-1">
+                            <MessageSquare size={16} />
+                            Message
+                          </Button>
+                        </Link>
                         
                         {exchange.status === 'active' && (
-                          <button className="flex items-center justify-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition-all duration-300 flex-1">
-                            <Video className="w-4 h-4" />
-                            Join Call
-                          </button>
+                          <Link href={`/exchanges/${exchange._id}/call`} passHref>
+                            <Button size="sm" className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 flex-1">
+                              <Video size={16} />
+                              Join Call
+                            </Button>
+                          </Link>
                         )}
                         
                         {exchange.status === 'scheduled' && (
-                          <button className="flex items-center justify-center gap-2 px-4 py-2 bg-green-500 text-white rounded-xl hover:bg-green-600 transition-all duration-300 flex-1">
-                            <Calendar className="w-4 h-4" />
+                          <Button size="sm" className="flex items-center gap-2 bg-green-500 hover:bg-green-600 flex-1">
+                            <Calendar size={16} />
                             Confirm
-                          </button>
+                          </Button>
                         )}
                         
                         {exchange.status === 'pending' && (
-                          <button 
-                            onClick={() => router.push(`/exchanges/${exchange._id}`)}
-                            className="flex items-center justify-center gap-2 px-4 py-2 bg-yellow-500 text-white rounded-xl hover:bg-yellow-600 transition-all duration-300 flex-1"
-                          >
-                            <Clock className="w-4 h-4" />
-                            Review
-                          </button>
+                           <Button size="sm" className="flex items-center gap-2 bg-yellow-500 hover:bg-yellow-600 flex-1">
+                             <Clock size={16} />
+                             Review
+                           </Button>
                         )}
                         
                         {exchange.status === 'completed' && (
-                          <button className="flex items-center justify-center gap-2 px-4 py-2 bg-purple-500 text-white rounded-xl hover:bg-purple-600 transition-all duration-300 flex-1">
-                            <Award className="w-4 h-4" />
+                          <Button size="sm" className="flex items-center gap-2 bg-purple-500 hover:bg-purple-600 flex-1">
+                            <Award size={16} />
                             Review
-                          </button>
+                          </Button>
                         )}
                       </div>
                     </div>

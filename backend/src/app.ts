@@ -1,6 +1,8 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import { Request, Response, NextFunction } from 'express';
 import { createServer } from 'http';
@@ -13,16 +15,15 @@ import exchangeRoutes from './routes/exchangeRoutes';
 import userRoutes from './routes/userRoutes';
 import messageRoutes from './routes/messageRoutes';
 import postRoutes from './routes/postRoutes';
-dotenv.config();
+import aiRoutes from './routes/aiRoutes';
 
 const app = express();
 const httpServer = createServer(app);
 export const io = new Server(httpServer, {
   cors: {
-    origin: process.env.NODE_ENV === 'production' 
-      ? ['http://localhost:3000', 'http://localhost:3001']
-      : '*', // Allow all origins in development
-    methods: ['GET', 'POST']
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+    credentials: true
   }
 });
 
@@ -61,26 +62,89 @@ app.use('/api/exchanges', exchangeRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/messages', messageRoutes);
 app.use('/api/posts', postRoutes);
+app.use('/api/ai', aiRoutes);
 
 io.on('connection', (socket) => {
   console.log('a user connected:', socket.id);
+  const userId = socket.handshake.query.userId;
+  if (userId) {
+    console.log(`User ${userId} connected with socket id ${socket.id}`);
+    socket.join(userId as string);
+  }
 
-  socket.on('joinRoom', (exchangeId) => {
-    // Leave all previous rooms first
-    socket.rooms.forEach(room => {
-      if (room !== socket.id) {
-        socket.leave(room);
-        console.log(`User ${socket.id} left room ${room}`);
-      }
-    });
-    
-    socket.join(exchangeId);
-    console.log(`User ${socket.id} joined room ${exchangeId}`);
+  // Add missing joinRoom handler
+  socket.on('joinRoom', (roomId) => {
+    socket.join(roomId);
+    console.log(`Socket ${socket.id} joined room: ${roomId}`);
+    console.log(`Current rooms for socket ${socket.id}:`, Array.from(socket.rooms));
   });
 
-  socket.on('leaveRoom', (exchangeId) => {
-    socket.leave(exchangeId);
-    console.log(`User ${socket.id} left room ${exchangeId}`);
+  // Add test handler
+  socket.on('test', (data) => {
+    console.log(`Test message received from socket ${socket.id}:`, data);
+    socket.emit('testResponse', { message: 'Test response from server', socketId: socket.id });
+  });
+
+  socket.on('joinMultipleRooms', (roomIds) => {
+    if (Array.isArray(roomIds)) {
+      roomIds.forEach(roomId => socket.join(roomId));
+      console.log(`Socket ${socket.id} joined rooms:`, roomIds);
+    }
+  });
+
+  socket.on('leaveMultipleRooms', (roomIds) => {
+    if (Array.isArray(roomIds)) {
+      roomIds.forEach(roomId => socket.leave(roomId));
+      console.log(`Socket ${socket.id} left rooms:`, roomIds);
+    }
+  });
+
+  socket.on('sendMessage', async ({ exchangeId, sender, content }) => {
+    try {
+      const message = {
+        exchangeId,
+        sender,
+        content,
+        timestamp: new Date()
+      };
+      // For now, just broadcast it to the exchange room
+      socket.to(exchangeId).emit('newMessage', message);
+    } catch (error) {
+      console.error('Error sending message:', error);
+    }
+  });
+
+  // --- WebRTC Signaling Events ---
+  
+  socket.on('join-call-room', (roomId) => {
+    socket.join(roomId);
+    console.log(`User ${socket.id} joined call room ${roomId}`);
+    socket.to(roomId).emit('user-joined', socket.id);
+    
+    const exchangeId = roomId.replace('call-', '');
+    socket.to(exchangeId).emit('call-incoming', {
+      exchangeId,
+      callerId: socket.id,
+      message: 'Someone wants to start a video call'
+    });
+  });
+
+  // Add call-presence event for robust call handshake
+  socket.on('call-presence', ({ roomId, userId }) => {
+    console.log(`call-presence from user ${userId} (socket ${socket.id}) in room ${roomId}`);
+    socket.to(roomId).emit('call-presence', { userId, socketId: socket.id });
+  });
+
+  socket.on('webrtc-offer', ({ sdp, offererId, roomId }) => {
+    socket.to(roomId).emit('webrtc-offer', { sdp, offererId });
+  });
+
+  socket.on('webrtc-answer', ({ sdp, answererId, roomId }) => {
+    socket.to(roomId).emit('webrtc-answer', { sdp, answererId });
+  });
+
+  socket.on('webrtc-ice-candidate', ({ candidate, roomId }) => {
+    socket.to(roomId).emit('webrtc-ice-candidate', { candidate });
   });
 
   socket.on('disconnect', () => {
