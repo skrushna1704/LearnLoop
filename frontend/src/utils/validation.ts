@@ -77,7 +77,6 @@ export const forgotPasswordSchema = z.object({
 export const resetPasswordSchema = z.object({
   password: passwordSchema,
   confirmPassword: z.string().min(1, 'Please confirm your password'),
-  token: z.string().min(1, 'Reset token is required'),
 }).refine(data => data.password === data.confirmPassword, {
   message: 'Passwords do not match',
   path: ['confirmPassword'],
@@ -336,6 +335,8 @@ export type SessionForm = z.infer<typeof sessionSchema>;
 export type MessageForm = z.infer<typeof messageSchema>;
 export type ReviewForm = z.infer<typeof reviewSchema>;
 export type ContactForm = z.infer<typeof contactSchema>;
+export type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>;
+export type ResetPasswordFormData = z.infer<typeof resetPasswordSchema>;
 
 // Validation helper function
 export const validateForm = <T>(schema: z.ZodSchema<T>, data: unknown) => {

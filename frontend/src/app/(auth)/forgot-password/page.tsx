@@ -44,15 +44,19 @@ export default function ForgotPasswordPage() {
     setError(null);
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      console.log('Forgot password request:', data);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5050/api'}/auth/forgot-password`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: data.email }),
+      });
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result.message || 'Failed to send reset email.');
+      }
       setEmail(data.email);
       setIsSuccess(true);
-      
-    } catch (err) {
-      setError('Something went wrong. Please try again.');
+    } catch (err: any) {
+      setError(err.message || 'Something went wrong. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -61,11 +65,17 @@ export default function ForgotPasswordPage() {
   const handleResendEmail = async () => {
     setIsLoading(true);
     try {
-      // Simulate resend API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      console.log('Resending reset email to:', email);
-    } catch (err) {
-      setError('Failed to resend email. Please try again.');
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5050/api'}/auth/forgot-password`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result.message || 'Failed to resend email.');
+      }
+    } catch (err: any) {
+      setError(err.message || 'Failed to resend email. Please try again.');
     } finally {
       setIsLoading(false);
     }

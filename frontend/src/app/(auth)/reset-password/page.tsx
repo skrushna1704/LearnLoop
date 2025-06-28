@@ -73,23 +73,27 @@ export default function ResetPasswordPage() {
   }, [token]);
 
   const onSubmit = async (data: ResetPasswordFormData) => {
+    console.log('onSubmit', data);
     setIsLoading(true);
     setError(null);
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      console.log('Reset password data:', { ...data, token });
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5050/api'}/auth/reset-password`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token, password: data.password }),
+      });
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result.message || 'Failed to reset password.');
+      }
       setIsSuccess(true);
-      
       // Redirect to login after success
       setTimeout(() => {
-        router.push('/auth/login');
+        router.push('/login');
       }, 3000);
-      
-    } catch (err) {
-      setError('Failed to reset password. Please try again.');
+    } catch (err: any) {
+      setError(err.message || 'Failed to reset password. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -344,13 +348,13 @@ export default function ResetPasswordPage() {
             {/* Submit Button */}
             <Button
               type="submit"
-              disabled={!isValid || isLoading}
+              disabled={isLoading}
               className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? (
                 <>
                   <Loader2 className="animate-spin h-5 w-5 mr-2" />
-                  Updating Password...
+                  Updating...
                 </>
               ) : (
                 <>
