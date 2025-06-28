@@ -232,7 +232,7 @@ export default function VerifyEmailPage() {
                 )}
               </Button>
               
-              <Link href="/auth/login">
+              <Link href="/login">
                 <Button variant="ghost" className="w-full">
                   <ArrowLeft className="h-4 w-4 mr-2" />
                   Back to Login
@@ -335,7 +335,7 @@ export default function VerifyEmailPage() {
             </Button>
 
             <div className="flex space-x-3">
-              <Link href="/auth/login" className="flex-1">
+              <Link href="/login" className="flex-1">
                 <Button variant="ghost" className="w-full">
                   <ArrowLeft className="h-4 w-4 mr-2" />
                   Back to Login

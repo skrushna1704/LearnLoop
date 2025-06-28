@@ -100,6 +100,7 @@ export default function EditProfilePage() {
       const payload = {
         profile: {
           name: formData.name,
+          email: formData.email,
           bio: formData.bio,
           location: formData.location,
           website: formData.website,

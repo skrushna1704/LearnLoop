@@ -84,7 +84,13 @@ export const updateProfile = async (req: AuthRequest, res: Response) => {
     const { profile, skills_offered, skills_needed } = req.body;
     
     if (profile) {
-      user.profile = { ...user.profile, ...profile };
+      // Update top-level email if provided
+      if (profile.email) {
+        user.email = profile.email;
+      }
+      // Remove email from profile before updating profile object
+      const { email, ...profileWithoutEmail } = profile;
+      user.profile = { ...user.profile, ...profileWithoutEmail };
     }
 
     // Handle skills_offered (teaching skills)
@@ -243,6 +249,7 @@ export const updateProfile = async (req: AuthRequest, res: Response) => {
     res.json({
       message: 'Profile updated.',
       isProfileComplete,
+      email: updatedUser.email,
       profile: updatedUser.profile,
       skills_offered: mappedSkillsOffered,
       skills_needed: mappedSkillsNeeded

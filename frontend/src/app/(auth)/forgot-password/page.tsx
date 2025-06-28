@@ -143,7 +143,7 @@ export default function ForgotPasswordPage() {
                 )}
               </Button>
 
-              <Link href="/auth/login">
+              <Link href="/login">
                 <Button variant="ghost" className="w-full">
                   <ArrowLeft className="h-4 w-4 mr-2" />
                   Back to Login
