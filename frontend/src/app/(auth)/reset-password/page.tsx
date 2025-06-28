@@ -162,13 +162,13 @@ export default function ResetPasswordPage() {
             </p>
 
             <div className="space-y-4">
-              <Link href="/auth/forgot-password">
+              <Link href="/forgot-password">
                 <Button className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white">
                   Request New Reset Link
                 </Button>
               </Link>
               
-              <Link href="/auth/login">
+              <Link href="/login">
                 <Button variant="ghost" className="w-full">
                   Back to Login
                 </Button>
@@ -208,7 +208,7 @@ export default function ResetPasswordPage() {
             </p>
 
             <div className="space-y-4">
-              <Link href="/auth/login">
+              <Link href="/login">
                 <Button className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white">
                   Sign In Now
                 </Button>
@@ -369,7 +369,7 @@ export default function ResetPasswordPage() {
         {/* Back to Login */}
         <div className="text-center">
           <Link 
-            href="/auth/login" 
+            href="/login" 
             className="text-indigo-600 hover:text-indigo-500 font-medium transition-colors"
           >
             Back to Login
