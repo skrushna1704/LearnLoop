@@ -53,6 +53,7 @@ interface AuthContextType {
   
   // Auth actions
   login: (email: string, password: string) => Promise<void>;
+  googleLogin: (token: string) => Promise<void>;
   register: (data: RegisterData) => Promise<void>;
   logout: () => Promise<void>;
   forgotPassword: (email: string) => Promise<void>;
@@ -173,6 +174,45 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
     } catch (error) {
       console.error('Login failed:', error);
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Google Login function
+  const googleLogin = async (token: string) => {
+    try {
+      setIsLoading(true);
+      
+      const response = await fetch('http://localhost:5050/api/auth/google', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ token }),
+      });
+
+      const result = await response.json();
+      
+      if (response.ok) {
+        // 1. Set the auth token in local storage
+        localStorage.setItem('authToken', result.token);
+        
+        // 2. Set user data directly from response
+        setUser(result.user);
+
+        // 3. Redirect based on profile status
+        if (result.user.isProfileComplete) {
+          router.push(routes.dashboard.root);
+        } else {
+          router.push(routes.dashboard.profile);
+        }
+      } else {
+        throw new Error(result.message || 'Google login failed');
+      }
+    } catch (error) {
+      console.error('Google login failed:', error);
       throw error;
     } finally {
       setIsLoading(false);
@@ -346,6 +386,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     isLoading,
     isAuthenticated,
     login,
+    googleLogin,
     register,
     logout,
     forgotPassword,

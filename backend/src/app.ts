@@ -21,7 +21,7 @@ const app = express();
 const httpServer = createServer(app);
 export const io = new Server(httpServer, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000", "http://localhost:3001"],
     methods: ["GET", "POST"],
     credentials: true
   }
@@ -64,12 +64,18 @@ app.use('/api/messages', messageRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/ai', aiRoutes);
 
+const onlineUsers: { [userId: string]: string } = {};
+
 io.on('connection', (socket) => {
   console.log('a user connected:', socket.id);
-  const userId = socket.handshake.query.userId;
+  const userId = socket.handshake.query.userId as string;
   if (userId) {
-    console.log(`User ${userId} connected with socket id ${socket.id}`);
-    socket.join(userId as string);
+    onlineUsers[userId] = socket.id;
+    // Notify all clients this user is online
+    io.emit('userOnline', { userId });
+    // Send the current list of online users to the newly connected client
+    socket.emit('onlineUsers', { userIds: Object.keys(onlineUsers) });
+    socket.join(userId);
   }
 
   // Add missing joinRoom handler
@@ -149,6 +155,11 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     console.log('user disconnected:', socket.id);
+    if (userId) {
+      delete onlineUsers[userId];
+      // Notify all clients this user is offline
+      io.emit('userOffline', { userId });
+    }
   });
 });
 

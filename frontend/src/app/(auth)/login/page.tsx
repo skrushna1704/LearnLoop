@@ -14,15 +14,13 @@ import {
   AlertCircle,
   CheckCircle,
   Loader2,
-  Github,
-  Chrome,
-  Apple,
   Sparkles
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Card } from '@/components/ui/Card';
 import MinimalLogo from '@/components/ui/MinimalLogo';
+import GoogleLoginButton from '@/components/auth/GoogleLoginButton';
 import { loginSchema } from '@/utils/validation';
 import type { LoginForm } from '@/utils/validation';
 import { useAuth } from '@/context/AuthContext';
@@ -57,11 +55,6 @@ export default function LoginPage() {
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const handleSocialLogin = (provider: string) => {
-    console.log(`Login with ${provider}`);
-    // Implement social login logic here
   };
 
   return (
@@ -206,31 +199,8 @@ export default function LoginPage() {
           </div>
 
           {/* Social Login Buttons */}
-          <div className="mt-6 grid grid-cols-3 gap-3">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => handleSocialLogin('google')}
-              className="w-full py-2 border-gray-300 hover:border-gray-400"
-            >
-              <Chrome className="h-5 w-5 text-red-500" />
-            </Button>
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => handleSocialLogin('github')}
-              className="w-full py-2 border-gray-300 hover:border-gray-400"
-            >
-              <Github className="h-5 w-5" />
-            </Button>
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => handleSocialLogin('apple')}
-              className="w-full py-2 border-gray-300 hover:border-gray-400"
-            >
-              <Apple className="h-5 w-5" />
-            </Button>
+          <div className="mt-6">
+            <GoogleLoginButton />
           </div>
         </Card>
 

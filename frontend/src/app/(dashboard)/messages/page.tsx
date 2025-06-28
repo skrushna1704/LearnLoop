@@ -18,6 +18,7 @@ import {
   CheckCheck,
   Trash2
 } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 // Define interfaces for our data structures
 interface Message {
@@ -71,6 +72,8 @@ export default function MessagesPage() {
 
   const menuRef = useRef<HTMLDivElement | null>(null);
   const selectedConversationRef = useRef<Conversation | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [onlineUsers, setOnlineUsers] = useState<{ [userId: string]: boolean }>({});
 
   // Debug authentication and socket status
   console.log('MessagesPage: Auth & Socket status:', { 
@@ -105,32 +108,42 @@ export default function MessagesPage() {
 
     // Set up global event listeners that don't depend on selectedConversation
     const handleNewMessage = (newMessage: Message) => {
-      console.log('🎉 RECEIVED NEW MESSAGE:', newMessage);
-
-      // Add the new message only if it's not already in the list
-      setMessages(prevMessages => {
-        if (prevMessages.some(msg => msg._id === newMessage._id)) {
-          console.log('Message already exists, ignoring broadcast.');
-          return prevMessages;
-        }
-        
-        // Only add if it's for the currently selected conversation
-        const currentConv = selectedConversationRef.current;
-        if (currentConv && newMessage.exchangeId === currentConv._id) {
-          console.log('✅ Adding message to current conversation');
+      // If the message is for the currently selected conversation
+      if (selectedConversationRef.current && newMessage.exchangeId === selectedConversationRef.current._id) {
+        setMessages(prevMessages => {
+          if (prevMessages.some(msg => msg._id === newMessage._id)) {
+            return prevMessages;
+          }
           return [...prevMessages, newMessage];
+        });
+        setConversations(prevConvs => prevConvs.map(conv =>
+          conv._id === newMessage.exchangeId
+            ? { ...conv, lastMessage: newMessage.content, lastMessageTime: newMessage.createdAt }
+            : conv
+        ));
+      } else {
+        // Message is for another conversation
+        setConversations(prevConvs => prevConvs.map(conv =>
+          conv._id === newMessage.exchangeId
+            ? { ...conv, lastMessage: newMessage.content, lastMessageTime: newMessage.createdAt, unread: (conv.unread || 0) + 1 }
+            : conv
+        ));
+        // Show toast notification
+        toast.custom((t) => (
+          <div className={`bg-white shadow-lg rounded-lg px-4 py-3 flex items-center gap-3 border-l-4 border-blue-500 ${t.visible ? 'animate-enter' : 'animate-leave'}`}> 
+            <img src={newMessage.senderId.profile.profilePicture || 'https://i.pravatar.cc/150?img=1'} alt={newMessage.senderId.profile.name} className="w-8 h-8 rounded-full" />
+            <div>
+              <div className="font-semibold text-gray-800">{newMessage.senderId.profile.name}</div>
+              <div className="text-gray-600 text-sm">{newMessage.content}</div>
+            </div>
+          </div>
+        ), { duration: 4000 });
+        // Play notification sound
+        if (audioRef.current) {
+          audioRef.current.currentTime = 0;
+          audioRef.current.play();
         }
-        
-        console.log('❌ Message not for current conversation');
-        return prevMessages;
-      });
-      
-      // Update conversation list with new message
-      setConversations(prevConvs => prevConvs.map(conv => 
-        conv._id === newMessage.exchangeId 
-        ? { ...conv, lastMessage: newMessage.content, lastMessageTime: newMessage.createdAt }
-        : conv
-      ));
+      }
     };
 
     const handleChatCleared = (data: { exchangeId: string }) => {
@@ -269,6 +282,43 @@ export default function MessagesPage() {
     fetchMessages();
   }, [selectedConversation]);
 
+  // When a conversation is selected, clear its unread count
+  useEffect(() => {
+    if (selectedConversation) {
+      setConversations(prevConvs => prevConvs.map(conv =>
+        conv._id === selectedConversation._id ? { ...conv, unread: 0 } : conv
+      ));
+    }
+  }, [selectedConversation]);
+
+  // Listen for online/offline events
+  useEffect(() => {
+    if (!socket) return;
+    const handleUserOnline = ({ userId }: { userId: string }) => {
+      setOnlineUsers(prev => ({ ...prev, [userId]: true }));
+    };
+    const handleUserOffline = ({ userId }: { userId: string }) => {
+      setOnlineUsers(prev => {
+        const updated = { ...prev };
+        delete updated[userId];
+        return updated;
+      });
+    };
+    const handleOnlineUsers = ({ userIds }: { userIds: string[] }) => {
+      const onlineMap: { [userId: string]: boolean } = {};
+      userIds.forEach(id => { onlineMap[id] = true; });
+      setOnlineUsers(onlineMap);
+    };
+    socket.on('userOnline', handleUserOnline);
+    socket.on('userOffline', handleUserOffline);
+    socket.on('onlineUsers', handleOnlineUsers);
+    return () => {
+      socket.off('userOnline', handleUserOnline);
+      socket.off('userOffline', handleUserOffline);
+      socket.off('onlineUsers', handleOnlineUsers);
+    };
+  }, [socket]);
+
   const handleSendMessage = async () => {
     if (message.trim() && selectedConversation && currentUser) {
       const token = localStorage.getItem('authToken');
@@ -385,6 +435,8 @@ export default function MessagesPage() {
 
   return (
     <div className="h-[calc(100vh-2rem)] bg-gradient-to-br from-blue-50 via-white to-purple-50 rounded-2xl overflow-hidden shadow-lg">
+      {/* Notification sound */}
+      <audio ref={audioRef} src="/notification.mp3" preload="auto" />
       {/* Debug Panel - Remove in production */}
       {/* <div className="bg-yellow-100 p-2 text-xs border-b">
         <div className="flex gap-4">
@@ -427,7 +479,7 @@ export default function MessagesPage() {
                     selectedConversation?._id === conversation._id ? 'bg-blue-50 border-l-4 border-l-blue-500' : ''
                   }`}
                 >
-                  <div className="flex items-start gap-3">
+                  <div className="flex items-start gap-3 relative">
                     
                     {/* Avatar with Online Status */}
                     <div className="relative">
@@ -436,9 +488,16 @@ export default function MessagesPage() {
                         alt={partner.profile.name}
                         className="w-12 h-12 rounded-full border-2 border-white shadow-sm"
                       />
-                      {/* {conversation.user.online && (
-                        <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></span>
-                      )} */}
+                      {/* Online/offline dot */}
+                      <span
+                        className={`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-white ${
+                          onlineUsers[partner._id] ? 'bg-green-500' : 'bg-gray-400'
+                        }`}
+                      />
+                      {/* Unread badge */}
+                      {(conversation.unread ?? 0) > 0 ? (
+                        <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full px-2 py-0.5 shadow">{conversation.unread ?? 0}</span>
+                      ) : null}
                     </div>
                     
                     <div className="flex-1">

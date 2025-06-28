@@ -2,8 +2,10 @@ import mongoose, { Document, Schema } from 'mongoose';
 
 export interface IUser extends Document {
   email: string;
-  password: string;
+  password?: string;
   isProfileComplete: boolean;
+  googleId?: string;
+  authProvider: 'local' | 'google';
   profile: {
     name?: string;
     profilePicture?: string;
@@ -42,8 +44,10 @@ export interface IUser extends Document {
 
 const UserSchema: Schema = new Schema<IUser>({
   email: { type: String, required: true, unique: true, lowercase: true, trim: true },
-  password: { type: String, required: true },
+  password: { type: String, required: false },
   isProfileComplete: { type: Boolean, default: false },
+  googleId: { type: String, sparse: true, unique: true },
+  authProvider: { type: String, enum: ['local', 'google'], default: 'local' },
   profile: {
     name: { type: String },
     profilePicture: { type: String },
@@ -83,5 +87,7 @@ const UserSchema: Schema = new Schema<IUser>({
     count: { type: Number, default: 0 },
   },
 }, { timestamps: true });
+
+UserSchema.index({ googleId: 1, authProvider: 1 });
 
 export default mongoose.model<IUser>('User', UserSchema); 

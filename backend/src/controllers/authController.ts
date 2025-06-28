@@ -45,7 +45,10 @@ export const login = async (req: Request, res: Response) => {
     if (!user) {
       return res.status(401).json({ message: 'Invalid credentials.' });
     }
-    const isMatch = await comparePassword(password, user.password);
+    if (!user.password) {
+      return res.status(400).json({ message: 'This account was created with Google. Please use Google login.' });
+    }
+    const isMatch = await comparePassword(password, user.password!);
     if (!isMatch) {
       return res.status(401).json({ message: 'Invalid credentials.' });
     }
