@@ -4,8 +4,10 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { Edit, Settings, Star, BookOpen, Calendar, MapPin, TrendingUp, Target, Zap, Clock, Share2, Trophy, Camera, Link, Mail, Users, Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import SkillsManagement from '@/components/profile/SkillsManagement';
+import { AvatarUpload } from '@/components/profile';
 import { useAuth } from '@/context/AuthContext';
 import { Button } from '@/components/ui/Button';
+import { profileApi } from '@/lib/api/profile';
 import toast from 'react-hot-toast';
 
 type Skill = {
@@ -264,6 +266,62 @@ export default function MyProfilePage() {
     }
   };
 
+  const handleAvatarUpload = async (file: File, preview: string) => {
+    try {
+      const response = await profileApi.uploadProfilePicture(file);
+      
+      // Update local profile state
+      if (profile) {
+        setProfile({
+          ...profile,
+          profile: {
+            ...profile.profile,
+            profilePicture: response.profilePicture || preview
+          }
+        });
+      }
+      
+      // Update auth context if needed
+      if (updateProfile) {
+        updateProfile({ profilePicture: response.profilePicture });
+      }
+      
+      toast.success('Profile picture updated successfully!');
+    } catch (error) {
+      console.error('Avatar upload error:', error);
+      toast.error('Failed to upload profile picture. Please try again.');
+      throw error;
+    }
+  };
+
+  const handleAvatarRemove = async () => {
+    try {
+      await profileApi.removeProfilePicture();
+      
+      // Update local profile state
+      if (profile) {
+        setProfile({
+          ...profile,
+          profile: {
+            ...profile.profile,
+            profilePicture: undefined
+          }
+        });
+      }
+      
+      // Update auth context if needed
+      if (updateProfile) {
+        updateProfile({ profilePicture: undefined });
+      }
+      
+      toast.success('Profile picture removed successfully!');
+    } catch (error) {
+      console.error('Avatar removal error:', error);
+      toast.error('Failed to remove profile picture. Please try again.');
+      throw error;
+    }
+  };
+
   if (loading) return <div className="p-8 text-center">Loading profile...</div>;
   if (!profile) return <div className="p-8 text-center text-red-500">Profile not found.</div>;
 
@@ -362,19 +420,20 @@ export default function MyProfilePage() {
               {/* Avatar and Basic Info */}
               <div className="flex flex-col lg:flex-row lg:items-end gap-6">
                 <div className="relative">
-                  <img 
-                    src={profile.profile?.profilePicture || 'https://api.dicebear.com/7.x/avataaars/svg?seed=Shrikrushna'} 
-                    alt={profile.profile?.name}
-                    className="w-32 h-32 lg:w-40 lg:h-40 rounded-full border-4 border-white shadow-xl bg-white"
+                  <AvatarUpload
+                    currentAvatar={profile.profile?.profilePicture}
+                    userName={profile.profile?.name || 'User'}
+                    size="xl"
+                    onUpload={handleAvatarUpload}
+                    onRemove={handleAvatarRemove}
+                    className="w-32 h-32 lg:w-40 lg:h-40"
+                    editable={true}
                   />
                   {profile.verified && (
-                    <div className="absolute -bottom-2 -right-2 w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center border-4 border-white shadow-lg">
+                    <div className="absolute -bottom-2 -right-2 w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center border-4 border-white shadow-lg z-10">
                       <Star className="w-5 h-5 text-white fill-current" />
                     </div>
                   )}
-                  <button className="absolute bottom-2 right-2 w-8 h-8 bg-gray-800/70 backdrop-blur-sm text-white rounded-full flex items-center justify-center hover:bg-gray-800 transition-colors duration-300">
-                    <Camera className="w-4 h-4" />
-                  </button>
                 </div>
                 <div className="flex-1 text-center lg:text-left">
                   <div className="mb-4">

@@ -16,9 +16,15 @@ import {
   Mic,
   Check,
   CheckCheck,
-  Trash2
+  Trash2,
+  Image as ImageIcon,
+  FileText,
+  File,
+  Plus,
+  X
 } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { uploadFileToSupabase } from '@/lib/uploadFile';
 
 // Define interfaces for our data structures
 interface Message {
@@ -47,6 +53,13 @@ interface Conversation {
   unread?: number;
 }
 
+interface FileData {
+  type: string;
+  url: string;
+  name: string;
+  mime: string;
+}
+
 const quickReplies = [
   'Sounds great! 👍',
   'Let me check my calendar',
@@ -54,6 +67,41 @@ const quickReplies = [
   'Thanks for the session!',
   'I\'m available',
   'Looking forward to it!'
+];
+
+const menuItems = [
+  {
+    id: 'image',
+    icon: ImageIcon,
+    label: 'Image',
+    description: 'JPG, PNG, GIF, WebP',
+    color: 'from-purple-500 to-pink-500',
+    hoverColor: 'hover:from-purple-600 hover:to-pink-600'
+  },
+  {
+    id: 'pdf',
+    icon: FileText,
+    label: 'PDF',
+    description: 'PDF documents',
+    color: 'from-red-500 to-orange-500',
+    hoverColor: 'hover:from-red-600 hover:to-orange-600'
+  },
+  {
+    id: 'doc',
+    icon: File,
+    label: 'Document',
+    description: 'DOC, DOCX, TXT',
+    color: 'from-blue-500 to-cyan-500',
+    hoverColor: 'hover:from-blue-600 hover:to-cyan-600'
+  },
+  {
+    id: 'all',
+    icon: Plus,
+    label: 'Any File',
+    description: 'All file types',
+    color: 'from-green-500 to-emerald-500',
+    hoverColor: 'hover:from-green-600 hover:to-emerald-600'
+  }
 ];
 
 export default function MessagesPage() {
@@ -74,6 +122,9 @@ export default function MessagesPage() {
   const selectedConversationRef = useRef<Conversation | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [onlineUsers, setOnlineUsers] = useState<{ [userId: string]: boolean }>({});
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [showAttachMenu, setShowAttachMenu] = useState(false);
+  const [fileType, setFileType] = useState<'all' | 'image' | 'pdf' | 'doc'>('all');
 
   // Debug authentication and socket status
   console.log('MessagesPage: Auth & Socket status:', { 
@@ -362,32 +413,38 @@ export default function MessagesPage() {
     }
   };
 
-  // Test function to manually test real-time messaging
-  // const testRealTimeMessage = () => {
-  //   if (socket && selectedConversation) {
-  //     console.log('Testing real-time message...');
-  //     const testMessage: Message = {
-  //       _id: `test-${Date.now()}`,
-  //       exchangeId: selectedConversation._id,
-  //       senderId: {
-  //         _id: 'test-sender',
-  //         profile: {
-  //           name: 'Test User',
-  //           profilePicture: '',
-  //         }
-  //       },
-  //       content: 'This is a test message from ' + new Date().toLocaleTimeString(),
-  //       createdAt: new Date().toISOString(),
-  //       status: 'delivered'
-  //     };
-      
-  //     // Simulate receiving a message
-  //     setMessages(prev => [...prev, testMessage]);
-  //     console.log('Test message added to UI');
-  //   } else {
-  //     console.log('Cannot test - socket or conversation not available');
-  //   }
-  // };
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !selectedConversation || !currentUser) return;
+    try {
+      const url = await uploadFileToSupabase(file);
+      // Send as a file message
+      const token = localStorage.getItem('authToken');
+      const partner = selectedConversation.proposer._id === currentUser.id
+        ? selectedConversation.receiver
+        : selectedConversation.proposer;
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/messages`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          exchangeId: selectedConversation._id,
+          receiverId: partner._id,
+          content: JSON.stringify({
+            type: 'file',
+            url,
+            name: file.name,
+            mime: file.type,
+          }),
+        }),
+      });
+      // The socket event will update the UI
+    } catch (err) {
+      alert('File upload failed: ' + (err as Error).message);
+    }
+  };
 
   const handleClearChat = async () => {
     if (!selectedConversation) return;
@@ -627,31 +684,47 @@ export default function MessagesPage() {
 
           {/* Messages */}
           <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 bg-gradient-to-b from-white to-gray-50">
-            {messages.map((msg) => (
-              <div key={msg._id} className={`flex ${msg.senderId._id === currentUser?.id ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-[90vw] sm:max-w-[70%] ${
-                  msg.senderId._id === currentUser?.id
-                    ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-2xl rounded-br-md'
-                    : 'bg-white border border-gray-200 text-gray-900 rounded-2xl rounded-bl-md shadow-sm'
-                } p-3 sm:p-4 relative`}>
-                  <p className="leading-relaxed text-sm sm:text-base">{msg.content}</p>
-                  <div className={`flex items-center justify-between mt-2 text-xs ${
-                    msg.senderId._id === currentUser?.id ? 'text-blue-100' : 'text-gray-500'
-                  }`}>
-                    <span>{new Date(msg.createdAt).toLocaleTimeString()}</span>
-                    {msg.senderId._id === currentUser?.id && (
-                      <div className="flex items-center gap-1">
-                        {msg.status === 'read' ? (
-                          <CheckCheck className="w-3 h-3" />
-                        ) : (
-                          <Check className="w-3 h-3" />
-                        )}
-                      </div>
+            {messages.map((msg) => {
+              let isFile = false;
+              let fileData: FileData | null = null;
+              try {
+                fileData = JSON.parse(msg.content);
+                isFile = !!(fileData && fileData.type === 'file');
+              } catch {}
+              return (
+                <div key={msg._id} className={`flex ${msg.senderId._id === currentUser?.id ? 'justify-end' : 'justify-start'}`}>
+                  <div className={`max-w-[90vw] sm:max-w-[70%] ${
+                    msg.senderId._id === currentUser?.id
+                      ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-2xl rounded-br-md'
+                      : 'bg-white border border-gray-200 text-gray-900 rounded-2xl rounded-bl-md shadow-sm'
+                  } p-3 sm:p-4 relative`}>
+                    {isFile && fileData ? (
+                      fileData.mime && fileData.mime.startsWith('image/') ? (
+                        <img src={fileData.url} alt={fileData.name} style={{ maxWidth: 200, borderRadius: 8 }} />
+                      ) : (
+                        <a href={fileData.url} target="_blank" rel="noopener noreferrer" className="underline text-blue-200">{fileData.name}</a>
+                      )
+                    ) : (
+                      <p className="leading-relaxed text-sm sm:text-base">{msg.content}</p>
                     )}
+                    <div className={`flex items-center justify-between mt-2 text-xs ${
+                      msg.senderId._id === currentUser?.id ? 'text-blue-100' : 'text-gray-500'
+                    }`}>
+                      <span>{new Date(msg.createdAt).toLocaleTimeString()}</span>
+                      {msg.senderId._id === currentUser?.id && (
+                        <div className="flex items-center gap-1">
+                          {msg.status === 'read' ? (
+                            <CheckCheck className="w-3 h-3" />
+                          ) : (
+                            <Check className="w-3 h-3" />
+                          )}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
             
             {/* Quick Replies */}
             <div className="flex flex-wrap gap-2 pt-4">
@@ -672,9 +745,59 @@ export default function MessagesPage() {
             <div className="flex items-end gap-2 sm:gap-3">
               
               {/* Attachment Button */}
-              <button className="p-2 sm:p-3 hover:bg-gray-100 rounded-xl transition-colors duration-200 group">
-                <Paperclip className="w-5 h-5 text-gray-500 group-hover:text-blue-600" />
-              </button>
+              <div className="relative">
+                <button
+                  className={`relative p-2 sm:p-3 rounded-xl transition-all duration-300 group ${
+                    showAttachMenu
+                      ? 'bg-gradient-to-r from-blue-500 to-purple-600 shadow-xl shadow-blue-500/25'
+                      : 'bg-white hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-600 shadow-lg hover:shadow-xl hover:shadow-blue-500/25'
+                  }`}
+                  onClick={() => setShowAttachMenu((prev) => !prev)}
+                  type="button"
+                >
+                  <div className="relative">
+                    {showAttachMenu ? (
+                      <X className={`w-5 h-5 transition-all duration-300 ${showAttachMenu ? 'text-white' : 'text-gray-600 group-hover:text-white'}`} />
+                    ) : (
+                      <Paperclip className={`w-5 h-5 transition-all duration-300 ${showAttachMenu ? 'text-white' : 'text-gray-600 group-hover:text-white'}`} />
+                    )}
+                  </div>
+                  {!showAttachMenu && (
+                    <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                  )}
+                </button>
+                {showAttachMenu && (
+                  <div className="absolute left-0 bottom-full mb-3 bg-white/95 backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl z-20 p-3 w-64 flex flex-col">
+                    <div className="grid grid-cols-2 gap-3">
+                      {menuItems.map((item) => {
+                        const Icon = item.icon;
+                        return (
+                          <button
+                            key={item.id}
+                            className={`flex flex-col items-center justify-center rounded-xl bg-gradient-to-r ${item.color} ${item.hoverColor} text-white p-3 transition-all duration-200 hover:shadow-md`}
+                            onClick={() => { setFileType(item.id as 'all' | 'image' | 'pdf' | 'doc'); fileInputRef.current?.click(); setShowAttachMenu(false); }}
+                          >
+                            <Icon className="w-6 h-6 mb-1" />
+                            <span className="text-xs font-medium">{item.label}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+                <input
+                  type="file"
+                  style={{ display: 'none' }}
+                  ref={fileInputRef}
+                  accept={
+                    fileType === 'image' ? 'image/*'
+                    : fileType === 'pdf' ? '.pdf'
+                    : fileType === 'doc' ? '.doc,.docx,.txt,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                    : '*'
+                  }
+                  onChange={handleFileChange}
+                />
+              </div>
               
               {/* Message Input */}
               <div className="flex-1 relative">

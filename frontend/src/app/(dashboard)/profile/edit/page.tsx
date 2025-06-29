@@ -1,13 +1,15 @@
 // src/app/(dashboard)/profile/edit/page.tsx - EDIT PROFILE PAGE
 'use client';
 import React, { useState, useEffect } from 'react';
-import { Save, Upload, Plus, X } from 'lucide-react';
+import { Save, Plus, X } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
+// import { AvatarUpload } from '@/components/profile';
+// import { profileApi } from '@/lib/api/profile';
 
 type Skill = { name: string; level: string; type: string; experience?: string; description?: string; endorsements?: number };
 
@@ -81,17 +83,25 @@ export default function EditProfilePage() {
     }
   }, [user]);
 
-  // Handle image upload
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setFormData(prev => ({ ...prev, profilePicture: reader.result as string }));
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+  // Remove old handleImageChange
+  // Add new avatar upload handlers
+  // const handleAvatarUpload = async (file: File, preview: string) => {
+  //   try {
+  //     const response = await profileApi.uploadProfilePicture(file);
+  //     setFormData(prev => ({ ...prev, profilePicture: response.profilePicture || preview }));
+  //   } catch (error) {
+  //     alert('Failed to upload profile picture.');
+  //   }
+  // };
+
+  // const handleAvatarRemove = async () => {
+  //   try {
+  //     await profileApi.removeProfilePicture();
+  //     setFormData(prev => ({ ...prev, profilePicture: '' }));
+  //   } catch (error) {
+  //     alert('Failed to remove profile picture.');
+  //   }
+  // };
 
   // Save handler
   const handleSaveProfile = async () => {
@@ -149,26 +159,19 @@ export default function EditProfilePage() {
       </div>
 
       {/* Profile Photo */}
-      <Card className="p-6">
+      {/* <Card className="p-6 flex flex-col items-center">
         <h2 className="text-xl font-semibold mb-4">Profile Photo</h2>
-        <div className="flex items-center space-x-6">
-          <img 
-            src={formData.profilePicture || "https://api.dicebear.com/7.x/avataaars/svg?seed=Shrikrushna"}
-            alt="Profile" 
-            className="w-20 h-20 rounded-full border-4 border-indigo-100"
-          />
-          <div className="flex-1">
-            <label className="inline-flex items-center cursor-pointer">
-              <input type="file" accept="image/*" className="hidden" onChange={handleImageChange} />
-              <span className="px-3 py-2 border rounded-lg bg-white hover:bg-gray-50 flex items-center">
-                <Upload className="h-4 w-4 mr-2" />
-                Upload New Photo
-              </span>
-            </label>
-            <p className="text-sm text-gray-500 mt-2">JPG, PNG or GIF. Max size 2MB.</p>
-          </div>
-        </div>
-      </Card>
+        <AvatarUpload
+          currentAvatar={formData.profilePicture}
+          userName={formData.name || 'User'}
+          size="lg"
+          onUpload={handleAvatarUpload}
+          onRemove={handleAvatarRemove}
+          className="w-24 h-24 mb-2"
+          editable={true}
+        />
+        <p className="text-sm text-gray-500 mt-8 text-center">JPG, PNG or GIF. Max size 2MB.</p>
+      </Card> */}
 
       {/* Basic Information */}
       <Card className="p-6">
