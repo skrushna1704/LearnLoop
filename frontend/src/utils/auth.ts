@@ -179,7 +179,7 @@ export const RouteHelpers = {
   getPostLoginRedirect: (user: User | null): string => {
     if (!user) return '/auth/login';
     
-    if (!user.isEmailVerified) return '/auth/verify-email';
+    if (!user.isEmailVerified) return '/verify-email';
     if (!user.isProfileComplete) return '/auth/setup-profile';
     
     return '/dashboard';

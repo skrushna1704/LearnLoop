@@ -26,6 +26,7 @@ interface SkillReference {
 interface User {
   id: string; // Mongoose adds 'id' virtually
   email: string;
+  isEmailVerified: boolean;
   isProfileComplete: boolean;
   profile?: {
     name?: string;
@@ -58,6 +59,7 @@ interface AuthContextType {
   logout: () => Promise<void>;
   forgotPassword: (email: string) => Promise<void>;
   resetPassword: (token: string, password: string) => Promise<void>;
+  resendVerification: (email: string) => Promise<void>;
   updateProfile: (data: Partial<User>) => Promise<void>;
   
   // Utils
@@ -235,8 +237,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const result = await response.json();
       
       if (response.ok) {
-        // After successful registration, redirect to the login page
-        router.push(routes.auth.login);
+        // After successful registration, redirect to verify email page
+        router.push(`/verify-email?email=${encodeURIComponent(data.email)}`);
       } else {
         throw new Error(result.message || 'Registration failed');
       }
@@ -310,6 +312,28 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
     } catch (error) {
       console.error('Reset password failed:', error);
+      throw error;
+    }
+  };
+
+  // Resend verification email function
+  const resendVerification = async (email: string) => {
+    try {
+      const response = await fetch('http://localhost:5050/api/auth/resend-verification', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const result = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(result.message || 'Failed to resend verification email');
+      }
+    } catch (error) {
+      console.error('Resend verification failed:', error);
       throw error;
     }
   };
@@ -391,6 +415,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     logout,
     forgotPassword,
     resetPassword,
+    resendVerification,
     updateProfile,
     checkAuth,
     refreshToken

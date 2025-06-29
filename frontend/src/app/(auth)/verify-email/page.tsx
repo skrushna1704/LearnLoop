@@ -57,11 +57,20 @@ export default function VerifyEmailPage() {
     setError(null);
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // Mock verification success
-      console.log('Verifying email with token:', verificationToken);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/verify-email/${verificationToken}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Verification failed');
+      }
+
+      const data = await response.json();
+      console.log('Email verified successfully:', data);
       setIsVerified(true);
       
       // Redirect to dashboard after verification
@@ -70,7 +79,7 @@ export default function VerifyEmailPage() {
       }, 3000);
       
     } catch (err) {
-      setError('Verification failed. The link may be expired or invalid.');
+      setError(err instanceof Error ? err.message : 'Verification failed. The link may be expired or invalid.');
     } finally {
       setIsVerifying(false);
     }
@@ -83,17 +92,27 @@ export default function VerifyEmailPage() {
     setError(null);
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      console.log('Resending verification email to:', email || 'user@example.com');
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/resend-verification`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: email || '' }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to resend verification email');
+      }
+
+      console.log('Verification email resent successfully');
       
       // Start countdown
       setCountdown(60);
       setCanResend(false);
       
     } catch (err) {
-      setError('Failed to resend verification email. Please try again.');
+      setError(err instanceof Error ? err.message : 'Failed to resend verification email. Please try again.');
     } finally {
       setIsResending(false);
     }
@@ -165,20 +184,20 @@ export default function VerifyEmailPage() {
             
             <p className="text-gray-600 mb-8">
               Welcome to LearnLoop! Your account is now active and ready to use. 
-              Let's start your learning journey!
+              Let&apos;s start your learning journey!
             </p>
 
             <div className="space-y-4">
-              <Link href="/dashboard">
+              <Link href="/login">
                 <Button className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white">
                   <Sparkles className="h-4 w-4 mr-2" />
-                  Go to Dashboard
+                  Go to Login
                 </Button>
               </Link>
             </div>
             
             <p className="text-sm text-gray-500 mt-4">
-              Redirecting automatically in 3 seconds...
+              Your email is verified! Please log in to continue.
             </p>
           </Card>
         </div>
@@ -275,7 +294,7 @@ export default function VerifyEmailPage() {
             Check Your Email
           </h2>
           <p className="text-gray-600">
-            We've sent a verification link to your email address.
+            We&apos;ve sent a verification link to your email address.
           </p>
         </div>
 
@@ -309,7 +328,7 @@ export default function VerifyEmailPage() {
             </div>
             <div className="flex items-start space-x-3">
               <Shield className="h-5 w-5 text-indigo-500 flex-shrink-0 mt-0.5" />
-              <span>Check your spam folder if you don't see it</span>
+              <span>Check your spam folder if you don&apos;t see it</span>
             </div>
           </div>
 

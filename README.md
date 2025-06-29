@@ -8,6 +8,14 @@ LearnLoop is a modern MERN-based platform that enables users to exchange skills 
 - AI-Powered Assistant (OpenAI)
 - Community & Progress Tracking
 - Google OAuth & Email/Password Auth
+- **Profile Picture Upload & Management (Cloudinary)**
+- **File Upload in Chat (Supabase Storage, all file types)**
+- **Modern WhatsApp-style Attach Menu in Chat**
+- **Email Verification System (with resend, secure tokens, and professional templates)**
+- **Protected Routes & Onboarding Guards (email verification and profile completion required)**
+- **Password Reset via Email**
+- **Improved Auth Flow (OAuth users auto-verified, traditional users must verify email)**
+- **Beautiful, branded transactional emails**
 
 ## 🛠️ Tech Stack
 - **Frontend:** Next.js, React, TypeScript, Tailwind CSS
@@ -54,12 +62,16 @@ npm run dev
 - Backend API: [http://localhost:5050](http://localhost:5050)
 
 ## 🌐 Features Overview
-- **Authentication:** Email/password & Google OAuth
+- **Authentication:** Email/password & Google OAuth (OAuth users auto-verified, email users must verify)
+- **Email Verification:** Secure, branded, with resend and expiry
+- **Password Reset:** Secure email-based reset
+- **Profile Picture:** Upload, update, and remove (Cloudinary)
 - **Skill Management:** Offer & request skills
 - **Exchanges:** Propose, track, and complete skill exchanges
-- **Messaging:** Real-time chat between users
+- **Messaging:** Real-time chat, file upload (all types), WhatsApp-style attach menu
 - **AI Assistant:** Chatbot for help and suggestions
 - **Community:** Browse, connect, and learn
+- **Onboarding Guards:** Protect routes until email is verified and profile is complete
 
 ## 🤝 Contributing
 Pull requests are welcome! For major changes, open an issue first to discuss what you'd like to change.

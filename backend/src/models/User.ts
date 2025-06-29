@@ -3,6 +3,7 @@ import mongoose, { Document, Schema } from 'mongoose';
 export interface IUser extends Document {
   email: string;
   password?: string;
+  isEmailVerified: boolean;
   isProfileComplete: boolean;
   googleId?: string;
   authProvider: 'local' | 'google';
@@ -45,6 +46,7 @@ export interface IUser extends Document {
 const UserSchema: Schema = new Schema<IUser>({
   email: { type: String, required: true, unique: true, lowercase: true, trim: true },
   password: { type: String, required: false },
+  isEmailVerified: { type: Boolean, default: false },
   isProfileComplete: { type: Boolean, default: false },
   googleId: { type: String, sparse: true, unique: true },
   authProvider: { type: String, enum: ['local', 'google'], default: 'local' },

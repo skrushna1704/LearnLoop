@@ -44,6 +44,7 @@ export const googleAuth = async (req: Request, res: Response) => {
       if (!user.googleId) {
         user.googleId = googleId;
         user.authProvider = 'google';
+        user.isEmailVerified = true;
         if (picture && !user.profile?.profilePicture) {
           user.profile = { ...user.profile, profilePicture: picture };
         }
@@ -55,6 +56,7 @@ export const googleAuth = async (req: Request, res: Response) => {
         email,
         googleId,
         authProvider: 'google',
+        isEmailVerified: true,
         isProfileComplete: false,
         profile: {
           name: name || email.split('@')[0],
@@ -67,6 +69,7 @@ export const googleAuth = async (req: Request, res: Response) => {
     const jwtToken = signJwt({
       id: user._id,
       email: user.email,
+      isEmailVerified: user.isEmailVerified,
       isProfileComplete: user.isProfileComplete,
     });
 
@@ -76,6 +79,7 @@ export const googleAuth = async (req: Request, res: Response) => {
       user: {
         id: user._id,
         email: user.email,
+        isEmailVerified: user.isEmailVerified,
         isProfileComplete: user.isProfileComplete,
         name: user.profile?.name,
         profilePicture: user.profile?.profilePicture,

@@ -71,10 +71,10 @@ export default function RegisterPage() {
       });
       const result = await response.json();
       if (response.ok) {
-        setSuccess('Account created successfully! You can now log in.');
+        setSuccess('Account created successfully! Please check your email to verify your account.');
         setTimeout(() => {
-          router.push('/login');
-        }, 1500);
+          router.push(`/verify-email?email=${encodeURIComponent(data.email)}`);
+        }, 2000);
       } else {
         setError(result.message || 'Registration failed.');
       }

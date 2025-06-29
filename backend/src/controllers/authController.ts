@@ -3,7 +3,7 @@ import User from '../models/User';
 import { hashPassword, comparePassword } from '../utils/hash';
 import { signJwt } from '../utils/jwt';
 import jwt from 'jsonwebtoken';
-import { sendResetEmail } from '../utils/email';
+import { sendResetEmail, sendVerificationEmail } from '../utils/email';
 
 const RESET_PASSWORD_SECRET = process.env.JWT_SECRET + '_reset';
 
@@ -22,14 +22,29 @@ export const register = async (req: Request, res: Response) => {
     const user = await User.create({
       email,
       password: hashedPassword,
+      isEmailVerified: false,
       isProfileComplete: false,
       profile: { name: fullName }
     });
+
+    const verificationToken = jwt.sign(
+      { userId: user._id, email: user.email },
+      process.env.JWT_SECRET!,
+      { expiresIn: '24h' }
+    );
+
+    try {
+      await sendVerificationEmail(email, verificationToken);
+    } catch (emailError) {
+      console.error('Failed to send verification email:', emailError);
+    }
+
     res.status(201).json({
-      message: 'Registration successful.',
+      message: 'Registration successful. Please check your email to verify your account.',
       user: {
         id: user._id,
         email: user.email,
+        isEmailVerified: user.isEmailVerified,
         isProfileComplete: user.isProfileComplete,
         name: user.profile?.name
       },
@@ -59,6 +74,7 @@ export const login = async (req: Request, res: Response) => {
     const token = signJwt({
       id: user._id,
       email: user.email,
+      isEmailVerified: user.isEmailVerified,
       isProfileComplete: user.isProfileComplete,
     });
     res.status(200).json({
@@ -67,6 +83,7 @@ export const login = async (req: Request, res: Response) => {
       user: {
         id: user._id,
         email: user.email,
+        isEmailVerified: user.isEmailVerified,
         isProfileComplete: user.isProfileComplete,
         name: user.profile?.name
       },
@@ -120,6 +137,93 @@ export const resetPassword = async (req: Request, res: Response) => {
   } catch (error) {
     console.error('Reset password error:', error);
     res.status(500).json({ message: 'Failed to reset password.' });
+  }
+};
+
+export const verifyEmail = async (req: Request, res: Response) => {
+  try {
+    const { token } = req.params;
+    
+    if (!token) {
+      return res.status(400).json({ message: 'Verification token is required.' });
+    }
+
+    // Verify the token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { userId: string; email: string };
+    
+    // Find the user
+    const user = await User.findById(decoded.userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found.' });
+    }
+
+    // Check if email matches
+    if (user.email !== decoded.email) {
+      return res.status(400).json({ message: 'Invalid verification token.' });
+    }
+
+    // Check if already verified
+    if (user.isEmailVerified) {
+      return res.status(200).json({ message: 'Email is already verified.' });
+    }
+
+    // Mark email as verified
+    user.isEmailVerified = true;
+    await user.save();
+
+    res.status(200).json({
+      message: 'Email verified successfully.',
+      user: {
+        id: user._id,
+        email: user.email,
+        isEmailVerified: user.isEmailVerified,
+        isProfileComplete: user.isProfileComplete,
+        name: user.profile?.name
+      }
+    });
+  } catch (error) {
+    if (error instanceof jwt.JsonWebTokenError) {
+      return res.status(400).json({ message: 'Invalid or expired verification token.' });
+    }
+    res.status(500).json({ message: 'Email verification failed.', error });
+  }
+};
+
+export const resendVerificationEmail = async (req: Request, res: Response) => {
+  try {
+    const { email } = req.body;
+    
+    if (!email) {
+      return res.status(400).json({ message: 'Email is required.' });
+    }
+
+    // Find the user
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found.' });
+    }
+
+    // Check if already verified
+    if (user.isEmailVerified) {
+      return res.status(200).json({ message: 'Email is already verified.' });
+    }
+
+    // Generate new verification token
+    const verificationToken = jwt.sign(
+      { userId: user._id, email: user.email },
+      process.env.JWT_SECRET!,
+      { expiresIn: '24h' }
+    );
+
+    // Send verification email
+    await sendVerificationEmail(email, verificationToken);
+
+    res.status(200).json({
+      message: 'Verification email sent successfully.',
+    });
+  } catch (error) {
+    console.error('Failed to resend verification email:', error);
+    res.status(500).json({ message: 'Failed to resend verification email.' });
   }
 };
 
