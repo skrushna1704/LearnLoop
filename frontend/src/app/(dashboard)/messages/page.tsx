@@ -24,7 +24,7 @@ import {
   X
 } from 'lucide-react';
 import toast from 'react-hot-toast';
-import { uploadFileToSupabase } from '@/lib/uploadFile';
+import { uploadFileToS3ViaBackend } from '@/lib/uploadFile';
 
 // Define interfaces for our data structures
 interface Message {
@@ -417,9 +417,10 @@ export default function MessagesPage() {
     const file = e.target.files?.[0];
     if (!file || !selectedConversation || !currentUser) return;
     try {
-      const url = await uploadFileToSupabase(file);
-      // Send as a file message
       const token = localStorage.getItem('authToken');
+      if (!token) throw new Error('No auth token');
+      const url = await uploadFileToS3ViaBackend(file, token);
+      // Send as a file message
       const partner = selectedConversation.proposer._id === currentUser.id
         ? selectedConversation.receiver
         : selectedConversation.proposer;

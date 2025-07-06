@@ -1,17 +1,19 @@
-import { supabase } from './supabase';
+export async function uploadFileToS3ViaBackend(file: File, token: string): Promise<string> {
+  const formData = new FormData();
+  formData.append('file', file);
 
-export async function uploadFileToSupabase(file: File): Promise<string> {
-  const filePath = `chat-uploads/${Date.now()}-${file.name}`;
-  const { data, error } = await supabase.storage
-    .from('chat-uploads') // your bucket name
-    .upload(filePath, file);
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/upload`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+    body: formData,
+  });
 
-  if (error) throw error;
+  if (!response.ok) {
+    throw new Error('Failed to upload file');
+  }
 
-  // Get public URL
-  const { data: publicUrlData } = supabase.storage
-    .from('chat-uploads')
-    .getPublicUrl(filePath);
-
-  return publicUrlData.publicUrl;
+  const data = await response.json();
+  return data.url;
 } 

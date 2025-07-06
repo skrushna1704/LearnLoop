@@ -16,6 +16,7 @@ import userRoutes from './routes/userRoutes';
 import messageRoutes from './routes/messageRoutes';
 import postRoutes from './routes/postRoutes';
 import aiRoutes from './routes/aiRoutes';
+import uploadRoutes from './routes/uploadRoutes';
 
 const app = express();
 const httpServer = createServer(app);
@@ -63,6 +64,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/messages', messageRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/ai', aiRoutes);
+app.use('/api/upload', uploadRoutes);
 
 const onlineUsers: { [userId: string]: string } = {};
 
