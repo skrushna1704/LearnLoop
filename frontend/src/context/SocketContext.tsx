@@ -27,7 +27,7 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
   const socketRef = useRef<Socket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
   const { user } = useAuth();
-  const apiUrl = 'http://localhost:5050';
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL_WITHOUT_API;
 
   // Debug user status
   console.log('SocketContext: User status:', { 

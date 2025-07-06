@@ -27,6 +27,7 @@ export function useProfile() {
   const [profile, setProfile] = useState<ProfileData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
   const fetchProfile = useCallback(async () => {
     setLoading(true);
@@ -34,7 +35,7 @@ export function useProfile() {
     try {
       const token = localStorage.getItem('authToken');
       if (!token) throw new Error('No auth token');
-      const response = await fetch('http://localhost:5050/api/profile', {
+      const response = await fetch(`${apiUrl}/profile`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (!response.ok) throw new Error('Failed to fetch profile');

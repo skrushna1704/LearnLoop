@@ -166,6 +166,7 @@ export default function MyProfilePage() {
   const { user, updateProfile } = useAuth();
   const [profile, setProfile] = useState<ProfileData | null>(null);
   const [loading, setLoading] = useState(true);
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
   const fetchProfileData = useCallback(async () => {
     setLoading(true);
@@ -177,7 +178,7 @@ export default function MyProfilePage() {
         return;
       }
 
-      const response = await fetch('http://localhost:5050/api/profile', {
+      const response = await fetch(`${apiUrl}/profile`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

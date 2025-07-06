@@ -36,6 +36,7 @@ export default function RegisterPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
   const {
     register,
@@ -55,7 +56,7 @@ export default function RegisterPage() {
     setSuccess(null);
 
     try {
-      const response = await fetch('http://localhost:5050/api/auth/register', {
+      const response = await fetch(`${apiUrl}/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

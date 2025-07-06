@@ -34,6 +34,7 @@ export default function GoogleLoginButton({
   text = 'Continue with Google'
 }: GoogleLoginButtonProps) {
   const { googleLogin, isLoading } = useAuth();
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
   useEffect(() => {
     // Load Google Identity Services script
@@ -88,7 +89,7 @@ export default function GoogleLoginButton({
   const handleManualGoogleLogin = async () => {
     try {
       // Fallback method if Google Identity Services doesn't load
-      const response = await fetch('http://localhost:5050/api/auth/google/url');
+      const response = await fetch(`${apiUrl}/auth/google/url`);
       const { authUrl } = await response.json();
       window.location.href = authUrl;
     } catch (error) {

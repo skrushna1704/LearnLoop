@@ -57,3 +57,10 @@ frontend/next-env.d.ts
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+
+backend/.elasticbeanstalk/

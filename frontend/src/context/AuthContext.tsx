@@ -77,6 +77,8 @@ interface RegisterData {
 // Create context
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 // Auth Provider Component
 interface AuthProviderProps {
   children: ReactNode;
@@ -105,7 +107,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
 
       // Real API call to validate token and get user
-      const response = await fetch('http://localhost:5050/api/profile', {
+      const response = await fetch(`${apiUrl}/profile`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -136,7 +138,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       setIsLoading(true);
       
-      const response = await fetch('http://localhost:5050/api/auth/login', {
+      const response = await fetch(`${apiUrl}/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -154,7 +156,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         localStorage.setItem('authToken', result.token);
         
         // 2. Fetch the full user profile to ensure context is complete
-        const profileResponse = await fetch('http://localhost:5050/api/profile', {
+        const profileResponse = await fetch(`${apiUrl}/profile`, {
           headers: { 'Authorization': `Bearer ${result.token}` }
         });
 
@@ -187,7 +189,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       setIsLoading(true);
       
-      const response = await fetch('http://localhost:5050/api/auth/google', {
+      const response = await fetch(`${apiUrl}/auth/google`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -226,7 +228,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       setIsLoading(true);
       
-      const response = await fetch('http://localhost:5050/api/auth/register', {
+      const response = await fetch(`${apiUrl}/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -275,7 +277,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // Forgot password function
   const forgotPassword = async (email: string) => {
     try {
-      const response = await fetch('http://localhost:5050/api/auth/forgot-password', {
+      const response = await fetch(`${apiUrl}/auth/forgot-password`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -297,7 +299,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // Reset password function
   const resetPassword = async (token: string, password: string) => {
     try {
-      const response = await fetch('http://localhost:5050/api/auth/reset-password', {
+      const response = await fetch(`${apiUrl}/auth/reset-password`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -319,7 +321,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // Resend verification email function
   const resendVerification = async (email: string) => {
     try {
-      const response = await fetch('http://localhost:5050/api/auth/resend-verification', {
+      const response = await fetch(`${apiUrl}/auth/resend-verification`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -347,7 +349,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         throw new Error('Not authenticated');
       }
       
-      const response = await fetch('http://localhost:5050/api/profile', {
+      const response = await fetch(`${apiUrl}/profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -380,11 +382,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         return;
       }
 
-      const response = await fetch('http://localhost:5050/api/auth/refresh', {
+      const response = await fetch(`${apiUrl}/auth/refresh`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-        },
+        },    
         body: JSON.stringify({ refreshToken: refreshTokenValue }),
       });
 
