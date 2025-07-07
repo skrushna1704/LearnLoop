@@ -30,6 +30,7 @@ import {
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { useProfile } from '@/hooks/useProfile';
+import { SidebarSkeleton } from '@/components/common';
 
 interface NavigationItem {
   readonly title: string;
@@ -93,7 +94,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   };
 
   if (loading) {
-    return <div className="w-72 p-8 text-center">Loading...</div>;
+    return <SidebarSkeleton />;
   }
   if (!user) {
     return <div className="w-72 p-8 text-center text-red-500">User not found.</div>;

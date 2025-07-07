@@ -28,6 +28,7 @@ import {
 import PostCard from '@/components/community/PostCard';
 import { Avatar, Button } from '@/components/ui';
 import Image from 'next/image';
+import { CommunitySkeleton } from '@/components/common';
 
 const quickActions = [
   { icon: Plus, label: 'Share Knowledge', color: 'bg-blue-500', href: 'community/create-post' },
@@ -57,8 +58,6 @@ export default function CommunityPage() {
       router.push('/login');
     }
   }, [isAuthenticated, router]);
-
-
 
   const fetchData = useCallback(async () => {
     try {
@@ -168,11 +167,7 @@ export default function CommunityPage() {
   }
 
   if (loading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
-      </div>
-    );
+    return <CommunitySkeleton />;
   }
 
   if (error) {

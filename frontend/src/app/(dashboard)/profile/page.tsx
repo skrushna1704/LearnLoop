@@ -7,6 +7,7 @@ import SkillsManagement from '@/components/profile/SkillsManagement';
 import { AvatarUpload } from '@/components/profile';
 import { useAuth } from '@/context/AuthContext';
 import { Button } from '@/components/ui/Button';
+import { ProfileSkeleton } from '@/components/common';
 import { profileApi } from '@/lib/api/profile';
 import toast from 'react-hot-toast';
 import Image from 'next/image';
@@ -404,7 +405,7 @@ export default function MyProfilePage() {
     }
   };
 
-  if (loading) return <div className="p-8 text-center">Loading profile...</div>;
+  if (loading) return <ProfileSkeleton />;
   if (!profile) return <div className="p-8 text-center text-red-500">Profile not found.</div>;
 
   return (

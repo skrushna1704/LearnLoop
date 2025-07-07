@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useAuth } from '@/context/AuthContext';
 import { useSocket } from '@/context/SocketContext';
 import { useSearchParams } from 'next/navigation';
+import { MessagesSkeleton } from '@/components/common';
 import { 
   Search, 
   Send, 
@@ -493,7 +494,7 @@ export default function MessagesPage() {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>; // Replace with a proper loader
+    return <MessagesSkeleton />;
   }
   
   if (error) {

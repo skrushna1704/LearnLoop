@@ -28,6 +28,17 @@ export {
   ProgressLoading 
 } from '@/components/common/LoadingSpinner';
 
+// Skeleton components
+export {
+  Skeleton,
+  DashboardSkeleton,
+  ProfileSkeleton,
+  BrowseSkillsSkeleton,
+  MessagesSkeleton,
+  CommunitySkeleton,
+  SidebarSkeleton
+} from '@/components/common/Skeleton';
+
 export { 
   default as ErrorBoundary, 
   ErrorState, 

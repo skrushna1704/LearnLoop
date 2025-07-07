@@ -29,6 +29,7 @@ import {
 } from 'lucide-react';
 import { Modal } from '@/components/ui/Modal';
 import { Button } from '@/components/ui/Button';
+import { DashboardSkeleton } from '@/components/common';
 import { useRouter } from 'next/navigation';
 import AiCoachWidget from '@/components/dashboard/AiCoachWidget';
 import Image from 'next/image';
@@ -140,7 +141,7 @@ export default function BeautifulDashboard() {
   const [teachLoading, setTeachLoading] = useState(false);
   const [learnLoading, setLearnLoading] = useState(false);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <DashboardSkeleton />;
   if (error) return <div className="text-red-500">{error}</div>;
   if (!user) return <div>Profile not found.</div>;
 

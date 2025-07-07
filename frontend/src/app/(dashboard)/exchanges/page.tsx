@@ -19,12 +19,12 @@ import {
   AlertCircle,
   Plus,
   ArrowRight,
-  Timer,
-  Loader,
+  Timer
 } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui';
 import Image from 'next/image';
+import { CardSkeleton } from '@/components/common';
 
 interface UserReference {
   _id: string;
@@ -167,7 +167,11 @@ export default function ExchangesPage() {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <Loader className="animate-spin h-12 w-12 text-blue-500" />
+        <div className="w-full max-w-2xl">
+          <CardSkeleton />
+          <CardSkeleton />
+          <CardSkeleton />
+        </div>
       </div>
     );
   }

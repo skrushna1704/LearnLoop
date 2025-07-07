@@ -12,6 +12,17 @@ export {
     TableLoading, 
     ProgressLoading 
   } from './LoadingSpinner';
+
+// Skeleton components
+export {
+  Skeleton,
+  DashboardSkeleton,
+  ProfileSkeleton,
+  BrowseSkillsSkeleton,
+  MessagesSkeleton,
+  CommunitySkeleton,
+  SidebarSkeleton
+} from './Skeleton';
   
   // Error handling components
   export { 
