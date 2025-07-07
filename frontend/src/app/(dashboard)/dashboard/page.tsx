@@ -31,6 +31,7 @@ import { Modal } from '@/components/ui/Modal';
 import { Button } from '@/components/ui/Button';
 import { useRouter } from 'next/navigation';
 import AiCoachWidget from '@/components/dashboard/AiCoachWidget';
+import Image from 'next/image';
 
 const skillIcons: { [key: string]: React.ElementType } = {
   'React.js': Code,
@@ -108,8 +109,17 @@ const upcomingSessions = [
 const skillLevels = ['Beginner', 'Intermediate', 'Advanced', 'Expert'];
 
 interface ApiSkill {
+  _id?: string;
   name: string;
   level: string;
+  category?: string;
+  description?: string;
+  experience?: string;
+  verified?: boolean;
+  portfolio?: string[];
+  endorsements?: number;
+  priority?: number;
+  learning_goals?: string;
   students?: number;
   rating?: number;
   hours?: number;
@@ -153,7 +163,14 @@ export default function BeautifulDashboard() {
     if (!user?.skills_offered) return;
     try {
       const updatedSkills = user.skills_offered.filter(s => s.name !== skillToRemove.name);
-      await updateProfile({ skills_offered: updatedSkills });
+      const skillsForUpdate = updatedSkills.map(skill => ({
+        name: skill.name,
+        level: skill.level,
+        category: (skill as ApiSkill).category || 'Technology',
+        description: (skill as ApiSkill).description || '',
+        experience: (skill as ApiSkill).experience || ''
+      }));
+      await updateProfile({ skills_offered: skillsForUpdate });
       toast.success('Teaching skill removed!');
       await refetch();
     } catch (err: unknown) {
@@ -166,7 +183,14 @@ export default function BeautifulDashboard() {
     if (!user?.skills_needed) return;
     try {
       const updatedSkills = user.skills_needed.filter(s => s.name !== skillToRemove.name);
-      await updateProfile({ skills_needed: updatedSkills });
+      const skillsForUpdate = updatedSkills.map(skill => ({
+        name: skill.name,
+        level: skill.level,
+        category: (skill as ApiSkill).category || 'Technology',
+        description: (skill as ApiSkill).description || '',
+        experience: (skill as ApiSkill).experience || ''
+      }));
+      await updateProfile({ skills_needed: skillsForUpdate });
       toast.success('Learning goal removed!');
       await refetch();
     } catch (err: unknown) {
@@ -180,7 +204,13 @@ export default function BeautifulDashboard() {
     if (!name) return;
     setTeachLoading(true);
     try {
-      const newSkill = { name, level: teachingSkillLevel };
+      const newSkill = { 
+        name, 
+        level: teachingSkillLevel,
+        category: 'Technology',
+        description: '',
+        experience: ''
+      };
       const updatedSkills = [...(user.skills_offered || []), newSkill];
       await updateProfile({ skills_offered: updatedSkills });
       toast.success('Teaching skill added!');
@@ -201,7 +231,13 @@ export default function BeautifulDashboard() {
     if (!name) return;
     setLearnLoading(true);
     try {
-      const newSkill = { name, level: learningSkillLevel };
+      const newSkill = { 
+        name, 
+        level: learningSkillLevel,
+        category: 'Technology',
+        description: '',
+        experience: ''
+      };
       const updatedSkills = [...(user.skills_needed || []), newSkill];
       await updateProfile({ skills_needed: updatedSkills });
       toast.success('Learning goal added!');
@@ -227,10 +263,12 @@ export default function BeautifulDashboard() {
             <div className="flex flex-col lg:flex-row items-start lg:items-center gap-6">
               <div className="flex items-center gap-4">
                 <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm p-1">
-                  <img
+                  <Image
                     src={user.profile?.profilePicture || 'https://api.dicebear.com/7.x/avataaars/svg?seed=User'}
                     alt={user.profile?.name || 'User'}
                     className="w-full h-full rounded-full object-cover"
+                    width={64}
+                    height={64}
                   />
                 </div>
                 <div>
@@ -422,7 +460,7 @@ export default function BeautifulDashboard() {
             <div className="space-y-4">
               {upcomingSessions.map((session, index) => (
                 <div key={index} className="flex items-center gap-4 bg-gray-50 p-3 rounded-lg">
-                  <img src={session.avatar} alt="avatar" className="w-12 h-12 rounded-full object-cover"/>
+                  <Image src={session.avatar} alt="avatar" className="w-12 h-12 rounded-full object-cover" width={48} height={48}/>
                   <div className="flex-grow">
                     <p className="font-semibold">{session.skill}</p>
                     <p className="text-sm text-gray-500">

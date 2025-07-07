@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import {
   Mail,
   Phone,
-  MapPin,
   MessageSquare,
   Send,
   Clock,
@@ -17,15 +16,11 @@ import {
   CheckCircle,
   ChevronDown,
   ChevronRight,
-  ExternalLink,
   Twitter,
   Github,
   Linkedin,
   Facebook,
   MessageCircle,
-  FileText,
-  Bug,
-  Lightbulb,
   Heart
 } from 'lucide-react';
 
@@ -120,8 +115,8 @@ export default function ContactPage() {
     message: '',
     urgent: false
   });
-  const [openFaq, setOpenFaq] = useState(null);
-  const [submitStatus, setSubmitStatus] = useState(null);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
 
   const handleSubmit = () => {
     setSubmitStatus('submitting');
@@ -133,8 +128,9 @@ export default function ContactPage() {
     }, 2000);
   };
 
-  const handleInputChange = (e) => {
-    const { name, value, type, checked } = e.target;
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value, type } = e.target;
+    const checked = type === 'checkbox' ? (e.target as HTMLInputElement).checked : undefined;
     setFormData(prev => ({
       ...prev,
       [name]: type === 'checkbox' ? checked : value
@@ -152,7 +148,7 @@ export default function ContactPage() {
               Get in <span className="bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">Touch</span>
             </h1>
             <p className="text-xl md:text-2xl text-blue-100 mb-8 max-w-4xl mx-auto leading-relaxed">
-              Need help? Have questions? Want to share feedback? We're here to support your learning journey.
+              Need help? Have questions? Want to share feedback? We&apos;re here to support your learning journey.
             </p>
             <div className="flex items-center justify-center gap-8 text-sm">
               <div className="flex items-center gap-2">
@@ -226,7 +222,7 @@ export default function ContactPage() {
             <div className="mb-8">
               <h2 className="text-3xl font-bold text-gray-900 mb-4">Send us a Message</h2>
               <p className="text-gray-600">
-                Fill out the form below and we'll get back to you as soon as possible.
+                Fill out the form below and we&apos;ll get back to you as soon as possible.
               </p>
             </div>
             
@@ -237,10 +233,10 @@ export default function ContactPage() {
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">Message Sent!</h3>
                 <p className="text-gray-600 mb-6">
-                  Thank you for reaching out. We'll respond to your message within 24 hours.
+                  Thank you for reaching out. We&apos;ll respond to your message within 24 hours.
                 </p>
                 <button 
-                  onClick={() => setSubmitStatus(null)}
+                  onClick={() => setSubmitStatus('idle')}
                   className="px-6 py-3 bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition-colors duration-300"
                 >
                   Send Another Message

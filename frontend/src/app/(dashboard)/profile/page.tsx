@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState, useCallback } from 'react';
-import { Edit, Settings, Star, BookOpen, Calendar, MapPin, TrendingUp, Target, Zap, Clock, Share2, Trophy, Camera, Link, Mail, Users, Plus } from 'lucide-react';
+import { Edit, Star, BookOpen, Calendar, MapPin, TrendingUp, Target, Zap, Clock, Share2, Trophy, Camera, Link, Mail, Users, Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import SkillsManagement from '@/components/profile/SkillsManagement';
 import { AvatarUpload } from '@/components/profile';
@@ -9,6 +9,7 @@ import { useAuth } from '@/context/AuthContext';
 import { Button } from '@/components/ui/Button';
 import { profileApi } from '@/lib/api/profile';
 import toast from 'react-hot-toast';
+import Image from 'next/image';
 
 type Skill = {
   name: string;
@@ -26,6 +27,9 @@ type Skill = {
 interface ApiSkill {
   name?: string;
   level?: string;
+  category?: string;
+  description?: string;
+  experience?: string;
   students?: number;
   rating?: number;
   hours?: number;
@@ -205,7 +209,7 @@ export default function MyProfilePage() {
     } finally {
       setLoading(false);
     }
-  }, [router]);
+  }, [router, apiUrl]);
 
   useEffect(() => {
     fetchProfileData();
@@ -215,11 +219,36 @@ export default function MyProfilePage() {
     try {
       if (!user || !updateProfile) throw new Error('User not authenticated');
 
+      // Convert to the format expected by the API
+      const skillForUpdate = {
+        name: skill.name,
+        level: skill.level,
+        category: skill.category,
+        description: skill.description || '',
+        experience: skill.experience || ''
+      };
+
       if (type === 'teaching') {
-        const updatedSkills = [...(user.skills_offered || []), { ...skill }];
+        // Convert existing skills to the correct format
+        const existingSkills = (user.skills_offered || []).map(skill => ({
+          name: (skill as ApiSkill).name || '',
+          level: (skill as ApiSkill).level || 'Beginner',
+          category: (skill as ApiSkill).category || 'Technology',
+          description: (skill as ApiSkill).description || '',
+          experience: (skill as ApiSkill).experience || ''
+        }));
+        const updatedSkills = [...existingSkills, skillForUpdate];
         await updateProfile({ skills_offered: updatedSkills });
       } else {
-        const updatedSkills = [...(user.skills_needed || []), { ...skill }];
+        // Convert existing skills to the correct format
+        const existingSkills = (user.skills_needed || []).map(skill => ({
+          name: (skill as ApiSkill).name || '',
+          level: (skill as ApiSkill).level || 'Beginner',
+          category: (skill as ApiSkill).category || 'Technology',
+          description: (skill as ApiSkill).description || '',
+          experience: (skill as ApiSkill).experience || ''
+        }));
+        const updatedSkills = [...existingSkills, skillForUpdate];
         await updateProfile({ skills_needed: updatedSkills });
       }
       
@@ -235,10 +264,38 @@ export default function MyProfilePage() {
     if (!profile || !updateProfile) return;
     try {
         if (type === 'teaching') {
-            const updatedSkills = profile.skills.teaching.map(skill => skill.name === id ? { ...skill, ...updates } : skill);
+            const updatedSkills = profile.skills.teaching.map(skill => 
+              skill.name === id ? { 
+                name: skill.name,
+                level: updates.level || skill.level,
+                category: updates.category || 'Technology',
+                description: updates.description || '',
+                experience: ''
+              } : { 
+                name: skill.name,
+                level: skill.level,
+                category: 'Technology',
+                description: '',
+                experience: ''
+              }
+            );
             await updateProfile({ skills_offered: updatedSkills });
         } else {
-            const updatedSkills = profile.skills.learning.map(skill => skill.name === id ? { ...skill, ...updates } : skill);
+            const updatedSkills = profile.skills.learning.map(skill => 
+              skill.name === id ? { 
+                name: skill.name,
+                level: updates.level || skill.level,
+                category: updates.category || 'Technology',
+                description: updates.description || '',
+                experience: ''
+              } : { 
+                name: skill.name,
+                level: skill.level,
+                category: 'Technology',
+                description: '',
+                experience: ''
+              }
+            );
             await updateProfile({ skills_needed: updatedSkills });
         }
         toast.success('Skill updated!');
@@ -253,10 +310,26 @@ export default function MyProfilePage() {
     if (!profile || !updateProfile) return;
     try {
         if (type === 'teaching') {
-            const updatedSkills = profile.skills.teaching.filter(skill => skill.name !== id);
+            const updatedSkills = profile.skills.teaching
+              .filter(skill => skill.name !== id)
+              .map(skill => ({
+                name: skill.name,
+                level: skill.level,
+                category: 'Technology',
+                description: '',
+                experience: ''
+              }));
             await updateProfile({ skills_offered: updatedSkills });
         } else {
-            const updatedSkills = profile.skills.learning.filter(skill => skill.name !== id);
+            const updatedSkills = profile.skills.learning
+              .filter(skill => skill.name !== id)
+              .map(skill => ({
+                name: skill.name,
+                level: skill.level,
+                category: 'Technology',
+                description: '',
+                experience: ''
+              }));
             await updateProfile({ skills_needed: updatedSkills });
         }
         toast.success('Skill deleted!');
@@ -284,7 +357,11 @@ export default function MyProfilePage() {
       
       // Update auth context if needed
       if (updateProfile) {
-        updateProfile({ profilePicture: response.profilePicture });
+        updateProfile({ 
+          profile: { 
+            profilePicture: response.profilePicture || undefined
+          } 
+        });
       }
       
       toast.success('Profile picture updated successfully!');
@@ -312,7 +389,11 @@ export default function MyProfilePage() {
       
       // Update auth context if needed
       if (updateProfile) {
-        updateProfile({ profilePicture: undefined });
+        updateProfile({ 
+          profile: { 
+            profilePicture: undefined 
+          } 
+        });
       }
       
       toast.success('Profile picture removed successfully!');
@@ -404,10 +485,12 @@ export default function MyProfilePage() {
         <div className="relative overflow-hidden bg-white rounded-3xl shadow-lg border border-gray-100">
           {/* Cover Image */}
           <div className="relative h-48 lg:h-64">
-            <img 
+            <Image
               src={profile.profile?.coverImage || 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'}
               alt="Cover"
               className="w-full h-full object-cover"
+              width={1200}
+              height={64}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
             {/* Edit Cover Button */}
@@ -491,10 +574,10 @@ export default function MyProfilePage() {
                   <Edit className="w-5 h-5" />
                   Edit Profile
                 </button>
-                <button className="flex items-center gap-2 px-6 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-all duration-300">
+                {/* <button className="flex items-center gap-2 px-6 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-all duration-300">
                   <Settings className="w-5 h-5" />
                   Settings
-                </button>
+                </button> */}
               </div>
             </div>
           </div>

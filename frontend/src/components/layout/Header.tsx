@@ -2,6 +2,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from 'next/image';
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/Button";
@@ -228,9 +229,11 @@ const Header: React.FC = () => {
                   onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
                 >
                   {user.profile?.profilePicture ? (
-                    <img
-                      src={user.profile.profilePicture}
-                      alt={user.profile.name}
+                    <Image
+                      src={user.profile.profilePicture || ''}
+                      alt={user.profile.name || 'User'}
+                      width={32}
+                      height={32}
                       className="h-8 w-8 rounded-full ring-2 ring-indigo-100"
                     />
                   ) : (
@@ -382,9 +385,11 @@ const Header: React.FC = () => {
                 <div className="pt-4 border-t border-gray-200">
                   <div className="flex items-center px-3 py-2 mb-3">
                     {user.profile?.profilePicture ? (
-                      <img
-                        src={user.profile.profilePicture}
-                        alt={user.profile.name}
+                      <Image
+                        src={user.profile.profilePicture || ''}
+                        alt={user.profile.name || 'User'}
+                        width={40}
+                        height={40}
                         className="h-10 w-10 rounded-full ring-2 ring-indigo-100"
                       />
                     ) : (

@@ -40,7 +40,7 @@ export default function ResetPasswordPage() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors},
     watch
   } = useForm<ResetPasswordFormData>({
     resolver: zodResolver(resetPasswordSchema),
@@ -64,7 +64,8 @@ export default function ResetPasswordPage() {
         // Mock validation - in real app, validate against backend
         const isValid = token.length > 10; // Simple mock validation
         setTokenValid(isValid);
-      } catch (err) {
+      } catch (err:unknown) {
+        console.log('err', err);
         setTokenValid(false);
       }
     };
@@ -92,8 +93,9 @@ export default function ResetPasswordPage() {
       setTimeout(() => {
         router.push('/login');
       }, 3000);
-    } catch (err: any) {
-      setError(err.message || 'Failed to reset password. Please try again.');
+      } catch (err: unknown) {
+      console.log('err', err);
+      setError(err instanceof Error ? err.message : 'Failed to reset password. Please try again.');
     } finally {
       setIsLoading(false);
     }

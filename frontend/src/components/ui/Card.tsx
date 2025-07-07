@@ -1,6 +1,7 @@
 // src/components/ui/Card.tsx
 'use client'
 import React from 'react';
+import Image from 'next/image';
 import { cn } from '@/utils/helpers';
 
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -143,9 +144,11 @@ export const Avatar: React.FC<AvatarProps> = ({
       )}
     >
       {src ? (
-        <img
+        <Image
           src={src}
           alt={alt || name || 'Avatar'}
+          width={size === 'sm' ? 32 : size === 'md' ? 40 : size === 'lg' ? 48 : 64}
+          height={size === 'sm' ? 32 : size === 'md' ? 40 : size === 'lg' ? 48 : 64}
           className="h-full w-full object-cover"
         />
       ) : (

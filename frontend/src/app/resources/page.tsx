@@ -4,34 +4,24 @@ import React, { useState } from 'react';
 import {
   Search,
   BookOpen,
-  Video,
-  FileText,
   HelpCircle,
   Shield,
   Star,
-  Users,
   Lightbulb,
-  Target,
   Award,
   MessageSquare,
   Download,
-  ExternalLink,
   Clock,
   Eye,
   Heart,
   ArrowRight,
   ChevronDown,
   ChevronRight,
-  Play,
-  Calendar,
-  Globe,
-  Zap,
   CheckCircle,
   AlertCircle,
   Info,
   Rocket,
   TrendingUp,
-  Filter,
   Tag,
   Bookmark,
   Share2,
@@ -213,9 +203,8 @@ const faqs = [
 ];
 
 export default function ResourcesPage() {
-  const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
-  const [openFaq, setOpenFaq] = useState(null);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [selectedFaqCategory, setSelectedFaqCategory] = useState('all');
 
   const faqCategories = ['all', 'Getting Started', 'Learning', 'Teaching', 'Safety', 'Platform', 'Support'];
@@ -236,7 +225,7 @@ export default function ResourcesPage() {
             </h1>
             <p className="text-xl md:text-2xl text-green-100 mb-8 max-w-4xl mx-auto leading-relaxed">
               Everything you need to succeed in your skill exchange journey. From getting started guides 
-              to advanced teaching strategies, we've got you covered.
+              to advanced teaching strategies, we&apos;ve got you covered.
             </p>
             
             {/* Search Bar */}
@@ -354,17 +343,17 @@ export default function ResourcesPage() {
                     </span>
                     <span className="flex items-center gap-1">
                       <Eye className="w-4 h-4" />
-                      {resource.views.toLocaleString()}
+                      {(resource.views || 0).toLocaleString()}
                     </span>
                     <span className="flex items-center gap-1">
                       <Heart className="w-4 h-4" />
-                      {resource.likes}
+                      {resource.likes || 0}
                     </span>
                   </div>
                   
                   {/* Tags */}
                   <div className="flex flex-wrap gap-2 mb-4">
-                    {resource.tags.slice(0, 3).map((tag, index) => (
+                    {(resource.tags || []).slice(0, 3).map((tag, index) => (
                       <span key={index} className="px-2 py-1 bg-gray-100 text-gray-600 rounded-md text-xs">
                         #{tag}
                       </span>
@@ -373,15 +362,15 @@ export default function ResourcesPage() {
                   
                   {/* Author and Date */}
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-600">By {resource.author}</span>
-                    <span className="text-xs text-gray-500">{resource.publishDate}</span>
+                    <span className="text-sm text-gray-600">By {resource.author || 'Anonymous'}</span>
+                    <span className="text-xs text-gray-500">{resource.publishDate || 'No date'}</span>
                   </div>
                 </div>
                 
                 {/* Action Footer */}
                 <div className="px-6 py-4 bg-gray-50 border-t border-gray-100">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium text-blue-600">{resource.category}</span>
+                    <span className="text-sm font-medium text-blue-600">{resource.category || 'Uncategorized'}</span>
                     <div className="flex items-center gap-2">
                       <button className="p-2 text-gray-500 hover:text-blue-600 transition-colors duration-200">
                         <Bookmark className="w-4 h-4" />
@@ -457,18 +446,18 @@ export default function ResourcesPage() {
                     <div className="flex items-center gap-3 text-sm text-gray-500">
                       <span className="flex items-center gap-1">
                         <Tag className="w-3 h-3" />
-                        {resource.category}
+                        {resource.category || 'Uncategorized'}
                       </span>
                       <span className="flex items-center gap-1">
                         {resource.type === 'template' ? (
                           <>
                             <Download className="w-3 h-3" />
-                            {resource.downloads} downloads
+                            {(resource.downloads || 0).toLocaleString()} downloads
                           </>
                         ) : (
                           <>
                             <Eye className="w-3 h-3" />
-                            {resource.views.toLocaleString()} views
+                            {(resource.views || 0).toLocaleString()} views
                           </>
                         )}
                       </span>
@@ -536,7 +525,7 @@ export default function ResourcesPage() {
 
         {/* CTA Section */}
         <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-3xl p-12 text-white text-center">
-          <h2 className="text-4xl font-bold mb-4">Can't Find What You Need?</h2>
+          <h2 className="text-4xl font-bold mb-4">Can&apos;t Find What You Need?</h2>
           <p className="text-xl text-purple-100 mb-8 max-w-3xl mx-auto">
             Our community and support team are here to help. Ask a question, suggest new content, 
             or connect with fellow learners in our forums.

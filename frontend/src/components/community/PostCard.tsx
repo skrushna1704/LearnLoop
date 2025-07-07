@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Post, Comment, addComment, getComments } from '@/lib/api/posts';
 import { useAuth } from '@/context/AuthContext';
 import { Avatar } from '@/components/ui/Avatar';
@@ -136,9 +137,11 @@ const PostCard: React.FC<PostCardProps> = ({ post, isLiked, onLike, onShare }) =
         </div>
         <p>{post.content}</p>
         {post.image && (
-          <img
+          <Image
             src={post.image}
             alt="Post image"
+            width={800}
+            height={600}
             className="mt-4 rounded-lg w-full"
           />
         )}

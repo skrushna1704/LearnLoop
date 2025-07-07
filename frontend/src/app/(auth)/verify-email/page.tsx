@@ -1,7 +1,7 @@
 // src/app/auth/verify-email/page.tsx
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { 
@@ -34,12 +34,7 @@ export default function VerifyEmailPage() {
   const [canResend, setCanResend] = useState(true);
   const [countdown, setCountdown] = useState(0);
 
-  // Auto-verify if token is present
-  useEffect(() => {
-    if (token) {
-      verifyEmail(token);
-    }
-  }, [token]);
+
 
   // Countdown timer for resend button
   useEffect(() => {
@@ -52,7 +47,7 @@ export default function VerifyEmailPage() {
     return () => clearTimeout(timer);
   }, [countdown]);
 
-  const verifyEmail = async (verificationToken: string) => {
+  const verifyEmail = useCallback(async (verificationToken: string) => {
     setIsVerifying(true);
     setError(null);
 
@@ -83,7 +78,14 @@ export default function VerifyEmailPage() {
     } finally {
       setIsVerifying(false);
     }
-  };
+  }, [router]);
+
+    // Auto-verify if token is present
+    useEffect(() => {
+      if (token) {
+        verifyEmail(token);
+      }
+    }, [token, verifyEmail]);
 
   const handleResendEmail = async () => {
     if (!canResend) return;

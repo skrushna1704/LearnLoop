@@ -4,6 +4,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { 
   Mail, 
@@ -33,7 +34,6 @@ export default function ForgotPasswordPage() {
     register,
     handleSubmit,
     formState: { errors, isValid },
-    getValues
   } = useForm<ForgotPasswordFormData>({
     resolver: zodResolver(forgotPasswordSchema),
     mode: 'onChange'
@@ -55,8 +55,9 @@ export default function ForgotPasswordPage() {
       }
       setEmail(data.email);
       setIsSuccess(true);
-    } catch (err: any) {
-      setError(err.message || 'Something went wrong. Please try again.');
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'Something went wrong. Please try again.';
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -74,8 +75,9 @@ export default function ForgotPasswordPage() {
       if (!response.ok) {
         throw new Error(result.message || 'Failed to resend email.');
       }
-    } catch (err: any) {
-      setError(err.message || 'Failed to resend email. Please try again.');
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to resend email. Please try again.';
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -105,7 +107,7 @@ export default function ForgotPasswordPage() {
             </h2>
             
             <p className="text-gray-600 mb-6">
-              We've sent password reset instructions to:
+              We&apos;ve sent password reset instructions to:
             </p>
             
             <div className="bg-gray-50 rounded-lg p-4 mb-6">
@@ -119,7 +121,7 @@ export default function ForgotPasswordPage() {
               </div>
               <div className="flex items-center space-x-3">
                 <Shield className="h-5 w-5 text-indigo-500 flex-shrink-0" />
-                <span>Check your spam folder if you don't see it</span>
+                <span>Check your spam folder if you don&apos;t see it</span>
               </div>
             </div>
 
@@ -181,7 +183,7 @@ export default function ForgotPasswordPage() {
             Forgot Password?
           </h2>
           <p className="text-gray-600">
-            No worries! Enter your email and we'll send you reset instructions.
+            No worries! Enter your email and we&apos;ll send you reset instructions.
           </p>
         </div>
 

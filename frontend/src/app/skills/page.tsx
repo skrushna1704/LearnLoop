@@ -1,48 +1,28 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import {
   Search,
-  Filter,
   Code,
   Palette,
   Music,
   Camera,
   Coffee,
   BookOpen,
-  Star,
   Users,
   Globe,
   TrendingUp,
-  Award,
   Play,
-  ArrowRight,
-  Eye,
-  Heart,
-  MapPin,
-  Clock,
-  Zap,
-  Target,
-  Sparkles,
-  Crown,
-  ChevronRight,
-  UserPlus,
-  LogIn,
+  ArrowLeftRight,
   Briefcase,
   Languages,
-  Dumbbell,
-  PaintBucket,
-  Calculator,
-  Mic,
-  Gamepad2,
-  ArrowLeftRight,
   Handshake,
-  RefreshCw,
-  Gift,
   Users2,
   BookOpenCheck,
   GraduationCap,
-  Lightbulb
+  Lightbulb,
+  ChevronRight
 } from 'lucide-react';
 
 const skillCategories = [
@@ -214,7 +194,6 @@ const howItWorksSteps = [
 ];
 
 export default function PublicSkillExchangePage() {
-  const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
 
   return (
@@ -448,14 +427,18 @@ export default function PublicSkillExchangePage() {
                 {/* Avatar Pair */}
                 <div className="relative mb-6">
                   <div className="flex items-center justify-center">
-                    <img
+                    <Image
                       src={story.avatar1}
                       alt="Teacher"
+                      width={64}
+                      height={64}
                       className="w-16 h-16 rounded-full border-4 border-white shadow-lg -mr-4 z-10"
                     />
-                    <img
+                    <Image
                       src={story.avatar2}
                       alt="Learner"
+                      width={64}
+                      height={64}
                       className="w-16 h-16 rounded-full border-4 border-white shadow-lg -ml-4 z-10"
                     />
                   </div>
@@ -476,7 +459,7 @@ export default function PublicSkillExchangePage() {
                   </span>
                 </div>
                 
-                <p className="text-gray-600 mb-4 italic">"{story.result}"</p>
+                <p className="text-gray-600 mb-4 italic">&ldquo;{story.result}&rdquo;</p>
                 
                 <div className="text-sm text-gray-500">
                   Exchange Duration: {story.duration}

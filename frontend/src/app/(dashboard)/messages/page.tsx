@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import Image from 'next/image';
 import { useAuth } from '@/context/AuthContext';
 import { useSocket } from '@/context/SocketContext';
 import { useSearchParams } from 'next/navigation';
@@ -182,7 +183,7 @@ export default function MessagesPage() {
         // Show toast notification
         toast.custom((t) => (
           <div className={`bg-white shadow-lg rounded-lg px-4 py-3 flex items-center gap-3 border-l-4 border-blue-500 ${t.visible ? 'animate-enter' : 'animate-leave'}`}> 
-            <img src={newMessage.senderId.profile.profilePicture || 'https://i.pravatar.cc/150?img=1'} alt={newMessage.senderId.profile.name} className="w-8 h-8 rounded-full" />
+            <Image src={newMessage.senderId.profile.profilePicture || 'https://i.pravatar.cc/150?img=1'} alt={newMessage.senderId.profile.name} width={32} height={32} className="w-8 h-8 rounded-full" />
             <div>
               <div className="font-semibold text-gray-800">{newMessage.senderId.profile.name}</div>
               <div className="text-gray-600 text-sm">{newMessage.content}</div>
@@ -282,8 +283,8 @@ export default function MessagesPage() {
     fetchConversations();
   }, [currentUser, searchParams, socket, isConnected]);
 
-  // Effect for joining and leaving socket rooms when conversation changes
-  useEffect(() => {
+  // Memoized function to join room
+  const joinRoom = useCallback(() => {
     if (selectedConversation && socket && isConnected) {
       console.log('🏠 Joining room for selected conversation:', selectedConversation._id);
       console.log('Socket connected:', socket.connected);
@@ -311,36 +312,48 @@ export default function MessagesPage() {
       console.log('Socket connected:', socket?.connected);
       console.log('Is connected state:', isConnected);
     }
-  }, [selectedConversation?._id, socket, isConnected]);
+  }, [selectedConversation, socket, isConnected]);
+
+  // Effect for joining and leaving socket rooms when conversation changes
+  useEffect(() => {
+    joinRoom();
+  }, [joinRoom]);
+
+  // Memoized function to fetch messages
+  const fetchMessages = useCallback(async () => {
+    if (!selectedConversation) return;
+    try {
+      const token = localStorage.getItem('authToken');
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/messages/${selectedConversation._id}`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (!response.ok) throw new Error('Failed to fetch messages');
+      const data = await response.json();
+      setMessages(data);
+    } catch (err) {
+      console.error('Error fetching messages:', err);
+      setMessages([]); // Clear messages on error
+    }
+  }, [selectedConversation]);
 
   // Effect for fetching messages when a conversation is selected
   useEffect(() => {
-    const fetchMessages = async () => {
-      if (!selectedConversation) return;
-      try {
-        const token = localStorage.getItem('authToken');
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/messages/${selectedConversation._id}`, {
-          headers: { 'Authorization': `Bearer ${token}` }
-        });
-        if (!response.ok) throw new Error('Failed to fetch messages');
-        const data = await response.json();
-        setMessages(data);
-      } catch (err) {
-        console.error('Error fetching messages:', err);
-        setMessages([]); // Clear messages on error
-      }
-    };
     fetchMessages();
-  }, [selectedConversation]);
+  }, [fetchMessages]);
 
-  // When a conversation is selected, clear its unread count
-  useEffect(() => {
+  // Memoized function to clear unread count
+  const clearUnreadCount = useCallback(() => {
     if (selectedConversation) {
       setConversations(prevConvs => prevConvs.map(conv =>
         conv._id === selectedConversation._id ? { ...conv, unread: 0 } : conv
       ));
     }
   }, [selectedConversation]);
+
+  // When a conversation is selected, clear its unread count
+  useEffect(() => {
+    clearUnreadCount();
+  }, [clearUnreadCount]);
 
   // Listen for online/offline events
   useEffect(() => {
@@ -541,9 +554,11 @@ export default function MessagesPage() {
                     
                     {/* Avatar with Online Status */}
                     <div className="relative">
-                      <img
+                      <Image
                         src={partner.profile.profilePicture || 'https://i.pravatar.cc/150?img=1'}
                         alt={partner.profile.name}
+                        width={48}
+                        height={48}
                         className="w-12 h-12 rounded-full border-2 border-white shadow-sm"
                       />
                       {/* Online/offline dot */}
@@ -584,9 +599,11 @@ export default function MessagesPage() {
                   <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
                 </button>
                 <div className="relative">
-                  <img
+                  <Image
                     src={selectedConversation.proposer._id === currentUser?.id ? selectedConversation.receiver.profile.profilePicture : selectedConversation.proposer.profile.profilePicture || 'https://i.pravatar.cc/150?img=1'}
                     alt={selectedConversation.proposer._id === currentUser?.id ? selectedConversation.receiver.profile.name : selectedConversation.proposer.profile.name}
+                    width={48}
+                    height={48}
                     className="w-12 h-12 rounded-full border-2 border-white shadow-sm"
                   />
                   {/* {selectedConversation.user.online && (
@@ -701,7 +718,7 @@ export default function MessagesPage() {
                   } p-3 sm:p-4 relative`}>
                     {isFile && fileData ? (
                       fileData.mime && fileData.mime.startsWith('image/') ? (
-                        <img src={fileData.url} alt={fileData.name} style={{ maxWidth: 200, borderRadius: 8 }} />
+                        <Image src={fileData.url} alt={fileData.name} width={200} height={200} style={{ maxWidth: 200, borderRadius: 8 }} />
                       ) : (
                         <a href={fileData.url} target="_blank" rel="noopener noreferrer" className="underline text-blue-200">{fileData.name}</a>
                       )

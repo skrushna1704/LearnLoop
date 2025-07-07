@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef ,useCallback} from 'react';
 import { Mic, MicOff, Video, VideoOff, PhoneOff, MessageSquare } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import { useSocket } from '@/context/SocketContext';
@@ -24,6 +24,84 @@ export default function VideoCallPage() {
   // Use the global socket context
   const { socket, isConnected } = useSocket();
   const { user: currentUser } = useAuth();
+
+ 
+
+  const startPeerConnection = useCallback(async () => {
+    if (peerConnectionRef.current) return; // Already started
+    
+    const pc = new RTCPeerConnection({
+      iceServers: [
+        { urls: 'stun:stun.l.google.com:19302' },
+      ]
+    });
+
+    localStreamRef.current?.getTracks().forEach(track => {
+      pc.addTrack(track, localStreamRef.current!);
+    });
+
+    pc.ontrack = (event) => {
+      if (remoteVideoRef.current) {
+        remoteVideoRef.current.srcObject = event.streams[0];
+      }
+    };
+
+    pc.onicecandidate = (event) => {
+      if (event.candidate) {
+        socket?.emit('webrtc-ice-candidate', { candidate: event.candidate, roomId: callRoomId });
+      }
+    };
+
+    pc.onconnectionstatechange = () => {
+      console.log('Connection state:', pc.connectionState);
+      if (pc.connectionState === 'connected') {
+        setConnectionStatus('connected');
+      } else if (pc.connectionState === 'failed') {
+        setConnectionStatus('error');
+      }
+    };
+
+    peerConnectionRef.current = pc;
+  }, [callRoomId, socket]);
+
+  const createOffer = useCallback(async () => {
+    if (!peerConnectionRef.current) return;
+    
+    try {
+      const offer = await peerConnectionRef.current.createOffer();
+      await peerConnectionRef.current.setLocalDescription(offer);
+      socket?.emit('webrtc-offer', { sdp: offer, offererId: socket.id, roomId: callRoomId });
+      console.log('Offer created and sent');
+    } catch (error) {
+      console.error('Error creating offer:', error);
+      setConnectionStatus('error');
+    }
+  }, [callRoomId, socket]);
+
+  const handleEndCall = () => {
+    localStreamRef.current?.getTracks().forEach(track => track.stop());
+    peerConnectionRef.current?.close();
+    router.push('/exchanges');
+  };
+  
+  const toggleMute = () => {
+    if (localStreamRef.current) {
+        localStreamRef.current.getAudioTracks().forEach(track => {
+            track.enabled = !track.enabled;
+        });
+        setIsMuted(!isMuted);
+    }
+  };
+
+  const toggleVideo = () => {
+      if(localStreamRef.current) {
+          localStreamRef.current.getVideoTracks().forEach(track => {
+              track.enabled = !track.enabled;
+          });
+          setIsVideoOff(!isVideoOff);
+      }
+  };
+
 
   useEffect(() => {
     if (!socket || !isConnected || !currentUser) return;
@@ -123,82 +201,7 @@ export default function VideoCallPage() {
       socket.off('webrtc-answer', handleWebRTCAnswer);
       socket.off('webrtc-ice-candidate', handleICECandidate);
     };
-  }, [socket, isConnected, exchangeId, callRoomId, currentUser]);
-
-  const startPeerConnection = async () => {
-    if (peerConnectionRef.current) return; // Already started
-    
-    const pc = new RTCPeerConnection({
-      iceServers: [
-        { urls: 'stun:stun.l.google.com:19302' },
-      ]
-    });
-
-    localStreamRef.current?.getTracks().forEach(track => {
-      pc.addTrack(track, localStreamRef.current!);
-    });
-
-    pc.ontrack = (event) => {
-      if (remoteVideoRef.current) {
-        remoteVideoRef.current.srcObject = event.streams[0];
-      }
-    };
-
-    pc.onicecandidate = (event) => {
-      if (event.candidate) {
-        socket?.emit('webrtc-ice-candidate', { candidate: event.candidate, roomId: callRoomId });
-      }
-    };
-
-    pc.onconnectionstatechange = () => {
-      console.log('Connection state:', pc.connectionState);
-      if (pc.connectionState === 'connected') {
-        setConnectionStatus('connected');
-      } else if (pc.connectionState === 'failed') {
-        setConnectionStatus('error');
-      }
-    };
-
-    peerConnectionRef.current = pc;
-  };
-
-  const createOffer = async () => {
-    if (!peerConnectionRef.current) return;
-    
-    try {
-      const offer = await peerConnectionRef.current.createOffer();
-      await peerConnectionRef.current.setLocalDescription(offer);
-      socket?.emit('webrtc-offer', { sdp: offer, offererId: socket.id, roomId: callRoomId });
-      console.log('Offer created and sent');
-    } catch (error) {
-      console.error('Error creating offer:', error);
-      setConnectionStatus('error');
-    }
-  };
-
-  const handleEndCall = () => {
-    localStreamRef.current?.getTracks().forEach(track => track.stop());
-    peerConnectionRef.current?.close();
-    router.push('/exchanges');
-  };
-  
-  const toggleMute = () => {
-    if (localStreamRef.current) {
-        localStreamRef.current.getAudioTracks().forEach(track => {
-            track.enabled = !track.enabled;
-        });
-        setIsMuted(!isMuted);
-    }
-  };
-
-  const toggleVideo = () => {
-      if(localStreamRef.current) {
-          localStreamRef.current.getVideoTracks().forEach(track => {
-              track.enabled = !track.enabled;
-          });
-          setIsVideoOff(!isVideoOff);
-      }
-  };
+  }, [socket, isConnected, exchangeId, callRoomId, currentUser, startPeerConnection, createOffer]);
 
   return (
     <div className="flex h-screen w-full flex-col bg-gray-900 text-white">

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import {
   Search,
   Filter,
@@ -8,8 +9,6 @@ import {
   Star,
   Users,
   Clock,
-  Globe,
-  Award,
   MessageSquare,
   Calendar,
   BookOpen,
@@ -17,23 +16,16 @@ import {
   Palette,
   Music,
   Camera,
-  Coffee,
   Languages,
   Briefcase,
   Heart,
   CheckCircle,
   Target,
-  Zap,
   TrendingUp,
   Eye,
   ArrowRight,
   Plus,
-  Sparkles,
-  Crown,
-  Badge,
-  Video,
-  Phone,
-  Mail
+  Crown
 } from 'lucide-react';
 
 const teachers = [
@@ -232,9 +224,7 @@ const filters = {
 export default function TeachersPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All Skills');
-  const [selectedFilters, setSelectedFilters] = useState({});
   const [sortBy, setSortBy] = useState('rating');
-  const [viewMode, setViewMode] = useState('grid');
 
   const stats = {
     totalTeachers: teachers.length,
@@ -398,9 +388,11 @@ export default function TeachersPage() {
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-start gap-4">
                         <div className="relative">
-                          <img
+                          <Image
                             src={teacher.avatar}
                             alt={teacher.name}
+                            width={64}
+                            height={64}
                             className="w-16 h-16 rounded-full border-3 border-white shadow-lg"
                           />
                           {teacher.online && (
@@ -544,7 +536,7 @@ export default function TeachersPage() {
 
         {/* CTA Section */}
         <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-3xl p-12 text-white text-center">
-          <h2 className="text-4xl font-bold mb-4">Can't Find What You're Looking For?</h2>
+          <h2 className="text-4xl font-bold mb-4">Can&apos;t Find What You&apos;re Looking For?</h2>
           <p className="text-xl text-purple-100 mb-8 max-w-3xl mx-auto">
             Join our community and post your learning goals. Teachers will reach out to you directly!
           </p>

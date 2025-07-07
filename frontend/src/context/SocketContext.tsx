@@ -111,7 +111,7 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
         setIsConnected(false);
       }
     }
-  }, [user]);
+  }, [user, apiUrl]);
 
   // Always provide the socket, even if it's null or not connected
   const contextValue = {

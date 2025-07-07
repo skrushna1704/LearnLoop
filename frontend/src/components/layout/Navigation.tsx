@@ -12,9 +12,7 @@ import {
   BookOpen,
   MessageCircle,
   Calendar,
-  Settings,
   HelpCircle,
-  Star,
   TrendingUp,
   User,
   Gift

@@ -1,7 +1,7 @@
 // src/components/sections/StatsTestimonialsSection.tsx
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { 
   Star, 
   Users, 
@@ -21,6 +21,31 @@ import { Card } from '@/components/ui/Card';
 interface StatsTestimonialsSectionProps {
   className?: string;
 }
+
+// Animated counter hook
+const useAnimatedCounter = (targetValue: number, inView: boolean, duration = 2000) => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!inView) return;
+
+    let startTime: number;
+    const animate = (currentTime: number) => {
+      if (!startTime) startTime = currentTime;
+      const progress = Math.min((currentTime - startTime) / duration, 1);
+      
+      setCount(Math.floor(progress * targetValue));
+      
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+    
+    requestAnimationFrame(animate);
+  }, [targetValue, duration, inView]);
+
+  return count;
+};
 
 const Stats: React.FC<StatsTestimonialsSectionProps> = ({ className }) => {
   const [inView, setInView] = useState(false);
@@ -181,38 +206,19 @@ const Stats: React.FC<StatsTestimonialsSectionProps> = ({ className }) => {
     return () => clearInterval(interval);
   }, [testimonials.length]);
 
-  // Animated counter hook
-  const useAnimatedCounter = (targetValue: number, duration = 2000) => {
-    const [count, setCount] = useState(0);
+  // Call hooks at component level
+  const animatedValue1 = useAnimatedCounter(stats[0].value, inView);
+  const animatedValue2 = useAnimatedCounter(stats[1].value, inView);
+  const animatedValue3 = useAnimatedCounter(stats[2].value, inView);
+  const animatedValue4 = useAnimatedCounter(stats[3].value, inView);
 
-    useEffect(() => {
-      if (!inView) return;
-
-      let startTime: number;
-      const animate = (currentTime: number) => {
-        if (!startTime) startTime = currentTime;
-        const progress = Math.min((currentTime - startTime) / duration, 1);
-        
-        setCount(Math.floor(progress * targetValue));
-        
-        if (progress < 1) {
-          requestAnimationFrame(animate);
-        }
-      };
-      
-      requestAnimationFrame(animate);
-    }, [targetValue, duration, inView]);
-
-    return count;
-  };
-
-  const nextTestimonial = () => {
+  const nextTestimonial = useCallback(() => {
     setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-  };
+  }, [testimonials.length]);
 
-  const prevTestimonial = () => {
+  const prevTestimonial = useCallback(() => {
     setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-  };
+  }, [testimonials.length]);
 
   return (
     <section 
@@ -238,7 +244,7 @@ const Stats: React.FC<StatsTestimonialsSectionProps> = ({ className }) => {
         {/* Stats Grid */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
           {stats.map((stat, index) => {
-            const animatedValue = useAnimatedCounter(stat.value);
+            const animatedValue = [animatedValue1, animatedValue2, animatedValue3, animatedValue4][index];
             
             return (
               <Card
@@ -267,7 +273,7 @@ const Stats: React.FC<StatsTestimonialsSectionProps> = ({ className }) => {
               What Our Community Says
             </h3>
             <p className="text-lg text-gray-600">
-              Real stories from real learners who've transformed their skills
+              Real stories from real learners who&apos;ve transformed their skills
             </p>
           </div>
 
@@ -292,7 +298,7 @@ const Stats: React.FC<StatsTestimonialsSectionProps> = ({ className }) => {
 
                 {/* Testimonial Text */}
                 <blockquote className="text-xl md:text-2xl text-gray-700 text-center mb-8 leading-relaxed">
-                  "{testimonials[currentTestimonial].text}"
+                  &ldquo;{testimonials[currentTestimonial].text}&rdquo;
                 </blockquote>
 
                 {/* User Info */}

@@ -138,7 +138,12 @@ export const profileSetupSchema = z.object({
   profilePicture: z.string().optional(),
   interests: z.array(z.string()).optional(),
   learningGoals: z.array(z.string()).optional(),
+  skills: z.array(z.string()).optional(),
+  goals: z.string().optional(),
+  availability: z.enum(['weekdays', 'weekends', 'evenings', 'flexible']).optional(),
 });
+
+export type ProfileSetupFormData = z.infer<typeof profileSetupSchema>;
 
 // =============================================================================
 // SKILL SCHEMAS

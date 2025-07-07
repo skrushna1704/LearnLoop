@@ -2,6 +2,24 @@
 
 import { User } from '@/context/AuthContext';
 
+// Error types
+interface ApiError {
+  code?: string;
+  message?: string;
+  response?: {
+    data?: {
+      message?: string;
+    };
+  };
+}
+
+interface AppPreferences {
+  theme?: string;
+  language?: string;
+  notifications?: boolean;
+  [key: string]: unknown;
+}
+
 // =============================================================================
 // TOKEN MANAGEMENT
 // =============================================================================
@@ -63,21 +81,31 @@ export const UserHelpers = {
   // Get user's full name
   getFullName: (user: User | null): string => {
     if (!user) return '';
-    return `${user.firstName} ${user.lastName}`.trim();
+    return user.profile?.name || user.email;
   },
 
   // Get user's initials for avatar
   getInitials: (user: User | null): string => {
     if (!user) return 'U';
-    const firstName = user.firstName.charAt(0).toUpperCase();
-    const lastName = user.lastName.charAt(0).toUpperCase();
-    return `${firstName}${lastName}`;
+    
+    if (user.profile?.name) {
+      const nameParts = user.profile.name.split(' ');
+      const firstName = nameParts[0]?.charAt(0).toUpperCase() || '';
+      const lastName = nameParts[1]?.charAt(0).toUpperCase() || '';
+      return `${firstName}${lastName}`;
+    }
+    
+    // Fallback to email initials
+    const emailParts = user.email.split('@')[0];
+    return emailParts.charAt(0).toUpperCase();
   },
 
   // Check if user has completed onboarding
   isOnboardingComplete: (user: User | null): boolean => {
     if (!user) return false;
-    return user.isEmailVerified && user.isProfileComplete && user.skills.length > 0;
+    const hasSkillsOffered = Boolean(user.skills_offered && user.skills_offered.length > 0);
+    const hasSkillsNeeded = Boolean(user.skills_needed && user.skills_needed.length > 0);
+    return user.isEmailVerified && user.isProfileComplete && (hasSkillsOffered || hasSkillsNeeded);
   },
 
   // Get user's status badge
@@ -99,9 +127,9 @@ export const UserHelpers = {
 
   // Format user's last active time
   formatLastActive: (user: User | null): string => {
-    if (!user?.lastActive) return 'Never';
+    if (!user?.updatedAt) return 'Never';
 
-    const lastActive = new Date(user.lastActive);
+    const lastActive = new Date(user.updatedAt);
     const now = new Date();
     const diffInHours = Math.floor((now.getTime() - lastActive.getTime()) / (1000 * 60 * 60));
 
@@ -113,14 +141,14 @@ export const UserHelpers = {
 
   // Check if user can teach a skill
   canTeachSkill: (user: User | null, skill: string): boolean => {
-    if (!user) return false;
-    return user.skills.includes(skill);
+    if (!user || !user.skills_offered) return false;
+    return user.skills_offered.some(s => s.skillId === skill);
   },
 
   // Check if user is interested in learning a skill
   wantsToLearnSkill: (user: User | null, skill: string): boolean => {
-    if (!user) return false;
-    return user.interests.includes(skill);
+    if (!user || !user.skills_needed) return false;
+    return user.skills_needed.some(s => s.skillId === skill);
   }
 };
 
@@ -305,11 +333,12 @@ export const ValidationHelpers = {
 
 export const ErrorHelpers = {
   // Get user-friendly error message
-  getErrorMessage: (error: any): string => {
+  getErrorMessage: (error: ApiError | string | unknown): string => {
     if (typeof error === 'string') return error;
     
-    if (error?.response?.data?.message) return error.response.data.message;
-    if (error?.message) return error.message;
+    const apiError = error as ApiError;
+    if (apiError?.response?.data?.message) return apiError.response.data.message;
+    if (apiError?.message) return apiError.message;
     
     // Common error mappings
     const errorMappings: Record<string, string> = {
@@ -325,13 +354,14 @@ export const ErrorHelpers = {
       'rate_limited': 'Too many requests. Please try again later.'
     };
 
-    return errorMappings[error?.code] || 'An unexpected error occurred.';
+    return errorMappings[apiError?.code || ''] || 'An unexpected error occurred.';
   },
 
   // Check if error requires reauthentication
-  requiresReauth: (error: any): boolean => {
+  requiresReauth: (error: ApiError | unknown): boolean => {
+    const apiError = error as ApiError;
     const reAuthCodes = ['invalid_token', 'token_expired', 'unauthorized'];
-    return reAuthCodes.includes(error?.code);
+    return reAuthCodes.includes(apiError?.code || '');
   }
 };
 
@@ -373,7 +403,7 @@ export const StorageHelpers = {
   },
 
   // Store app preferences
-  storePreferences: (preferences: Record<string, any>): void => {
+  storePreferences: (preferences: AppPreferences): void => {
     if (typeof window === 'undefined') return;
     try {
       localStorage.setItem('appPreferences', JSON.stringify(preferences));
@@ -383,7 +413,7 @@ export const StorageHelpers = {
   },
 
   // Get stored preferences
-  getStoredPreferences: (): Record<string, any> => {
+  getStoredPreferences: (): AppPreferences => {
     if (typeof window === 'undefined') return {};
     try {
       const data = localStorage.getItem('appPreferences');

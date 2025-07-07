@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { 
   Home,
   Code,
@@ -282,9 +283,11 @@ const Sidebar: React.FC<SidebarProps> = ({
         {isCollapsed ? (
           <div className="relative group">
             <div className="w-12 h-12 mx-auto rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 p-0.5">
-              <img
+              <Image
                 src={user.profile?.profilePicture || 'https://i.pravatar.cc/150?img=1'}
                 alt={user.profile?.name || user.email}
+                width={48}
+                height={48}
                 className="w-full h-full rounded-xl object-cover"
               />
               {/* Online status can be re-added when available in API */}
@@ -300,9 +303,11 @@ const Sidebar: React.FC<SidebarProps> = ({
             <div className="flex items-center gap-3 mb-3">
               <div className="relative">
                 <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 p-0.5">
-                  <img
+                  <Image
                     src={user.profile?.profilePicture || 'https://i.pravatar.cc/150?img=1'}
                     alt={user.profile?.name || user.email}
+                    width={48}
+                    height={48}
                     className="w-full h-full rounded-xl object-cover"
                   />
                 </div>

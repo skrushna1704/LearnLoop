@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Badge, Card, CardContent, Avatar } from '@/components/ui';
 import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui';
@@ -100,7 +101,7 @@ export function Testimonials({ testimonials }: TestimonialsProps) {
                     
                     <div className="flex items-center space-x-3">
                       <Avatar className="h-12 w-12 ring-2 ring-blue-100">
-                        <img src={testimonial.avatar} alt={testimonial.name} className="rounded-full" />
+                        <Image src={testimonial.avatar} alt={testimonial.name} width={48} height={48} className="rounded-full" />
                       </Avatar>
                       <div>
                         <p className="font-semibold text-gray-900">{testimonial.name}</p>

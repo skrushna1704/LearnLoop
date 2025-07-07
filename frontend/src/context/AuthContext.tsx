@@ -22,12 +22,21 @@ interface SkillReference {
   learning_goals?: string;
 }
 
+interface SkillUpdateInput {
+  name: string;
+  level: string;
+  category?: string;
+  description?: string;
+  experience?: string;
+}
+
 // Types - Aligned with backend IUser model
 interface User {
   id: string; // Mongoose adds 'id' virtually
   email: string;
   isEmailVerified: boolean;
   isProfileComplete: boolean;
+  role?: string; // Default role for users
   profile?: {
     name?: string;
     profilePicture?: string;
@@ -60,7 +69,7 @@ interface AuthContextType {
   forgotPassword: (email: string) => Promise<void>;
   resetPassword: (token: string, password: string) => Promise<void>;
   resendVerification: (email: string) => Promise<void>;
-  updateProfile: (data: Partial<User>) => Promise<void>;
+  updateProfile: (data: Partial<User> | { skills_offered?: SkillUpdateInput[] } | { skills_needed?: SkillUpdateInput[] }) => Promise<void>;
   
   // Utils
   checkAuth: () => Promise<void>;
@@ -341,7 +350,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   // Update profile function
-  const updateProfile = async (data: Partial<User>) => {
+  const updateProfile = async (data: Partial<User> | { skills_offered?: SkillUpdateInput[] } | { skills_needed?: SkillUpdateInput[] }) => {
     try {
       setIsLoading(true);
       const token = localStorage.getItem('authToken');

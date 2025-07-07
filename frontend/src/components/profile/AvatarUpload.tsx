@@ -2,17 +2,14 @@
 'use client';
 
 import React, { useState, useRef, useCallback } from 'react';
+import Image from 'next/image';
 import { 
   Camera, 
-  Upload, 
   X, 
-  Crop,
   RotateCw,
   Save,
   Trash2,
-  User,
   AlertCircle,
-  CheckCircle,
   Loader2,
   ImageIcon
 } from 'lucide-react';
@@ -162,7 +159,7 @@ export default function AvatarUpload({
       const ctx = canvas.getContext('2d');
       if (!ctx) return resolve(imageSrc);
 
-      const image = new Image();
+      const image = new window.Image();
       image.onload = () => {
         const size = 400; // Output size
         canvas.width = size;
@@ -231,7 +228,7 @@ export default function AvatarUpload({
       await onUpload(croppedFile, croppedImageUrl);
       setPreview(croppedImageUrl);
       setShowCropModal(false);
-    } catch (err) {
+    } catch {
       setError('Failed to upload avatar. Please try again.');
     } finally {
       setIsUploading(false);
@@ -246,7 +243,7 @@ export default function AvatarUpload({
     try {
       await onRemove();
       setPreview(null);
-    } catch (err) {
+    } catch {
       setError('Failed to remove avatar. Please try again.');
     } finally {
       setIsUploading(false);
@@ -287,9 +284,11 @@ export default function AvatarUpload({
           onClick={editable ? () => fileInputRef.current?.click() : undefined}
         >
           {preview ? (
-            <img 
+            <Image 
               src={preview} 
               alt="Avatar" 
+              width={size === 'sm' ? 64 : size === 'md' ? 96 : size === 'lg' ? 128 : 160}
+              height={size === 'sm' ? 64 : size === 'md' ? 96 : size === 'lg' ? 128 : 160}
               className="w-full h-full object-cover" 
             />
           ) : (
@@ -392,9 +391,11 @@ export default function AvatarUpload({
             {/* Image Preview */}
             <div className="mb-6">
               <div className="relative mx-auto w-64 h-64 border border-gray-300 rounded-lg overflow-hidden">
-                <img
+                <Image
                   src={preview}
                   alt="Preview"
+                  width={256}
+                  height={256}
                   className="w-full h-full object-cover"
                   style={{
                     transform: `rotate(${cropSettings.rotation}deg)`,

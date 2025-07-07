@@ -24,6 +24,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui';
+import Image from 'next/image';
 
 interface UserReference {
   _id: string;
@@ -143,7 +144,7 @@ export default function ExchangesPage() {
         }
       };
     }
-  }, [isConnected, socket]); // REMOVED `exchanges` from dependency array
+  }, [isConnected, socket, exchanges]); // Added `exchanges` back to dependency array
 
   const stats = {
     totalExchanges: exchanges.length,
@@ -281,10 +282,12 @@ export default function ExchangesPage() {
                     <div className="flex-1">
                       <div className="flex items-start gap-4">
                         <div className="relative">
-                          <img
+                          <Image
                             src={partner.profile.profilePicture || 'https://i.pravatar.cc/150?img=1'}
-                            alt={partner.profile.name}
+                            alt={partner.profile.name || 'Partner profile'}
                             className="w-16 h-16 rounded-full border-3 border-white shadow-lg"
+                            width={64}
+                            height={64}
                           />
                           {partner.profile.verified && (
                             <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center border-2 border-white">

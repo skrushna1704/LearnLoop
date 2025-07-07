@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { useAuth } from '@/context/AuthContext';
 import { createPost, CreatePostData } from '@/lib/api/posts';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -42,7 +41,6 @@ const postTypes = [
 
 export default function CreatePostPage() {
   const router = useRouter();
-  const { user } = useAuth();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { register, handleSubmit, control, watch, formState: { errors } } = useForm<FormData>({

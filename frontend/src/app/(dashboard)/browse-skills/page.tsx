@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { 
   Search, 
@@ -17,6 +17,7 @@ import {
   Heart,
   X
 } from 'lucide-react';
+import Image from 'next/image';
 
 interface Teacher {
   _id: string;
@@ -87,11 +88,9 @@ export default function EnhancedSkillsPage() {
     fetchSkills();
   }, []);
 
-  useEffect(() => {
-    filterAndSortSkills();
-  }, [searchTerm, selectedCategory, selectedLevel, sortBy, skills]);
 
-  const filterAndSortSkills = () => {
+
+  const filterAndSortSkills = useCallback(() => {
     let filtered: Skill[] = [...skills];
 
     // Filter by search
@@ -129,7 +128,11 @@ export default function EnhancedSkillsPage() {
     });
 
     setFilteredSkills(filtered);
-  };
+  }, [skills, searchTerm, selectedCategory, selectedLevel, sortBy]);
+
+  useEffect(() => {
+    filterAndSortSkills();
+  }, [searchTerm, selectedCategory, selectedLevel, sortBy, skills, filterAndSortSkills]);
 
   const toggleFavorite = (skillId: string) => {
     const newFavorites = new Set(favorites);
@@ -226,11 +229,13 @@ export default function EnhancedSkillsPage() {
           <div className="flex items-center gap-2">
             <div className="flex -space-x-2">
               {skill.teachers?.slice(0, 3).map((teacher: Teacher) => (
-                <img
+                <Image
                   key={teacher._id}
                   src={teacher.profilePicture || `https://api.dicebear.com/7.x/avataaars/svg?seed=${teacher.name}`}
                   alt={teacher.name}
                   className="w-8 h-8 rounded-full border-2 border-white shadow-sm"
+                  width={32}
+                  height={32}
                 />
               ))}
               {skill.teachers?.length > 3 && (

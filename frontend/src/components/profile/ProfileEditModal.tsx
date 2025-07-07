@@ -24,6 +24,7 @@ import { Input } from '@/components/ui/Input';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 
+
 // Validation schema
 const profileEditSchema = z.object({
   firstName: z.string().min(2, 'First name must be at least 2 characters'),
@@ -60,7 +61,7 @@ interface ProfileEditModalProps {
     }>;
     interests: string[];
   };
-  onSave: (data: any) => Promise<void>;
+  onSave: (data: ProfileEditFormData & { skills: Array<{ name: string; level: string; verified: boolean; endorsements: number }>; interests: string[] }) => Promise<void>;
 }
 
 export default function ProfileEditModal({ 
@@ -84,8 +85,7 @@ export default function ProfileEditModal({
     register,
     handleSubmit,
     formState: { errors, isDirty },
-    reset,
-    getValues
+    reset
   } = useForm<ProfileEditFormData>({
     resolver: zodResolver(profileEditSchema),
     defaultValues: {
@@ -127,7 +127,7 @@ export default function ProfileEditModal({
       setTimeout(() => {
         onClose();
       }, 1500);
-    } catch (err) {
+    } catch {
       setError('Failed to update profile. Please try again.');
     } finally {
       setIsLoading(false);
@@ -452,7 +452,7 @@ export default function ProfileEditModal({
                 <div>
                   <h3 className="text-lg font-medium text-gray-900 mb-4">Learning Interests</h3>
                   <p className="text-gray-600 mb-6">
-                    Add topics and skills you'd like to learn. This helps us match you with the right teachers.
+                    Add topics and skills you&apos;d like to learn. This helps us match you with the right teachers.
                   </p>
                 </div>
 

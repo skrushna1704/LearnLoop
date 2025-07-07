@@ -1,6 +1,7 @@
 import React from 'react';
-import { Badge, ChevronRight } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 import { LucideIcon } from 'lucide-react';
+import { Badge } from '@/components/ui/Badge';
 
 interface Step {
   step: string;

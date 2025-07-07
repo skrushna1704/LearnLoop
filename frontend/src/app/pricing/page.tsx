@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
+import Image from 'next/image';
 import {
   Check,
-  X,
   Star,
   Heart,
   Users,
@@ -11,20 +11,13 @@ import {
   Zap,
   Shield,
   BookOpen,
-  MessageSquare,
-  Video,
-  Calendar,
-  Award,
   TrendingUp,
   Infinity,
   Gift,
   Sparkles,
-  Target,
-  Clock,
   DollarSign,
   ArrowRight,
   HelpCircle,
-  CheckCircle,
   Crown,
   Rocket
 } from 'lucide-react';
@@ -124,7 +117,7 @@ const testimonials = [
     name: 'Miguel Santos',
     role: 'Graphic Designer',
     avatar: 'https://i.pravatar.cc/150?img=2',
-    quote: 'Traditional courses cost me $500+ per skill. Here I\'ve learned 5 skills for free by sharing my design expertise.',
+    quote: 'Traditional courses cost me $500+ per skill. Here I&apos;ve learned 5 skills for free by sharing my design expertise.',
     savings: '$3,200',
     skillsLearned: 5
   },
@@ -132,7 +125,7 @@ const testimonials = [
     name: 'Emma Thompson',
     role: 'Marketing Manager',
     avatar: 'https://i.pravatar.cc/150?img=3',
-    quote: 'The community aspect is priceless. I\'ve made lifelong connections while mastering new skills completely free.',
+    quote: 'The community aspect is priceless. I&apos;ve made lifelong connections while mastering new skills completely free.',
     savings: '$1,800',
     skillsLearned: 4
   }
@@ -173,8 +166,6 @@ const stats = [
 ];
 
 export default function PricingPage() {
-  const [activeTab, setActiveTab] = useState('features');
-
   const totalSavings = testimonials.reduce((sum, testimonial) => 
     sum + parseInt(testimonial.savings.replace('$', '').replace(',', '')), 0
   );
@@ -355,9 +346,11 @@ export default function PricingPage() {
             {testimonials.map((testimonial, index) => (
               <div key={index} className="bg-white/10 backdrop-blur-sm rounded-2xl p-6">
                 <div className="flex items-center gap-4 mb-4">
-                  <img
+                  <Image
                     src={testimonial.avatar}
                     alt={testimonial.name}
+                    width={48}
+                    height={48}
                     className="w-12 h-12 rounded-full border-2 border-white/30"
                   />
                   <div>
@@ -365,7 +358,7 @@ export default function PricingPage() {
                     <p className="text-purple-100 text-sm">{testimonial.role}</p>
                   </div>
                 </div>
-                <p className="text-purple-100 mb-6 italic">"{testimonial.quote}"</p>
+                <p className="text-purple-100 mb-6 italic">&quot;{testimonial.quote}&quot;</p>
                 <div className="grid grid-cols-2 gap-4 text-center">
                   <div>
                     <div className="text-2xl font-bold">{testimonial.savings}</div>
@@ -407,7 +400,7 @@ export default function PricingPage() {
                   How is LearnLoop completely free?
                 </h3>
                 <p className="text-gray-600 leading-relaxed">
-                  We're community-funded and believe in the gift economy model. By enabling skill exchange 
+                  We&apos;re community-funded and believe in the gift economy model. By enabling skill exchange 
                   rather than monetary transactions, we create value without traditional business costs.
                 </p>
               </div>
@@ -430,7 +423,7 @@ export default function PricingPage() {
                 </h3>
                 <p className="text-gray-600 leading-relaxed">
                   Our community-driven rating system, peer verification, and mutual accountability 
-                  ensure high-quality exchanges. When both parties invest time, they're motivated to deliver value.
+                  ensure high-quality exchanges. When both parties invest time, they&apos;re motivated to deliver value.
                 </p>
               </div>
             </div>
@@ -439,10 +432,10 @@ export default function PricingPage() {
               <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                 <h3 className="text-lg font-semibold text-gray-900 mb-3 flex items-center gap-2">
                   <HelpCircle className="w-5 h-5 text-blue-500" />
-                  What if I don't have skills to teach?
+                  What if I don&apos;t have skills to teach?
                 </h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Everyone has something valuable to share! Whether it's a language, life experience, 
+                  Everyone has something valuable to share! Whether it&apos;s a language, life experience, 
                   hobby, or professional skill - our community helps you identify and develop your teaching abilities.
                 </p>
               </div>

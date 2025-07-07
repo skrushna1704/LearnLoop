@@ -1,18 +1,40 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { Button } from '@/components/ui/Button';
 import { Chrome } from 'lucide-react';
 import toast from 'react-hot-toast';
+
+// Google Identity Services types
+interface GoogleCredentialResponse {
+  credential: string;
+  select_by: string;
+}
+
+interface GoogleInitializeConfig {
+  client_id: string;
+  callback: (response: GoogleCredentialResponse) => void;
+  auto_select: boolean;
+  cancel_on_tap_outside: boolean;
+}
+
+interface GoogleButtonOptions {
+  type: string;
+  theme: string;
+  size: string;
+  text: string;
+  shape: string;
+  logo_alignment: string;
+}
 
 declare global {
   interface Window {
     google?: {
       accounts: {
         id: {
-          initialize: (config: any) => void;
-          renderButton: (element: HTMLElement, options: any) => void;
+          initialize: (config: GoogleInitializeConfig) => void;
+          renderButton: (element: HTMLElement, options: GoogleButtonOptions) => void;
           prompt: () => void;
         };
       };
@@ -36,6 +58,16 @@ export default function GoogleLoginButton({
   const { googleLogin, isLoading } = useAuth();
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
+  const handleCredentialResponse = useCallback(async (response: GoogleCredentialResponse) => {
+    try {
+      await googleLogin(response.credential);
+      toast.success('Successfully logged in with Google!');
+    } catch (error) {
+      console.error('Google login error:', error);
+      toast.error('Failed to login with Google. Please try again.');
+    }
+  }, [googleLogin]);
+
   useEffect(() => {
     // Load Google Identity Services script
     const script = document.createElement('script');
@@ -47,7 +79,7 @@ export default function GoogleLoginButton({
     script.onload = () => {
       if (window.google) {
         window.google.accounts.id.initialize({
-          client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+          client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '',
           callback: handleCredentialResponse,
           auto_select: false,
           cancel_on_tap_outside: true,
@@ -74,17 +106,7 @@ export default function GoogleLoginButton({
         document.head.removeChild(script);
       }
     };
-  }, []);
-
-  const handleCredentialResponse = async (response: any) => {
-    try {
-      await googleLogin(response.credential);
-      toast.success('Successfully logged in with Google!');
-    } catch (error) {
-      console.error('Google login error:', error);
-      toast.error('Failed to login with Google. Please try again.');
-    }
-  };
+  }, [handleCredentialResponse]);
 
   const handleManualGoogleLogin = async () => {
     try {

@@ -9,20 +9,16 @@ import {
   User, 
   MapPin, 
   BookOpen, 
-  Star, 
   Camera, 
   ArrowRight, 
   ArrowLeft,
   CheckCircle,
   Loader2,
-  Upload,
   X,
   Plus,
   Sparkles,
   Clock,
-  Users,
   Target,
-  Award
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -31,6 +27,7 @@ import { Badge } from '@/components/ui/Badge';
 import MinimalLogo from '@/components/ui/MinimalLogo';
 import { profileSetupSchema } from '@/utils/validation';
 import type { ProfileSetupFormData } from '@/utils/validation';
+import Image from 'next/image';
 
 export default function ProfileSetupPage() {
   const router = useRouter();
@@ -48,9 +45,7 @@ export default function ProfileSetupPage() {
     handleSubmit,
     formState: { errors },
     trigger,
-    getValues,
     setValue,
-    watch
   } = useForm<ProfileSetupFormData>({
     resolver: zodResolver(profileSetupSchema),
     mode: 'onChange',
@@ -214,7 +209,13 @@ export default function ProfileSetupPage() {
               <div className="relative inline-block">
                 <div className="w-24 h-24 rounded-full bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 overflow-hidden">
                   {avatarPreview ? (
-                    <img src={avatarPreview} alt="Avatar" className="w-full h-full object-cover" />
+                    <Image 
+                      src={avatarPreview} 
+                      alt="Avatar" 
+                      width={96}
+                      height={96}
+                      className="w-full h-full object-cover" 
+                    />
                   ) : (
                     'U'
                   )}
@@ -272,7 +273,7 @@ export default function ProfileSetupPage() {
                 What skills can you teach others?
               </h3>
               <p className="text-gray-600 mb-4">
-                Select skills you're comfortable teaching or sharing with others.
+                Select skills you&apos;re comfortable teaching or sharing with others.
               </p>
             </div>
 
@@ -352,7 +353,7 @@ export default function ProfileSetupPage() {
                 What would you like to learn?
               </h3>
               <p className="text-gray-600 mb-4">
-                Select areas you're interested in learning about.
+                Select areas you&apos;re interested in learning about.
               </p>
             </div>
 
@@ -581,7 +582,7 @@ export default function ProfileSetupPage() {
             onClick={() => router.push('/dashboard')}
             className="text-sm text-gray-500 hover:text-gray-700 underline"
           >
-            Skip for now - I'll complete this later
+            Skip for now - I&apos;ll complete this later
           </button>
         </div>
       </div>

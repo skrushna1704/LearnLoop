@@ -1,5 +1,24 @@
 import { useState, useEffect, useCallback } from 'react';
 
+interface Availability {
+  day: string;
+  startTime: string;
+  endTime: string;
+}
+
+interface Skill {
+  id: string;
+  name: string;
+  level: string;
+  verified: boolean;
+  endorsements: number;
+}
+
+interface Rating {
+  average: number;
+  count: number;
+}
+
 export interface ProfileData {
   email: string;
   isProfileComplete?: boolean;
@@ -11,14 +30,11 @@ export interface ProfileData {
     location?: string;
     timezone?: string;
     website?: string;
-    availability?: any[];
+    availability?: Availability[];
   };
-  skills_offered?: any[];
-  skills_needed?: any[];
-  rating?: {
-    average: number;
-    count: number;
-  };
+  skills_offered?: Skill[];
+  skills_needed?: Skill[];
+  rating?: Rating;
   createdAt?: string;
   updatedAt?: string;
 }
@@ -41,13 +57,14 @@ export function useProfile() {
       if (!response.ok) throw new Error('Failed to fetch profile');
       const data = await response.json();
       setProfile(data);
-    } catch (err: any) {
-      setError(err.message || 'Unknown error');
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'Unknown error';
+      setError(errorMessage);
       setProfile(null);
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [apiUrl]);
 
   useEffect(() => { fetchProfile(); }, [fetchProfile]);
 

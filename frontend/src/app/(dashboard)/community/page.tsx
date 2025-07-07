@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { 
   Search, 
   Users,
@@ -27,6 +27,7 @@ import {
 } from '@/lib/api/posts';
 import PostCard from '@/components/community/PostCard';
 import { Avatar, Button } from '@/components/ui';
+import Image from 'next/image';
 
 const quickActions = [
   { icon: Plus, label: 'Share Knowledge', color: 'bg-blue-500', href: 'community/create-post' },
@@ -57,13 +58,9 @@ export default function CommunityPage() {
     }
   }, [isAuthenticated, router]);
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      fetchData();
-    }
-  }, [isAuthenticated, activeFilter, searchQuery]);
 
-  const fetchData = async () => {
+
+  const fetchData = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -95,7 +92,13 @@ export default function CommunityPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [activeFilter, searchQuery]);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchData();
+    }
+  }, [isAuthenticated, activeFilter, searchQuery, fetchData]);
 
   const handleLike = async (postId: string) => {
     try {
@@ -257,10 +260,12 @@ export default function CommunityPage() {
                     <div key={member._id} className="group p-4 border border-gray-100 rounded-xl hover:border-blue-200 hover:bg-blue-50/50 transition-all duration-300">
                       <div className="flex items-start gap-3">
                         <div className="relative">
-                          <img
+                          <Image
                             src={member.profile.profilePicture || 'https://i.pravatar.cc/150?img=4'}
                             alt={member.profile.name}
                             className="w-12 h-12 rounded-full border-2 border-white shadow-sm"
+                            width={48}
+                            height={48}
                           />
                           {/* Add online status logic here */}
                         </div>

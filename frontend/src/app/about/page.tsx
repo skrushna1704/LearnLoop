@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import {
   Users,
   Globe,
@@ -11,18 +12,11 @@ import {
   Award,
   Lightbulb,
   Rocket,
-  Star,
   ArrowRight,
-  Check,
-  TrendingUp,
-  MessageSquare,
   Calendar,
   Shield,
   Sparkles,
-  Building,
-  Mail,
   MapPin,
-  Phone
 } from 'lucide-react';
 
 const stats = [
@@ -136,7 +130,7 @@ export default function AboutPage() {
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
               About <span className="bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">LearnLoop</span>
             </h1>
-            <p className="text-xl md:text-2xl text-blue-100 mb-8 max-w-4xl mx-auto leading-relaxed">
+                                      <p className="text-xl md:text-2xl text-blue-100 mb-8 max-w-4xl mx-auto leading-relaxed">
               We&apos;re building the world&apos;s largest peer-to-peer learning community where knowledge flows freely 
               and everyone has the opportunity to teach and learn.
             </p>
@@ -219,7 +213,7 @@ export default function AboutPage() {
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Why Choose LearnLoop?</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We've built a platform that puts learners first, ensuring everyone can access 
+              We&apos;ve built a platform that puts learners first, ensuring everyone can access 
               high-quality education and meaningful teaching opportunities.
             </p>
           </div>
@@ -253,7 +247,7 @@ export default function AboutPage() {
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-4">Create Your Profile</h3>
               <p className="text-gray-600">
-                Add your skills, set your availability, and tell us what you'd like to learn
+                Add your skills, set your availability, and tell us what you&apos;d like to learn
               </p>
             </div>
             
@@ -318,9 +312,11 @@ export default function AboutPage() {
             {team.map((member, index) => (
               <div key={index} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 text-center group">
                 <div className="relative mb-6">
-                  <img
+                  <Image
                     src={member.avatar}
                     alt={member.name}
+                    width={80}
+                    height={80}
                     className="w-20 h-20 rounded-full border-4 border-white shadow-lg mx-auto group-hover:scale-105 transition-transform duration-300"
                   />
                   <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-green-500 rounded-full border-2 border-white"></div>

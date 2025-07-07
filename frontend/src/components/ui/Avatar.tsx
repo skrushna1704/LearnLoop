@@ -1,6 +1,7 @@
 // ==================== src/components/ui/Avatar.tsx ====================
 "use client"
 import React from 'react';
+import Image from 'next/image';
 import { cva, VariantProps } from 'class-variance-authority';
 import { cn } from '@/utils/helpers';
 import { User } from 'lucide-react';
@@ -44,10 +45,12 @@ const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
         {...props}
       >
         {src && !imageError ? (
-          <img
+          <Image
             className="aspect-square h-full w-full object-cover"
             src={src}
-            alt={alt}
+            alt={alt || 'Avatar'}
+            width={size === 'xs' ? 24 : size === 'sm' ? 32 : size === 'md' ? 40 : size === 'lg' ? 48 : size === 'xl' ? 64 : size === '2xl' ? 80 : 96}
+            height={size === 'xs' ? 24 : size === 'sm' ? 32 : size === 'md' ? 40 : size === 'lg' ? 48 : size === 'xl' ? 64 : size === '2xl' ? 80 : 96}
             onError={() => setImageError(true)}
           />
         ) : (

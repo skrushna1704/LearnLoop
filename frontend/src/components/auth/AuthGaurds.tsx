@@ -155,7 +155,8 @@ export const RoleGuard: React.FC<RoleGuardProps> = ({
     return <LoadingSpinner />;
   }
 
-  if (!user || !allowedRoles.includes(user.role)) {
+  const userRole = user?.role || 'user';
+  if (!user || !allowedRoles.includes(userRole)) {
     return fallback || (
       <div className="text-center py-12">
         <div className="mx-auto flex items-center justify-center w-16 h-16 rounded-full bg-red-100 mb-6">
@@ -165,7 +166,7 @@ export const RoleGuard: React.FC<RoleGuardProps> = ({
           Access Denied
         </h3>
         <p className="text-gray-600">
-          You don't have permission to access this resource.
+          You don&apos;t have permission to access this resource.
         </p>
       </div>
     );
@@ -210,7 +211,9 @@ const EmailVerificationRequired: React.FC = () => {
 
   const handleResend = async () => {
     try {
-      await resendVerification(user?.email);
+      if (user?.email) {
+        await resendVerification(user.email);
+      }
     } catch (error) {
       console.error('Failed to resend verification:', error);
     }
@@ -335,8 +338,11 @@ export const InlineAuthGuard: React.FC<InlineAuthGuardProps> = ({
     return <>{fallback || null}</>;
   }
 
-  if (allowedRoles && (!user || !allowedRoles.includes(user.role))) {
-    return <>{fallback || null}</>;
+  if (allowedRoles) {
+    const userRole = user?.role || 'user';
+    if (!user || !allowedRoles.includes(userRole)) {
+      return <>{fallback || null}</>;
+    }
   }
 
   return <>{children}</>;

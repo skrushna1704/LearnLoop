@@ -2,17 +2,13 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { ArrowRight, Users, Star, CheckCircle, PlayCircle, Zap, Code, Palette, Music, Camera, Gift, Plus, Search, BookOpen } from 'lucide-react';
+import { ArrowRight, Users, Star, CheckCircle, Zap, Code, Palette, Music, Camera, Gift, Plus, Search, BookOpen } from 'lucide-react';
 import { Button, Card, CardContent } from '@/components/ui';
 import { useAuth } from '@/context/AuthContext';
-import { cn } from '@/utils/helpers';
-
-type SkillTradeMode = 'teach' | 'learn';
 
 export function Hero() {
   const { user } = useAuth();
   const [showQuickAdd, setShowQuickAdd] = useState(false);
-  const [skillTradeMode, setSkillTradeMode] = useState<SkillTradeMode>('teach');
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-purple-50">
@@ -78,60 +74,6 @@ export function Hero() {
                 </>
               )}
             </div>
-
-            {/* Skill Exchange Preview
-            <div >
-              <div className="flex items-center justify-center space-x-8 text-sm">
-                <div
-                  className={cn(
-                    'flex items-center space-x-2 cursor-pointer p-2 rounded-lg transition-all duration-200',
-                    skillTradeMode === 'teach'
-                      ? 'bg-blue-100 shadow'
-                      : 'hover:bg-blue-50'
-                  )}
-                  onClick={() => setSkillTradeMode('teach')}
-                >
-                  <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
-                    <Users className="h-4 w-4 text-blue-600" />
-                  </div>
-                  <span className="text-gray-700 font-medium">I can teach</span>
-                </div>
-                <div className="text-gray-400">⇄</div>
-                <div
-                  className={cn(
-                    'flex items-center space-x-2 cursor-pointer p-2 rounded-lg transition-all duration-200',
-                    skillTradeMode === 'learn'
-                      ? 'bg-purple-100 shadow'
-                      : 'hover:bg-purple-50'
-                  )}
-                  onClick={() => setSkillTradeMode('learn')}
-                >
-                  <div className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center">
-                    <BookOpen className="h-4 w-4 text-purple-600" />
-                  </div>
-                  <span className="text-gray-700 font-medium">I want to learn</span>
-                </div>
-              </div>
-            </div> */}
-              
-            {/* Secondary Actions */}
-            {/* <div className="flex flex-col sm:flex-row gap-3 animate-fade-in-up animate-delay-500">
-              <Link href="/how-it-works">
-                <Button size="sm" variant="ghost" className="group">
-                  <PlayCircle className="mr-2 h-4 w-4" />
-                  How It Works
-                </Button>
-              </Link>
-              
-              {user && (
-                <Link href="/dashboard">
-                  <Button size="sm" variant="ghost" className="group">
-                    <Users className="mr-2 h-4 w-4" />
-                    Go to Dashboard
-                  </Button>
-                </Link>
-              )}
-            </div> */}
             
             {/* Quick Stats */}
             <div className="flex items-center justify-center lg:justify-start space-x-8 mt-12 text-sm text-gray-500 animate-fade-in-up animate-delay-600">

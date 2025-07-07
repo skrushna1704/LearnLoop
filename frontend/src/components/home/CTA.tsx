@@ -6,10 +6,8 @@ import Link from 'next/link';
 import { 
   ArrowRight, 
   Users, 
-  BookOpen, 
   Star, 
   MessageCircle,
-  Zap,
   Gift,
   CheckCircle,
   Clock,
@@ -132,7 +130,7 @@ const CTA: React.FC<CTASectionsProps> = ({ className }) => {
 
           {/* Benefits Grid */}
           <div className="flex flex-wrap justify-center gap-6 mb-10">
-            {benefits.map((benefit, index) => (
+            {benefits.map((benefit) => (
               <div
                 key={benefit.text}
                 className="flex items-center space-x-2 text-white/90 bg-white/10 backdrop-blur-sm rounded-lg px-4 py-2 border border-white/20"
@@ -326,7 +324,7 @@ const CTA: React.FC<CTASectionsProps> = ({ className }) => {
             Your Learning & Teaching Journey Starts Today
           </h3>
           <p className="text-lg text-white/90 mb-6">
-            Join the community that's revolutionizing how we learn and teach
+            Join the community that&apos;s revolutionizing how we learn and teach
           </p>
           <Link href="/auth/register">
             <Button 

@@ -24,8 +24,10 @@ import {
   Sparkles,
   Send
 } from 'lucide-react';
-import { debounce } from 'lodash';
+
 import { cn } from '@/utils/helpers';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 interface User {
   _id: string;
@@ -113,6 +115,7 @@ export default function EnhancedNewExchangePage() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
+  const router = useRouter();
   
   // Data states
   const [users, setUsers] = useState<User[]>([]);
@@ -132,7 +135,7 @@ export default function EnhancedNewExchangePage() {
     location: '',
   });
 
-  const fetchUsers = async (query: string = '') => {
+  const fetchUsers = useCallback(async (query: string = '') => {
     setSearching(true);
     try {
       const token = localStorage.getItem('authToken');
@@ -155,9 +158,18 @@ export default function EnhancedNewExchangePage() {
       setLoading(false);
       setSearching(false);
     }
-  };
+  }, []);
 
-  const debouncedFetchUsers = useCallback(debounce(fetchUsers, 300), []);
+  const debouncedFetchUsers = useCallback(
+    (query: string) => {
+      const timeoutId = setTimeout(() => {
+        fetchUsers(query);
+      }, 300);
+      return () => clearTimeout(timeoutId);
+    },
+    [fetchUsers]
+  );
+  
 
   useEffect(() => {
     fetchUsers(); // Initial fetch
@@ -185,7 +197,7 @@ export default function EnhancedNewExchangePage() {
       }
     };
     fetchMySkills();
-  }, []);
+  }, [fetchUsers]);
   
   useEffect(() => {
     if (searchTerm) {
@@ -193,7 +205,7 @@ export default function EnhancedNewExchangePage() {
     } else {
       fetchUsers(); // fetch all users if search term is cleared
     }
-  }, [searchTerm, debouncedFetchUsers]);
+  }, [searchTerm, debouncedFetchUsers, fetchUsers]);
 
   // Handle form input changes
   const handleInputChange = (field: keyof FormData, value: string | number) => {
@@ -308,7 +320,7 @@ export default function EnhancedNewExchangePage() {
         
         {/* Header */}
         <div className="mb-8">
-          <button className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6 transition-colors group">
+          <button className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6 transition-colors group" onClick={() => router.push('/exchanges')}>
             <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
             Back to Exchanges
           </button>
@@ -429,10 +441,12 @@ export default function EnhancedNewExchangePage() {
                       className="flex items-center p-4 rounded-xl border border-gray-200 hover:bg-gray-50 hover:shadow-md cursor-pointer transition-all duration-300 transform hover:-translate-y-1"
                       onClick={() => handleUserSelect(user)}
                     >
-                      <img
+                      <Image
                         src={user.profile?.profilePicture || `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.name}`}
                         alt={user.name || 'User profile'}
                         className="w-16 h-16 rounded-full mr-4 border-2 border-white shadow-sm"
+                        width={16}
+                        height={16}
                       />
                       <div className="flex-1">
                         <div className="flex items-center justify-between">
@@ -801,3 +815,5 @@ export default function EnhancedNewExchangePage() {
     </div>
   );
 }
+
+
