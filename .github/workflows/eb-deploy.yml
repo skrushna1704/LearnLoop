@@ -22,6 +22,10 @@ jobs:
         run: npm install
         working-directory: ./backend
 
+      - name: Build TypeScript
+        run: npm run build
+        working-directory: ./backend
+
       - name: Zip source bundle
         run: zip -r ../app.zip .
         working-directory: ./backend
@@ -31,8 +35,8 @@ jobs:
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application_name: backend
-          environment_name: learnloop-backend-env
+          application_name: learnloop-backend-v2
+          environment_name: learnloop-api-env
           region: ${{ secrets.AWS_REGION || 'us-east-1' }}
           version_label: ${{ github.sha }}
           deployment_package: app.zip
