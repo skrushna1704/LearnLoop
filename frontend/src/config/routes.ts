@@ -23,6 +23,7 @@ export const routes = {
     exchanges: '/exchanges',
     messages: '/messages',
     community: '/community',
+    practice: '/practice',
     settings: '/settings',
     profile: '/profile',
   },
@@ -113,6 +114,11 @@ export const dashboardNavigation = [
     title: 'Community',
     href: routes.dashboard.community,
     icon: 'Users',
+  },
+  {
+    title: 'Practice',
+    href: routes.dashboard.practice,
+    icon: 'Target',
   },
   // {
   //   title: 'Settings',

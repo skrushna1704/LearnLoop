@@ -11,7 +11,10 @@ export const apiClient = axios.create({
 apiClient.interceptors.request.use((config) => {
   const token = localStorage.getItem('authToken');
   if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+    if (!config.headers || typeof config.headers === 'undefined') {
+      config.headers = {} as unknown as import('axios').AxiosRequestHeaders;
+    }
+    (config.headers as Record<string, string>).Authorization = `Bearer ${token}`;
   }
-  return config;
+  return config;  
 }); 

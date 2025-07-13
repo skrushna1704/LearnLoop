@@ -17,12 +17,17 @@ import messageRoutes from './routes/messageRoutes';
 import postRoutes from './routes/postRoutes';
 import aiRoutes from './routes/aiRoutes';
 import uploadRoutes from './routes/uploadRoutes';
+import practiceRoutes from './routes/practiceRoutes';
 
 const app = express();
 const httpServer = createServer(app);
 export const io = new Server(httpServer, {
   cors: {
-    origin: ["http://localhost:3000", "http://localhost:3001",'https://main.d3vn9vz88thzcr.amplifyapp.com/'],
+    origin: [
+      "https://www.learnloop.world",
+      "https://learnloop.world",
+      "https://api.learnloop.world"
+    ],
     methods: ["GET", "POST"],
     credentials: true
   }
@@ -31,7 +36,11 @@ export const io = new Server(httpServer, {
 // CORS configuration
 const corsOptions = {
   origin: process.env.NODE_ENV === 'production' 
-    ? ['http://localhost:3000', 'http://localhost:3001', 'http://127.0.0.1:3000', 'http://127.0.0.1:3001','https://main.d3vn9vz88thzcr.amplifyapp.com/']
+    ? [
+        'https://www.learnloop.world',
+        'https://learnloop.world',
+        'https://api.learnloop.world'
+      ]
     : true, // Allow all origins in development
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -65,6 +74,7 @@ app.use('/api/messages', messageRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/upload', uploadRoutes);
+app.use('/api/practice', practiceRoutes);
 
 const onlineUsers: { [userId: string]: string } = {};
 
