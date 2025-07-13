@@ -16,12 +16,14 @@ LearnLoop is a modern MERN-based platform that enables users to exchange skills 
 - **Password Reset via Email**
 - **Improved Auth Flow (OAuth users auto-verified, traditional users must verify email)**
 - **Beautiful, branded transactional emails**
+- **Practice/Study Mode for DSA, JavaScript, React, and more (Active Recall, Self-Marking, Code Execution, Flexible Answer Checking)**
 
 ## 🛠️ Tech Stack
 - **Frontend:** Next.js, React, TypeScript, Tailwind CSS
 - **Backend:** Node.js, Express, TypeScript, MongoDB, Mongoose
 - **Real-Time:** Socket.IO
 - **AI:** OpenAI API
+- **Cloude/devOps** AWS  
 
 ## 📦 Monorepo Structure
 ```
@@ -72,6 +74,13 @@ npm run dev
 - **AI Assistant:** Chatbot for help and suggestions
 - **Community:** Browse, connect, and learn
 - **Onboarding Guards:** Protect routes until email is verified and profile is complete
+- **Practice/Study Mode:**
+  - Practice DSA, JavaScript, React, and more
+  - Active Recall (type your answer before seeing the solution)
+  - Self-marking (track your own correctness)
+  - Flexible answer checking (fuzzy matching, not strict)
+  - Code execution for coding questions (with real output)
+  - Progress tracking and review
 
 ## 🤝 Contributing
 Pull requests are welcome! For major changes, open an issue first to discuss what you'd like to change.

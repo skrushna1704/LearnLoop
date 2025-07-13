@@ -47,6 +47,7 @@ export default function StudyPage() {
     setSelfMarks(Array(filteredQuestions.length).fill(null));
   }, [filteredQuestions.length]);
 
+  console.log(questions);
   const loadQuestions = useCallback(async () => {
     setLoading(true);
     try {

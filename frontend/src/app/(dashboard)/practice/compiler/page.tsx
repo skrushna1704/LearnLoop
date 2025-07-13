@@ -1,16 +1,15 @@
-'use client'
-import React, { useState, useEffect } from "react";
-import { ArrowLeft, Play, Terminal, Code,  Clock, Zap } from "lucide-react";
+"use client";
+import React, { useState, useEffect, useCallback } from "react";
+import { ArrowLeft, Play, Terminal, Code, Clock, Zap } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { apiClient } from '@/lib/api-client';
-import Editor from '@monaco-editor/react';
-
+import { apiClient } from "@/lib/api-client";
+import Editor from "@monaco-editor/react";
 
 export default function DSACompilerPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const count = parseInt(searchParams.get('count') || '5', 10);
-  const difficulty = searchParams.get('difficulty') || 'Beginner';
+  const count = parseInt(searchParams.get("count") || "5", 10);
+  const difficulty = searchParams.get("difficulty") || "Beginner";
 
   interface Question {
     _id?: string;
@@ -25,7 +24,7 @@ export default function DSACompilerPage() {
 
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [code, setCode] = useState('');
+  const [code, setCode] = useState("");
   const [output, setOutput] = useState("");
   const [isRunning, setIsRunning] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -38,21 +37,28 @@ export default function DSACompilerPage() {
     async function fetchSession() {
       setLoading(true);
       try {
-        const { data } = await apiClient.post('/practice/session', {
-          category: 'DSA',
+        const { data } = await apiClient.post("/practice/session", {
+          category: "DSA",
           difficulty,
-          questionCount: count
+          questionCount: count,
         });
-        const mappedQuestions = data.questions.map((q: Record<string, unknown>) => ({
-          ...q,
-          description: typeof q.question === 'string' ? q.question : '',
-          starterCode: typeof q.starterCode === 'string' ? q.starterCode : '// Write your code here...',
-          example: typeof q.example === 'string' ? q.example : '',
-          timeComplexity: typeof q.timeComplexity === 'string' ? q.timeComplexity : '',
-          spaceComplexity: typeof q.spaceComplexity === 'string' ? q.spaceComplexity : '',
-        }));
+        const mappedQuestions = data.questions.map(
+          (q: Record<string, unknown>) => ({
+            ...q,
+            description: typeof q.question === "string" ? q.question : "",
+            starterCode:
+              typeof q.starterCode === "string"
+                ? q.starterCode
+                : "// Write your code here...",
+            example: typeof q.example === "string" ? q.example : "",
+            timeComplexity:
+              typeof q.timeComplexity === "string" ? q.timeComplexity : "",
+            spaceComplexity:
+              typeof q.spaceComplexity === "string" ? q.spaceComplexity : "",
+          })
+        );
         setQuestions(mappedQuestions);
-        setCode(mappedQuestions[0]?.starterCode || '');
+        setCode(mappedQuestions[0]?.starterCode || "");
         setCurrentIndex(0);
         setTimer(30 * 60);
       } catch {
@@ -64,6 +70,53 @@ export default function DSACompilerPage() {
     fetchSession();
   }, [count, difficulty]);
 
+  // Reset timer and code on question change
+  useEffect(() => {
+    if (questions.length > 0) {
+      setCode(questions[currentIndex]?.starterCode || "");
+      setTimer(30 * 60);
+      setShowNext(false);
+    }
+  }, [currentIndex, questions]);
+
+  const formatTimer = (t: number) => {
+    const m = Math.floor(t / 60);
+    const s = t % 60;
+    return `${m}:${s.toString().padStart(2, "0")}`;
+  };
+
+  const handleRun = async () => {
+    console.log("Run Code clicked");
+    setIsRunning(true);
+    setOutput("Running your code...");
+    try {
+      const { data } = await apiClient.post("/practice/compile", {
+        code,
+        questionId: currentQuestion._id,
+      });
+      if (data.error) {
+        setOutput(`❌ Error: ${data.error}`);
+      } else {
+        setOutput(data.output);
+      }
+    } catch (err: unknown) {
+      console.log(err);
+      setOutput("❌ Failed to run code.");
+    } finally {
+      setIsRunning(false);
+      setShowNext(true);
+      if (intervalId) clearInterval(intervalId);
+    }
+  };
+
+  const handleNext = useCallback(() => {
+    if (currentIndex < questions.length - 1) {
+      setCurrentIndex((i) => i + 1);
+    } else {
+      router.push("/practice"); // Or show results page
+    }
+  }, [currentIndex, questions.length, router]);
+
   // Timer logic
   useEffect(() => {
     if (loading || showNext) return;
@@ -74,53 +127,7 @@ export default function DSACompilerPage() {
     const id = setInterval(() => setTimer((t: number) => t - 1), 1000);
     setIntervalId(id);
     return () => clearInterval(id);
-  }, [timer, loading, showNext]);
-
-  // Reset timer and code on question change
-  useEffect(() => {
-    if (questions.length > 0) {
-      setCode(questions[currentIndex]?.starterCode || '');
-      setTimer(30 * 60);
-      setShowNext(false);
-    }
-  }, [currentIndex, questions]);
-
-  const formatTimer = (t: number) => {
-    const m = Math.floor(t / 60);
-    const s = t % 60;
-    return `${m}:${s.toString().padStart(2, '0')}`;
-  };
-
-  const handleRun = async () => {
-    console.log('Run Code clicked');
-    setIsRunning(true);
-    setOutput("Running your code...");
-    try {
-      const { data } = await apiClient.post('/practice/compile', {
-        code,
-        questionId: currentQuestion._id
-      });
-      if (data.error) {
-        setOutput(`❌ Error: ${data.error}`);
-      } else {
-        setOutput(data.output);
-      }
-    } catch (err) {
-      setOutput('❌ Failed to run code.');
-    } finally {
-      setIsRunning(false);
-      setShowNext(true);
-      if (intervalId) clearInterval(intervalId);
-    }
-  };
-
-  const handleNext = () => {
-    if (currentIndex < questions.length - 1) {
-      setCurrentIndex(i => i + 1);
-    } else {
-      router.push('/practice'); // Or show results page
-    }
-  };
+  }, [timer, loading, showNext, handleNext]);
 
   if (loading) {
     return (
@@ -133,7 +140,9 @@ export default function DSACompilerPage() {
   if (!questions.length) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="text-xl font-semibold text-red-500">No DSA questions found.</div>
+        <div className="text-xl font-semibold text-red-500">
+          No DSA questions found.
+        </div>
       </div>
     );
   }
@@ -147,15 +156,19 @@ export default function DSACompilerPage() {
       <div className="max-w-7xl mx-auto p-6">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-4">
-            <button 
-              onClick={() => router.push('/practice')}
+            <button
+              onClick={() => router.push("/practice")}
               className="flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm border border-gray-200 rounded-xl hover:bg-white hover:shadow-lg transition-all duration-300 hover:scale-105"
             >
               <ArrowLeft className="w-4 h-4 text-gray-600" />
-              <span className="text-gray-700 font-medium">Back to Practice</span>
+              <span className="text-gray-700 font-medium">
+                Back to Practice
+              </span>
             </button>
             <div className="h-8 w-px bg-gray-300"></div>
-            <h1 className="text-2xl font-bold">Question {currentIndex + 1} of {questions.length}</h1>
+            <h1 className="text-2xl font-bold">
+              Question {currentIndex + 1} of {questions.length}
+            </h1>
           </div>
           <div className="flex items-center gap-3 text-sm text-gray-600 bg-white/60 backdrop-blur-sm px-4 py-2 rounded-xl">
             <Clock className="w-4 h-4" />
@@ -163,7 +176,7 @@ export default function DSACompilerPage() {
           </div>
         </div>
         <div className="w-full bg-gray-200 rounded-full h-2 mb-8">
-          <div 
+          <div
             className="bg-indigo-600 h-2 rounded-full transition-all duration-300"
             style={{ width: `${progress}%` }}
           />
@@ -176,7 +189,9 @@ export default function DSACompilerPage() {
           <div className="space-y-6">
             <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200 p-8 hover:shadow-2xl transition-all duration-300">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-bold text-gray-800">{currentQuestion.title}</h2>
+                <h2 className="text-2xl font-bold text-gray-800">
+                  {currentQuestion.title}
+                </h2>
                 <div className="flex items-center gap-2">
                   <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
                     {currentQuestion.difficulty}
@@ -236,20 +251,23 @@ export default function DSACompilerPage() {
                 </div>
                 <div className="text-gray-400 text-sm">main.js</div>
               </div>
-              <div className="bg-slate-900 text-white p-0" style={{ height: '400px' }}>
+              <div
+                className="bg-slate-900 text-white p-0"
+                style={{ height: "400px" }}
+              >
                 <Editor
                   height="400px"
                   defaultLanguage="javascript"
                   value={code}
-                  onChange={value => setCode(value || '')}
+                  onChange={(value) => setCode(value || "")}
                   theme="vs-dark"
                   options={{
                     fontSize: 14,
                     minimap: { enabled: false },
-                    fontFamily: 'Fira Code, Consolas, monospace',
-                    lineNumbers: 'on',
+                    fontFamily: "Fira Code, Consolas, monospace",
+                    lineNumbers: "on",
                     scrollBeyondLastLine: false,
-                    wordWrap: 'on',
+                    wordWrap: "on",
                   }}
                 />
               </div>
@@ -260,11 +278,11 @@ export default function DSACompilerPage() {
                 onClick={handleRun}
                 disabled={isRunning || showNext}
                 className={`flex items-center gap-3 px-8 py-4 rounded-xl font-semibold text-white transition-all duration-300
-                  ${isRunning || showNext
-                    ? 'bg-gray-400 cursor-not-allowed opacity-60'
-                    : 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 shadow-lg hover:shadow-xl transform hover:scale-105'
-                  }`
-                }
+                  ${
+                    isRunning || showNext
+                      ? "bg-gray-400 cursor-not-allowed opacity-60"
+                      : "bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 shadow-lg hover:shadow-xl transform hover:scale-105"
+                  }`}
               >
                 {isRunning ? (
                   <>
@@ -283,7 +301,9 @@ export default function DSACompilerPage() {
                   onClick={handleNext}
                   className="flex items-center gap-3 px-8 py-4 rounded-xl font-semibold text-white bg-green-600 hover:bg-green-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
                 >
-                  {currentIndex < questions.length - 1 ? 'Next Question' : 'Finish'}
+                  {currentIndex < questions.length - 1
+                    ? "Next Question"
+                    : "Finish"}
                 </button>
               )}
             </div>
