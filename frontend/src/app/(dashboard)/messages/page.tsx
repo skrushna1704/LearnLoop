@@ -542,7 +542,9 @@ export default function MessagesPage() {
           {/* Conversations List */}
           <div className="flex-1 overflow-y-auto">
             {conversations.map((conversation) => {
+              if (!conversation || !conversation.proposer || !conversation.receiver) return null;
               const partner = conversation.proposer._id === currentUser?.id ? conversation.receiver : conversation.proposer;
+              if (!partner || !partner._id) return null;
               return (
                 <div
                   key={conversation._id}

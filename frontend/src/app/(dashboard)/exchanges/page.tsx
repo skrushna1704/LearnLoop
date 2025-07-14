@@ -154,13 +154,14 @@ export default function ExchangesPage() {
   };
 
   const filteredExchanges = exchanges.filter(exchange => {
+    if (!exchange) return false;
     const matchesFilter = activeFilter === 'all' || exchange.status === activeFilter;
     const searchLower = searchTerm.toLowerCase();
-    const partner = exchange.proposer._id === currentUser?.id ? exchange.receiver : exchange.proposer;
-    const matchesSearch = exchange.title.toLowerCase().includes(searchLower) ||
-                         (partner && partner.profile.name && partner.profile.name.toLowerCase().includes(searchLower)) ||
-                         (exchange.skillTaught && exchange.skillTaught.name.toLowerCase().includes(searchLower)) ||
-                         (exchange.skillLearned && exchange.skillLearned.name.toLowerCase().includes(searchLower));
+    const partner = exchange.proposer && exchange.proposer._id === currentUser?.id ? exchange.receiver : exchange.proposer;
+    const matchesSearch = exchange.title?.toLowerCase().includes(searchLower) ||
+                         (partner && partner.profile && partner.profile.name && partner.profile.name.toLowerCase().includes(searchLower)) ||
+                         (exchange.skillTaught && exchange.skillTaught.name && exchange.skillTaught.name.toLowerCase().includes(searchLower)) ||
+                         (exchange.skillLearned && exchange.skillLearned.name && exchange.skillLearned.name.toLowerCase().includes(searchLower));
     return matchesFilter && matchesSearch;
   });
 
@@ -269,11 +270,12 @@ export default function ExchangesPage() {
         {/* Exchanges Grid */}
         <div className="grid gap-6">
           {filteredExchanges.map((exchange) => {
+            if (!exchange) return null;
             const statusInfo = statusConfig[exchange.status];
             const StatusIcon = statusInfo.icon;
             
-            const partner = exchange.proposer._id === currentUser?.id ? exchange.receiver : exchange.proposer;
-            if (!partner) return null;
+            const partner = exchange.proposer && exchange.proposer._id === currentUser?.id ? exchange.receiver : exchange.proposer;
+            if (!partner || !exchange._id) return null;
             
             return (
               <div key={exchange._id} className="bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 overflow-hidden">
@@ -423,10 +425,14 @@ export default function ExchangesPage() {
                         )}
                         
                         {exchange.status === 'pending' && (
-                           <Button size="sm" className="flex items-center gap-2 bg-yellow-500 hover:bg-yellow-600 flex-1">
-                             <Clock size={16} />
-                             Review
-                           </Button>
+                          <Link href={`/exchanges/${exchange._id}`} passHref>
+                            <Button size="sm" className="flex items-center gap-2 bg-yellow-500 hover:bg-yellow-600 flex-1" onClick={() => {
+                              console.log('Review button clicked');
+                            }}>
+                              <Clock size={16} />
+                              Review
+                            </Button>
+                          </Link>
                         )}
                         
                         {exchange.status === 'completed' && (
