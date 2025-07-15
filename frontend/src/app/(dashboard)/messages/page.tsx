@@ -14,7 +14,6 @@ import {
   MoreVertical,
   Phone,
   Video,
-  Calendar,
   Mic,
   Check,
   CheckCheck,
@@ -27,6 +26,7 @@ import {
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { uploadFileToS3ViaBackend } from '@/lib/uploadFile';
+import CallModal from '@/components/features/messages/CallModal';
 
 // Define interfaces for our data structures
 interface Message {
@@ -127,6 +127,8 @@ export default function MessagesPage() {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [showAttachMenu, setShowAttachMenu] = useState(false);
   const [fileType, setFileType] = useState<'all' | 'image' | 'pdf' | 'doc'>('all');
+  const [callModalOpen, setCallModalOpen] = useState(false);
+  const [callAudioOnly, setCallAudioOnly] = useState(false);
 
   // Debug authentication and socket status
   console.log('MessagesPage: Auth & Socket status:', { 
@@ -509,6 +511,15 @@ export default function MessagesPage() {
     <div className="h-[calc(100vh-2rem)] bg-gradient-to-br from-blue-50 via-white to-purple-50 rounded-2xl overflow-hidden shadow-lg">
       {/* Notification sound */}
       <audio ref={audioRef} src="/notification.mp3" preload="auto" />
+      {/* Call Modal */}
+      {selectedConversation && (
+        <CallModal
+          exchangeId={selectedConversation._id}
+          open={callModalOpen}
+          onClose={() => setCallModalOpen(false)}
+          audioOnly={callAudioOnly}
+        />
+      )}
       {/* Debug Panel - Remove in production */}
       {/* <div className="bg-yellow-100 p-2 text-xs border-b">
         <div className="flex gap-4">
@@ -643,10 +654,22 @@ export default function MessagesPage() {
                 >
                   🧪 Test
                 </button> */}
-                <button className="p-3 hover:bg-white/70 rounded-xl transition-colors duration-200 group">
+                <button
+                  className="p-3 hover:bg-white/70 rounded-xl transition-colors duration-200 group"
+                  onClick={() => {
+                    setCallAudioOnly(true);
+                    setCallModalOpen(true);
+                  }}
+                >
                   <Phone className="w-5 h-5 text-gray-600 group-hover:text-blue-600" />
                 </button>
-                <button className="p-3 hover:bg-white/70 rounded-xl transition-colors duration-200 group">
+                <button
+                  className="p-3 hover:bg-white/70 rounded-xl transition-colors duration-200 group"
+                  onClick={() => {
+                    setCallAudioOnly(false);
+                    setCallModalOpen(true);
+                  }}
+                >
                   <Video className="w-5 h-5 text-gray-600 group-hover:text-blue-600" />
                 </button>
                 <div className="relative" ref={menuRef}>
@@ -693,12 +716,7 @@ export default function MessagesPage() {
                   </div>
                 </div>
                 
-                {selectedConversation.status === 'active' && (
-                  <button className="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors duration-200">
-                    <Calendar className="w-4 h-4" />
-                    <span className="text-sm font-medium">Join Session</span>
-                  </button>
-                )}
+                {/* Removed Join Session button as per request */}
               </div>
             </div>
           </div>

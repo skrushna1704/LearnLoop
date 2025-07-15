@@ -68,9 +68,8 @@ export default function VerifyEmailPage() {
       console.log('Email verified successfully:', data);
       setIsVerified(true);
       
-      // Redirect to dashboard after verification
       setTimeout(() => {
-        router.push('/dashboard');
+        router.push('/login');
       }, 3000);
       
     } catch (err) {

@@ -360,7 +360,7 @@ const Header: React.FC = () => {
               {/* Mobile auth buttons */}
               {!isAuthenticated && (
                 <div className="pt-4 border-t border-gray-200 space-y-2">
-                  <Link href="/login" className="block">
+                  <Link href="/login" className="block" onClick={() => setIsMobileMenuOpen(false)}>
                     <Button
                       variant="outline"
                       className="w-full border-indigo-200 text-indigo-600 hover:bg-indigo-50"
@@ -369,7 +369,7 @@ const Header: React.FC = () => {
                       Login
                     </Button>
                   </Link>
-                  <Link href="/register" className="block">
+                  <Link href="/register" className="block" onClick={() => setIsMobileMenuOpen(false)}>
                     <Button
                       className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700"
                       size="sm"
@@ -422,7 +422,14 @@ const Header: React.FC = () => {
                     );
                   })}
 
-                  <button className="flex items-center w-full px-3 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 rounded-lg mx-2 mt-2 transition-colors">
+                  <button 
+                    className="flex items-center w-full px-3 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 rounded-lg mx-2 mt-2 transition-colors"
+                    onClick={async () => {
+                      setIsMobileMenuOpen(false);
+                      await logout();
+                      router.push("/");
+                    }}
+                  >
                     <LogOut className="mr-3 h-4 w-4" />
                     Sign out
                   </button>
