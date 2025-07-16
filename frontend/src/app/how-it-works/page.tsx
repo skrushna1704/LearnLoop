@@ -16,8 +16,6 @@ import {
   Heart,
   Award
 } from 'lucide-react';
-import { Testimonials } from '@/components/home/Testimonials';
-import {testimonials,} from '@/data/mockdata';
 
 const HowItWorksPage = () => {
   const steps = [
@@ -186,19 +184,6 @@ const HowItWorksPage = () => {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-indigo-50 to-purple-50">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Success Stories</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              See how LearnLoop has transformed learning experiences
-            </p>
-          </div>
-          
-          <Testimonials testimonials={testimonials} />
-        </div>
-      </section>
 
       {/* CTA Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-indigo-600 to-purple-600">

@@ -5,12 +5,11 @@ import {
   Search, 
   Users,
   Star,
-  Plus,
   TrendingUp,
   BookOpen,
   Target,
   Zap,
-  Calendar,
+
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
@@ -29,14 +28,7 @@ import PostCard from '@/components/community/PostCard';
 import { Avatar, Button } from '@/components/ui';
 import Image from 'next/image';
 import { CommunitySkeleton } from '@/components/common';
-
-const quickActions = [
-  { icon: Plus, label: 'Share Knowledge', color: 'bg-blue-500', href: 'community/create-post' },
-  { icon: Search, label: 'Find Skills', color: 'bg-green-500', href: '/browse-skills' },
-  { icon: Users, label: 'Join Groups', color: 'bg-purple-500', href: '/groups' },
-  { icon: Calendar, label: 'Schedule Exchange', color: 'bg-orange-500', href: '/schedule' }
-];
-
+import { CommunityQuickActions } from '@/data/constants';
 export default function CommunityPage() {
   const [activeFilter, setActiveFilter] = useState('all');
   const [likedPosts, setLikedPosts] = useState<Set<string>>(new Set());
@@ -215,7 +207,7 @@ export default function CommunityPage() {
               
               {/* Quick Actions */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 w-full sm:w-auto">
-                {quickActions.map((action, index) => (
+                {CommunityQuickActions.map((action, index) => (
                   <button
                     key={index}
                     onClick={() => router.push(action.href)}

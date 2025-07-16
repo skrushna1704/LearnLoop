@@ -25,41 +25,8 @@ import Link from 'next/link';
 import { Button } from '@/components/ui';
 import Image from 'next/image';
 import { CardSkeleton } from '@/components/common';
+import { IExchange } from '@/types/dashboard';
 
-interface UserReference {
-  _id: string;
-  profile: {
-    name?: string;
-    profilePicture?: string;
-    role?: string;
-    rating?: number;
-    verified?: boolean;
-  }
-}
-
-interface IExchange {
-  _id: string;
-  title: string;
-  proposer: UserReference;
-  receiver: UserReference;
-  status: 'pending' | 'active' | 'completed' | 'rejected' | 'scheduled';
-  myRole?: 'teacher' | 'learner' | 'both'; 
-  skillTaught?: { name: string };
-  skillLearned?: { name: string };
-  progress: number;
-  sessionsCompleted?: number;
-  totalSessions?: number;
-  nextSession?: { date: string; time: string; };
-  proposedDate?: string;
-  completedDate?: string;
-  location?: string;
-  type?: string;
-  feedback?: {
-    user: string;
-    rating: number;
-    comment: string;
-  }[];
-}
 
 const statusConfig: { [key: string]: { color: string; icon: React.ElementType; label: string } } = {
   active: {

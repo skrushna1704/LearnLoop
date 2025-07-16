@@ -18,93 +18,13 @@ import {
   Check,
   CheckCheck,
   Trash2,
-  Image as ImageIcon,
-  FileText,
-  File,
-  Plus,
   X
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { uploadFileToS3ViaBackend } from '@/lib/uploadFile';
 import CallModal from '@/components/features/messages/CallModal';
-
-// Define interfaces for our data structures
-interface Message {
-  _id: string;
-  exchangeId: string;
-  senderId: {
-    _id: string;
-    profile: {
-      name: string;
-      profilePicture: string;
-    }
-  };
-  content: string;
-  createdAt: string;
-  status?: 'read' | 'delivered';
-}
-
-interface Conversation {
-  _id: string;
-  proposer: { _id: string; profile: { name: string; profilePicture: string } };
-  receiver: { _id: string; profile: { name: string; profilePicture: string } };
-  title: string;
-  status: 'pending' | 'active' | 'completed';
-  lastMessage?: string;
-  lastMessageTime?: string;
-  unread?: number;
-}
-
-interface FileData {
-  type: string;
-  url: string;
-  name: string;
-  mime: string;
-}
-
-const quickReplies = [
-  'Sounds great! 👍',
-  'Let me check my calendar',
-  'Can we reschedule?',
-  'Thanks for the session!',
-  'I\'m available',
-  'Looking forward to it!'
-];
-
-const menuItems = [
-  {
-    id: 'image',
-    icon: ImageIcon,
-    label: 'Image',
-    description: 'JPG, PNG, GIF, WebP',
-    color: 'from-purple-500 to-pink-500',
-    hoverColor: 'hover:from-purple-600 hover:to-pink-600'
-  },
-  {
-    id: 'pdf',
-    icon: FileText,
-    label: 'PDF',
-    description: 'PDF documents',
-    color: 'from-red-500 to-orange-500',
-    hoverColor: 'hover:from-red-600 hover:to-orange-600'
-  },
-  {
-    id: 'doc',
-    icon: File,
-    label: 'Document',
-    description: 'DOC, DOCX, TXT',
-    color: 'from-blue-500 to-cyan-500',
-    hoverColor: 'hover:from-blue-600 hover:to-cyan-600'
-  },
-  {
-    id: 'all',
-    icon: Plus,
-    label: 'Any File',
-    description: 'All file types',
-    color: 'from-green-500 to-emerald-500',
-    hoverColor: 'hover:from-green-600 hover:to-emerald-600'
-  }
-];
+import { Conversation, FileData, Message } from '@/types/dashboard';
+import { quickReplies, menuItems } from '@/data/constants';
 
 export default function MessagesPage() {
   const { user: currentUser } = useAuth();
@@ -129,17 +49,6 @@ export default function MessagesPage() {
   const [fileType, setFileType] = useState<'all' | 'image' | 'pdf' | 'doc'>('all');
   const [callModalOpen, setCallModalOpen] = useState(false);
   const [callAudioOnly, setCallAudioOnly] = useState(false);
-
-  // Debug authentication and socket status
-  console.log('MessagesPage: Auth & Socket status:', { 
-    currentUser: !!currentUser,
-    currentUserId: currentUser?.id,
-    currentUserEmail: currentUser?.email,
-    socket: !!socket, 
-    isConnected, 
-    socketId: socket?.id,
-    socketConnected: socket?.connected 
-  });
 
   // Update ref whenever selectedConversation changes
   useEffect(() => {
@@ -254,22 +163,54 @@ export default function MessagesPage() {
         });
         if (!response.ok) throw new Error('Failed to fetch conversations');
         const data = await response.json();
-        setConversations(data);
+        
+        // Deduplicate conversations by partner to prevent same user appearing multiple times
+        const uniqueConversations = data.reduce((acc: Conversation[], conversation: Conversation) => {
+          if (!conversation || !conversation.proposer || !conversation.receiver) return acc;
+          
+          const partner = conversation.proposer._id === currentUser.id ? conversation.receiver : conversation.proposer;
+          if (!partner || !partner._id) return acc;
+          
+          // Check if we already have a conversation with this partner
+          const existingIndex = acc.findIndex(existing => {
+            const existingPartner = existing.proposer._id === currentUser.id ? existing.receiver : existing.proposer;
+            return existingPartner._id === partner._id;
+          });
+          
+          if (existingIndex === -1) {
+            // No existing conversation with this partner, add it
+            acc.push(conversation);
+          } else {
+            // We already have a conversation with this partner, keep the most recent one
+            const existing = acc[existingIndex];
+            const existingTime = existing.lastMessageTime ? new Date(existing.lastMessageTime).getTime() : 0;
+            const newTime = conversation.lastMessageTime ? new Date(conversation.lastMessageTime).getTime() : 0;
+            
+            if (newTime > existingTime) {
+              // Replace with the more recent conversation
+              acc[existingIndex] = conversation;
+            }
+          }
+          
+          return acc;
+        }, []);
+        
+        setConversations(uniqueConversations);
         
         const exchangeIdFromQuery = searchParams.get('exchangeId');
         if (exchangeIdFromQuery) {
-          const conversationToSelect = data.find((conv: Conversation) => conv._id === exchangeIdFromQuery);
+          const conversationToSelect = uniqueConversations.find((conv: Conversation) => conv._id === exchangeIdFromQuery);
           if (conversationToSelect) {
             setSelectedConversation(conversationToSelect);
           }
-        } else if (data.length > 0) {
-          setSelectedConversation(data[0]);
+        } else if (uniqueConversations.length > 0) {
+          setSelectedConversation(uniqueConversations[0]);
         }
 
         // Join rooms for all conversations when socket is connected
         if (socket && isConnected) {
           console.log('Joining rooms for all conversations...');
-          data.forEach((conv: Conversation) => {
+          uniqueConversations.forEach((conv: Conversation) => {
             console.log('Joining room:', conv._id);
             socket.emit('joinRoom', conv._id);
           });
@@ -520,15 +461,7 @@ export default function MessagesPage() {
           audioOnly={callAudioOnly}
         />
       )}
-      {/* Debug Panel - Remove in production */}
-      {/* <div className="bg-yellow-100 p-2 text-xs border-b">
-        <div className="flex gap-4">
-          <span>Socket: {socket ? '✅' : '❌'}</span>
-          <span>Connected: {isConnected ? '✅' : '❌'}</span>
-          <span>Socket ID: {socket?.id || 'N/A'}</span>
-          <span>Selected Conv: {selectedConversation?._id || 'N/A'}</span>
-        </div>
-      </div> */}
+
       
       <div className="h-full flex">
         
@@ -573,7 +506,7 @@ export default function MessagesPage() {
                         alt={partner.profile.name}
                         width={48}
                         height={48}
-                        className="w-12 h-12 rounded-full border-2 border-white shadow-sm"
+                        className="w-12 h-12 rounded-full border-2 border-white shadow-sm object-cover"
                       />
                       {/* Online/offline dot */}
                       <span
@@ -592,7 +525,17 @@ export default function MessagesPage() {
                         <h3 className="font-semibold text-gray-800">{partner.profile.name}</h3>
                         <p className="text-xs text-gray-500">{conversation.lastMessageTime}</p>
                       </div>
-                      <p className="text-sm text-gray-600 truncate">{conversation.lastMessage}</p>
+                      <p className="text-sm text-gray-600 truncate">
+                        {(() => {
+                          try {
+                            const parsed = JSON.parse(conversation.lastMessage || '');
+                            if (parsed && typeof parsed === 'object' && parsed.type === 'file') {
+                              return `📎 ${parsed.name}`;
+                            }
+                          } catch {}
+                          return conversation.lastMessage;
+                        })()}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -620,40 +563,17 @@ export default function MessagesPage() {
                     height={48}
                     className="w-12 h-12 rounded-full border-2 border-white shadow-sm"
                   />
-                  {/* {selectedConversation.user.online && (
-                    <div className="absolute bottom-0 right-0 w-4 h-4 bg-green-500 rounded-full border-2 border-white" />
-                  )} */}
                 </div>
                 
                 <div>
                   <div className="flex items-center gap-2">
                     <h2 className="text-lg font-semibold text-gray-900">{selectedConversation.proposer._id === currentUser?.id ? selectedConversation.receiver.profile.name : selectedConversation.proposer.profile.name}</h2>
-                    {/* {selectedConversation.user.verified && (
-                      <Star className="w-4 h-4 text-blue-500 fill-current" />
-                    )} */}
-                  </div>
-                  {/* <p className="text-sm text-gray-600">{selectedConversation.user.role}</p>
-                  <div className="flex items-center gap-2 text-xs text-gray-500 mt-1">
-                    <MapPin className="w-3 h-3" />
-                    {selectedConversation.user.location}
-                    {selectedConversation.user.online ? (
-                      <span className="text-green-600 font-medium">• Online</span>
-                    ) : (
-                      <span>• Last seen 2h ago</span>
-                    )}
-                  </div> */}
+                  </div>              
                 </div>
               </div>
               
               {/* Action Buttons */}
               <div className="flex items-center gap-2">
-                {/* <button 
-                  onClick={testRealTimeMessage}
-                  className="p-3 hover:bg-white/70 rounded-xl transition-colors duration-200 group text-xs"
-                  title="Test Real-time Message"
-                >
-                  🧪 Test
-                </button> */}
                 <button
                   className="p-3 hover:bg-white/70 rounded-xl transition-colors duration-200 group"
                   onClick={() => {

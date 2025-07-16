@@ -60,9 +60,9 @@ export default function AiCoachWidget() {
   const renderContent = () => {
     if (isLoading) {
       return (
-        <div className="space-y-3">
+        <div className="space-y-2 sm:space-y-3">
           {[...Array(3)].map((_, i) => (
-            <div key={i} className="bg-gray-100 p-4 rounded-lg animate-pulse h-12 w-full"></div>
+            <div key={i} className="bg-gray-100 p-3 sm:p-4 rounded-lg animate-pulse h-10 sm:h-12 w-full"></div>
           ))}
         </div>
       );
@@ -70,28 +70,28 @@ export default function AiCoachWidget() {
 
     if (error) {
       return (
-        <div className="bg-red-100/60 p-4 rounded-lg flex items-center gap-3">
-          <AlertTriangle className="w-5 h-5 text-red-600 flex-shrink-0" />
-          <p className="text-sm text-red-700">{error}</p>
+        <div className="bg-red-100/60 p-3 sm:p-4 rounded-lg flex items-center gap-2 sm:gap-3">
+          <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 text-red-600 flex-shrink-0" />
+          <p className="text-xs sm:text-sm text-red-700">{error}</p>
         </div>
       );
     }
     
     if (suggestions.length === 0) {
         return (
-             <div className="bg-green-100/60 p-4 rounded-lg flex items-center gap-3">
-                <Rocket className="w-5 h-5 text-green-600 flex-shrink-0" />
-                <p className="text-sm text-green-700">Your profile is looking great! No immediate suggestions.</p>
+             <div className="bg-green-100/60 p-3 sm:p-4 rounded-lg flex items-center gap-2 sm:gap-3">
+                <Rocket className="w-4 h-4 sm:w-5 sm:h-5 text-green-600 flex-shrink-0" />
+                <p className="text-xs sm:text-sm text-green-700">Your profile is looking great! No immediate suggestions.</p>
             </div>
         );
     }
 
     return (
-      <div className="space-y-3">
+      <div className="space-y-2 sm:space-y-3">
         {suggestions.map((suggestion) => (
-          <div key={suggestion.id} className="bg-white p-4 rounded-lg flex items-center gap-3 hover:shadow-md transition-shadow duration-200">
-            <Rocket className="w-5 h-5 text-secondary flex-shrink-0" />
-            <p className="text-sm text-gray-700 flex-grow">{suggestion.text}</p>
+          <div key={suggestion.id} className="bg-white p-3 sm:p-4 rounded-lg flex items-center gap-2 sm:gap-3 hover:shadow-md transition-shadow duration-200">
+            <Rocket className="w-4 h-4 sm:w-5 sm:h-5 text-secondary flex-shrink-0" />
+            <p className="text-xs sm:text-sm text-gray-700 flex-grow">{suggestion.text}</p>
           </div>
         ))}
       </div>
@@ -99,14 +99,14 @@ export default function AiCoachWidget() {
   };
 
   return (
-    <div className="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 p-6 rounded-2xl shadow-sm border border-gray-200">
-      <div className="flex items-center gap-4 mb-4">
-        <div className="bg-primary/10 p-3 rounded-full">
-          <Lightbulb className="w-6 h-6 text-primary" />
+    <div className="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 p-4 sm:p-6 rounded-2xl shadow-sm border border-gray-200">
+      <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+        <div className="bg-primary/10 p-2 sm:p-3 rounded-full">
+          <Lightbulb className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
         </div>
         <div>
-          <h3 className="text-xl font-bold text-gray-800">Your AI Profile Coach</h3>
-          <p className="text-gray-500">Actionable tips to improve your profile!</p>
+          <h3 className="text-lg sm:text-xl font-bold text-gray-800">Your AI Profile Coach</h3>
+          <p className="text-sm sm:text-base text-gray-500">Actionable tips to improve your profile!</p>
         </div>
       </div>
       {renderContent()}

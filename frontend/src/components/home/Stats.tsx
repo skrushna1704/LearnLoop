@@ -10,12 +10,9 @@ import {
   Award,
   Globe,
   TrendingUp,
-  Heart,
   ChevronLeft,
-  ChevronRight,
-  Quote
+  ChevronRight
 } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 
 interface StatsTestimonialsSectionProps {
@@ -223,44 +220,45 @@ const Stats: React.FC<StatsTestimonialsSectionProps> = ({ className }) => {
   return (
     <section 
       ref={sectionRef}
-      className={`py-16 lg:py-24 bg-gradient-to-br from-gray-50 to-white ${className}`}
+      className={`py-12 lg:py-20 bg-gradient-to-br from-gray-50 to-white ${className}`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+        <div className="text-center mb-12 lg:mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             Trusted by{' '}
             <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
               Learners Worldwide
             </span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
             Join thousands of passionate learners who are transforming their skills 
             and building meaningful connections through LearnLoop.
           </p>
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-16 lg:mb-20">
           {stats.map((stat, index) => {
             const animatedValue = [animatedValue1, animatedValue2, animatedValue3, animatedValue4][index];
             
             return (
               <Card
                 key={stat.label}
-                className={`text-center p-6 bg-white border border-gray-100 hover:shadow-lg transition-all duration-500 hover:-translate-y-1 ${
-                  inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-                }`}
-                style={{ animationDelay: `${index * 200}ms` }}
+                className="p-4 sm:p-6 text-center border-2 border-gray-100 hover:border-gray-200 transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
               >
-                <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl ${stat.bgColor} mb-4`}>
-                  <stat.icon className={`h-6 w-6 ${stat.color}`} />
+                <div className={`inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 rounded-full ${stat.bgColor} mb-3 sm:mb-4`}>
+                  <stat.icon className={`h-6 w-6 sm:h-8 sm:w-8 ${stat.color}`} />
                 </div>
-                <div className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+                
+                <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-1 sm:mb-2">
                   {animatedValue.toLocaleString()}{stat.suffix}
                 </div>
-                <div className="text-gray-600 font-medium">{stat.label}</div>
+                
+                <div className="text-sm sm:text-base text-gray-600 font-medium">
+                  {stat.label}
+                </div>
               </Card>
             );
           })}
@@ -268,111 +266,99 @@ const Stats: React.FC<StatsTestimonialsSectionProps> = ({ className }) => {
 
         {/* Testimonials Section */}
         <div className="relative">
-          <div className="text-center mb-12">
-            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+          <div className="text-center mb-8 lg:mb-12">
+            <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
               What Our Community Says
             </h3>
-            <p className="text-lg text-gray-600">
-              Real stories from real learners who&apos;ve transformed their skills
+            <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
+              Real stories from learners and teachers who have transformed their skills through LearnLoop
             </p>
           </div>
 
-          {/* Main Testimonial */}
+          {/* Testimonials Carousel */}
           <div className="relative max-w-4xl mx-auto">
-            <Card className="bg-white p-8 md:p-12 shadow-xl border-0 relative overflow-hidden">
-              {/* Background Pattern */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full -mr-16 -mt-16 opacity-50" />
-              
-              {/* Quote Icon */}
-              <Quote className="absolute top-6 left-6 h-8 w-8 text-indigo-200" />
-              
-              <div className="relative z-10">
-                {/* Stars */}
-                <div className="flex justify-center mb-6">
-                  <div className="flex space-x-1">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <Star key={star} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                    ))}
-                  </div>
-                </div>
-
-                {/* Testimonial Text */}
-                <blockquote className="text-xl md:text-2xl text-gray-700 text-center mb-8 leading-relaxed">
-                  &ldquo;{testimonials[currentTestimonial].text}&rdquo;
-                </blockquote>
-
-                {/* User Info */}
-                <div className="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-8">
-                  <div className="flex items-center space-x-4">
-                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center text-2xl">
-                      {testimonials[currentTestimonial].avatar}
-                    </div>
-                    <div className="text-center md:text-left">
-                      <div className="font-semibold text-gray-900 text-lg">
-                        {testimonials[currentTestimonial].name}
-                      </div>
-                      <div className="text-gray-600">
-                        {testimonials[currentTestimonial].role}
-                      </div>
-                      <div className="text-sm text-gray-500">
-                        {testimonials[currentTestimonial].location}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Skills Exchange */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                    <div className="text-center md:text-left">
-                      <div className="font-medium text-green-700 mb-1">Skills Learned</div>
-                      <div className="text-gray-600">
-                        {testimonials[currentTestimonial].skillsLearned.join(', ')}
-                      </div>
-                    </div>
-                    <div className="text-center md:text-left">
-                      <div className="font-medium text-blue-700 mb-1">Skills Taught</div>
-                      <div className="text-gray-600">
-                        {testimonials[currentTestimonial].skillsTaught.join(', ')}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Card>
-
-            {/* Navigation */}
-            <div className="flex justify-center mt-8 space-x-4">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={prevTestimonial}
-                className="rounded-full w-12 h-12 p-0"
-              >
-                <ChevronLeft className="h-5 w-5" />
-              </Button>
-              
-              {/* Dots */}
-              <div className="flex space-x-2 items-center">
-                {testimonials.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentTestimonial(index)}
-                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                      index === currentTestimonial
-                        ? 'bg-gradient-to-r from-indigo-500 to-purple-500 scale-125'
-                        : 'bg-gray-300 hover:bg-gray-400'
+            <div className="overflow-hidden">
+              <div className="flex transition-transform duration-500 ease-in-out">
+                {testimonials.map((testimonial, index) => (
+                  <div
+                    key={`${testimonial.id}-${index}`}
+                    className={`w-full flex-shrink-0 ${
+                      index === currentTestimonial ? 'block' : 'hidden'
                     }`}
-                  />
+                  >
+                    <Card className="p-6 sm:p-8 text-center border-2 border-gray-100">
+                      <div className="flex justify-center mb-4">
+                        <div className="flex space-x-1">
+                          {[...Array(testimonial.rating)].map((_, i) => (
+                            <Star key={i} className="h-4 w-4 sm:h-5 sm:w-5 fill-yellow-400 text-yellow-400" />
+                          ))}
+                        </div>
+                      </div>
+                      
+                      <blockquote className="text-base sm:text-lg text-gray-700 mb-6 italic">
+                        &ldquo;{testimonial.text}&rdquo;
+                      </blockquote>
+                      
+                      <div className="flex items-center justify-center space-x-3 mb-4">
+                        <div className="text-2xl sm:text-3xl">{testimonial.avatar}</div>
+                        <div className="text-left">
+                          <div className="font-semibold text-gray-900">{testimonial.name}</div>
+                          <div className="text-sm text-gray-600">{testimonial.role}</div>
+                          <div className="text-xs text-gray-500">{testimonial.location}</div>
+                        </div>
+                      </div>
+                      
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                        <div className="bg-green-50 p-3 rounded-lg">
+                          <div className="font-medium text-green-800 mb-1">Learning:</div>
+                          <div className="text-green-700">
+                            {testimonial.skillsLearned.join(', ')}
+                          </div>
+                        </div>
+                        <div className="bg-blue-50 p-3 rounded-lg">
+                          <div className="font-medium text-blue-800 mb-1">Teaching:</div>
+                          <div className="text-blue-700">
+                            {testimonial.skillsTaught.join(', ')}
+                          </div>
+                        </div>
+                      </div>
+                    </Card>
+                  </div>
                 ))}
               </div>
-              
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={nextTestimonial}
-                className="rounded-full w-12 h-12 p-0"
-              >
-                <ChevronRight className="h-5 w-5" />
-              </Button>
+            </div>
+
+            {/* Navigation Buttons */}
+            <button
+              onClick={prevTestimonial}
+              className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 lg:-translate-x-8 bg-white rounded-full p-2 shadow-lg border border-gray-200 hover:shadow-xl transition-all duration-300"
+              aria-label="Previous testimonial"
+            >
+              <ChevronLeft className="h-5 w-5 text-gray-600" />
+            </button>
+            
+            <button
+              onClick={nextTestimonial}
+              className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 lg:translate-x-8 bg-white rounded-full p-2 shadow-lg border border-gray-200 hover:shadow-xl transition-all duration-300"
+              aria-label="Next testimonial"
+            >
+              <ChevronRight className="h-5 w-5 text-gray-600" />
+            </button>
+
+            {/* Dots Indicator */}
+            <div className="flex justify-center space-x-2 mt-6">
+              {testimonials.slice(0, 4).map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentTestimonial(index)}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    index === currentTestimonial
+                      ? 'bg-indigo-600 w-6'
+                      : 'bg-gray-300 hover:bg-gray-400'
+                  }`}
+                  aria-label={`Go to testimonial ${index + 1}`}
+                />
+              ))}
             </div>
           </div>
         </div>
@@ -389,7 +375,7 @@ const Stats: React.FC<StatsTestimonialsSectionProps> = ({ className }) => {
               <span>#1 Learning Platform</span>
             </div>
             <div className="flex items-center space-x-2 text-sm font-medium text-gray-600">
-              <Heart className="h-4 w-4" />
+              {/* <Heart className="h-4 w-4" /> */}
               <span>4.9/5 User Rating</span>
             </div>
           </div>

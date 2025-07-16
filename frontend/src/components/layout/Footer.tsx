@@ -54,12 +54,12 @@ const Footer: React.FC = () => {
 
   return (
     <footer className="bg-gray-50 border-t">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main footer content */}
-        <div className="py-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
+        <div className="py-8 lg:py-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-6 lg:gap-8">
             {/* Brand section */}
-            <div className="lg:col-span-2">
+            <div className="sm:col-span-2 lg:col-span-2">
               <div className="flex items-center space-x-2 mb-4">
                 <div className="relative">
                   <svg width="32" height="32" viewBox="0 0 100 100" className="text-indigo-600">
@@ -79,7 +79,7 @@ const Footer: React.FC = () => {
                   </span>
                 </div>
               </div>
-              <p className="text-gray-600 mb-6 max-w-sm">
+              <p className="text-sm sm:text-base text-gray-600 mb-4 lg:mb-6 max-w-sm">
                 The world&apos;s first AI-powered skill exchange platform where people trade knowledge instead of money, building communities and creating opportunities.
               </p>
               
@@ -94,7 +94,7 @@ const Footer: React.FC = () => {
                       className="text-gray-400 hover:text-gray-600 transition-colors"
                       aria-label={social.name}
                     >
-                      <Icon className="h-5 w-5" />
+                      <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
                     </a>
                   );
                 })}
@@ -103,15 +103,15 @@ const Footer: React.FC = () => {
 
             {/* Product links */}
             <div>
-              <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4">
+              <h3 className="text-xs sm:text-sm font-semibold text-gray-900 uppercase tracking-wider mb-3 sm:mb-4">
                 Product
               </h3>
-              <ul className="space-y-3">
+              <ul className="space-y-2 sm:space-y-3">
                 {footerLinks.product.map((link) => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-gray-600 hover:text-gray-900 transition-colors"
+                      className="text-sm sm:text-base text-gray-600 hover:text-gray-900 transition-colors"
                     >
                       {link.name}
                     </Link>
@@ -122,15 +122,15 @@ const Footer: React.FC = () => {
 
             {/* Company links */}
             <div>
-              <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4">
+              <h3 className="text-xs sm:text-sm font-semibold text-gray-900 uppercase tracking-wider mb-3 sm:mb-4">
                 Company
               </h3>
-              <ul className="space-y-3">
+              <ul className="space-y-2 sm:space-y-3">
                 {footerLinks.company.map((link) => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-gray-600 hover:text-gray-900 transition-colors"
+                      className="text-sm sm:text-base text-gray-600 hover:text-gray-900 transition-colors"
                     >
                       {link.name}
                     </Link>
@@ -141,15 +141,15 @@ const Footer: React.FC = () => {
 
             {/* Resources links */}
             <div>
-              <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4">
+              <h3 className="text-xs sm:text-sm font-semibold text-gray-900 uppercase tracking-wider mb-3 sm:mb-4">
                 Resources
               </h3>
-              <ul className="space-y-3">
+              <ul className="space-y-2 sm:space-y-3">
                 {footerLinks.resources.map((link) => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-gray-600 hover:text-gray-900 transition-colors"
+                      className="text-sm sm:text-base text-gray-600 hover:text-gray-900 transition-colors"
                     >
                       {link.name}
                     </Link>
@@ -160,15 +160,15 @@ const Footer: React.FC = () => {
 
             {/* Legal links */}
             <div>
-              <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4">
+              <h3 className="text-xs sm:text-sm font-semibold text-gray-900 uppercase tracking-wider mb-3 sm:mb-4">
                 Legal
               </h3>
-              <ul className="space-y-3">
+              <ul className="space-y-2 sm:space-y-3">
                 {footerLinks.legal.map((link) => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-gray-600 hover:text-gray-900 transition-colors"
+                      className="text-sm sm:text-base text-gray-600 hover:text-gray-900 transition-colors"
                     >
                       {link.name}
                     </Link>
@@ -180,33 +180,33 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Newsletter signup */}
-        <div className="py-8 border-t border-gray-200">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-            <div className="mb-4 md:mb-0">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+        <div className="py-6 lg:py-8 border-t border-gray-200">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+            <div className="mb-4 lg:mb-0">
+              <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2">
                 Stay in the loop
               </h3>
-              <p className="text-gray-600">
+              <p className="text-sm sm:text-base text-gray-600">
                 Get the latest updates on new features and skill categories.
               </p>
             </div>
-            <div className="flex flex-col sm:flex-row gap-3 min-w-0 md:min-w-[400px]">
+            <div className="flex flex-col sm:flex-row gap-3 min-w-0 lg:min-w-[400px]">
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="flex-1 px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
               />
-              <Button>Subscribe</Button>
+              <Button className="text-sm sm:text-base py-6 px-6">Subscribe</Button>
             </div>
           </div>
         </div>
 
         {/* Bottom section */}
-        <div className="py-6 border-t border-gray-200">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-            <div className="flex items-center text-gray-600 mb-4 md:mb-0">
+        <div className="py-4 lg:py-6 border-t border-gray-200">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+            <div className="flex items-center text-gray-600 mb-4 lg:mb-0 text-sm sm:text-base">
               <span>© {currentYear} LearnLoop. Made with</span>
-              <Heart className="h-4 w-4 text-red-500 mx-1" />
+              <Heart className="h-3 w-3 sm:h-4 sm:w-4 text-red-500 mx-1" />
               <span>for learners everywhere.</span>
             </div>
             
@@ -215,9 +215,9 @@ const Footer: React.FC = () => {
               variant="ghost"
               size="sm"
               onClick={scrollToTop}
-              className="flex items-center space-x-1 self-start md:self-auto"
+              className="flex items-center space-x-1 self-start lg:self-auto text-sm sm:text-base"
             >
-              <ArrowUp className="h-4 w-4" />
+              <ArrowUp className="h-3 w-3 sm:h-4 sm:w-4" />
               <span>Back to top</span>
             </Button>
           </div>

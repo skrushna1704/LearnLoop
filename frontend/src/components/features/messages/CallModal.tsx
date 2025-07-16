@@ -60,7 +60,8 @@ const CallModal: React.FC<CallModalProps> = ({ exchangeId, open, onClose, audioO
       const offer = await peerConnectionRef.current.createOffer();
       await peerConnectionRef.current.setLocalDescription(offer);
       socket?.emit('webrtc-offer', { sdp: offer, offererId: socket.id, roomId: callRoomId });
-    } catch {
+    } catch (error: unknown) {
+      console.error('Error creating offer:', error);
       setConnectionStatus('error');
     }
   }, [callRoomId, socket]);

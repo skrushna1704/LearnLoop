@@ -46,7 +46,6 @@ interface SidebarProps {
   onToggleCollapse?: () => void;
   navigation: readonly NavigationItem[];
   currentPath: string;
-  onMobileItemClick?: () => void;
 }
 
 const iconMap = {
@@ -85,7 +84,6 @@ const Sidebar: React.FC<SidebarProps> = ({
   onToggleCollapse,
   navigation = enhancedNavigation,
   currentPath = '/dashboard',
-  onMobileItemClick,
 }) => {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const router = useRouter();
@@ -94,14 +92,6 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   const cn = (...classes: (string | undefined | false)[]) => {
     return classes.filter(Boolean).join(' ');
-  };
-
-  const handleNavigationClick = (href: string) => {
-    router.push(href);
-    // Close mobile sidebar if onMobileItemClick is provided
-    if (onMobileItemClick) {
-      onMobileItemClick();
-    }
   };
 
   if (loading) {
@@ -129,13 +119,7 @@ const Sidebar: React.FC<SidebarProps> = ({
               <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
                 <Sparkles className="w-5 h-5 text-white" />
               </div>
-              <div onClick={() => {
-                router.push('/');
-                // Close mobile sidebar if onMobileItemClick is provided
-                if (onMobileItemClick) {
-                  onMobileItemClick();
-                }
-              }} className='cursor-pointer'>
+              <div onClick={() => router.push('/')} className='cursor-pointer'>
                 <h1 className="text-lg font-bold">LearnLoop</h1>
                 <p className="text-xs text-blue-100">Learn & Teach</p>
               </div>
@@ -204,10 +188,10 @@ const Sidebar: React.FC<SidebarProps> = ({
                   )}
                   onMouseEnter={() => setHoveredItem(item.href)}
                   onMouseLeave={() => setHoveredItem(null)}
-                  onClick={() => handleNavigationClick(item.href)}
+                  onClick={() => router.push(item.href)}
                   role="button"
                   tabIndex={0}
-                  onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') handleNavigationClick(item.href); }}
+                  onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') router.push(item.href); }}
                 >
                   <div
                     className={cn(
@@ -370,42 +354,15 @@ const Sidebar: React.FC<SidebarProps> = ({
             
             {/* Quick Actions */}
             <div className="grid grid-cols-3 gap-2">
-              <button 
-                className="flex flex-col items-center p-2 rounded-lg hover:bg-white/80 transition-colors duration-200 group"
-                onClick={() => {
-                  // Close mobile sidebar if onMobileItemClick is provided
-                  if (onMobileItemClick) {
-                    onMobileItemClick();
-                  }
-                  // Add your favorites functionality here
-                }}
-              >
+              <button className="flex flex-col items-center p-2 rounded-lg hover:bg-white/80 transition-colors duration-200 group">
                 <Heart className="w-4 h-4 text-red-500 group-hover:scale-110 transition-transform duration-200" />
                 <span className="text-xs text-gray-600 mt-1">Favorites</span>
               </button>
-              <button 
-                className="flex flex-col items-center p-2 rounded-lg hover:bg-white/80 transition-colors duration-200 group"
-                onClick={() => {
-                  // Close mobile sidebar if onMobileItemClick is provided
-                  if (onMobileItemClick) {
-                    onMobileItemClick();
-                  }
-                  // Add your badges functionality here
-                }}
-              >
+              <button className="flex flex-col items-center p-2 rounded-lg hover:bg-white/80 transition-colors duration-200 group">
                 <Award className="w-4 h-4 text-purple-500 group-hover:scale-110 transition-transform duration-200" />
                 <span className="text-xs text-gray-600 mt-1">Badges</span>
               </button>
-              <button 
-                className="flex flex-col items-center p-2 rounded-lg hover:bg-white/80 transition-colors duration-200 group"
-                onClick={() => {
-                  // Close mobile sidebar if onMobileItemClick is provided
-                  if (onMobileItemClick) {
-                    onMobileItemClick();
-                  }
-                  // Add your global functionality here
-                }}
-              >
+              <button className="flex flex-col items-center p-2 rounded-lg hover:bg-white/80 transition-colors duration-200 group">
                 <Globe className="w-4 h-4 text-blue-500 group-hover:scale-110 transition-transform duration-200" />
                 <span className="text-xs text-gray-600 mt-1">Global</span>
               </button>
@@ -418,10 +375,6 @@ const Sidebar: React.FC<SidebarProps> = ({
         <button
           className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-red-50 text-red-600 font-semibold hover:bg-red-100 transition-colors duration-200"
           onClick={async () => {
-            // Close mobile sidebar if onMobileItemClick is provided
-            if (onMobileItemClick) {
-              onMobileItemClick();
-            }
             await logout();
             router.push('/');
           }}

@@ -55,7 +55,6 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
               <Sidebar 
                 navigation={navigation}
                 currentPath={currentPath}
-                onMobileItemClick={closeMobileSidebar}
               />
             </div>
           </div>

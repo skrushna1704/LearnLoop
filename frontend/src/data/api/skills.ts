@@ -3,7 +3,7 @@
 import { apiClient } from '@/lib/api-client';
 import { Skill } from '@/types/skill';
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5050/api/skills';
+const BASE_URL = `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5050/api'}/skills`;
 
 // Helper function to get auth headers
 const getAuthHeaders = () => {

@@ -422,14 +422,7 @@ const Header: React.FC = () => {
                     );
                   })}
 
-                  <button 
-                    className="flex items-center w-full px-3 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 rounded-lg mx-2 mt-2 transition-colors"
-                    onClick={async () => {
-                      setIsMobileMenuOpen(false);
-                      await logout();
-                      router.push("/");
-                    }}
-                  >
+                  <button className="flex items-center w-full px-3 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 rounded-lg mx-2 mt-2 transition-colors">
                     <LogOut className="mr-3 h-4 w-4" />
                     Sign out
                   </button>
