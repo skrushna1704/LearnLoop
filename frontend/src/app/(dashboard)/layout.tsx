@@ -38,6 +38,7 @@ export default function DashboardLayout({
               currentPath={pathname} 
               isCollapsed={false}
               onToggleCollapse={handleToggleCollapse}
+              onMobileItemClick={handleToggleCollapse}
             />
           </div>
         )}

@@ -46,6 +46,7 @@ interface SidebarProps {
   onToggleCollapse?: () => void;
   navigation: readonly NavigationItem[];
   currentPath: string;
+  onMobileItemClick?: () => void;
 }
 
 const iconMap = {
@@ -84,6 +85,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   onToggleCollapse,
   navigation = enhancedNavigation,
   currentPath = '/dashboard',
+  onMobileItemClick,
 }) => {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const router = useRouter();
@@ -188,7 +190,13 @@ const Sidebar: React.FC<SidebarProps> = ({
                   )}
                   onMouseEnter={() => setHoveredItem(item.href)}
                   onMouseLeave={() => setHoveredItem(null)}
-                  onClick={() => router.push(item.href)}
+                  onClick={() => {
+                    router.push(item.href);
+                    // Close mobile sidebar if onMobileItemClick is provided
+                    if (onMobileItemClick) {
+                      onMobileItemClick();
+                    }
+                  }}
                   role="button"
                   tabIndex={0}
                   onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') router.push(item.href); }}

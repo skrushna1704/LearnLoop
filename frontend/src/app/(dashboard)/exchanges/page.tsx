@@ -159,39 +159,39 @@ export default function ExchangesPage() {
       <div className="max-w-7xl mx-auto px-4 py-6 space-y-8">
         
         {/* Enhanced Header */}
-        <div className="relative overflow-hidden bg-gradient-to-r from-indigo-600 via-blue-600 to-cyan-600 rounded-3xl p-8 text-white">
+        <div className="relative overflow-hidden bg-gradient-to-r from-indigo-600 via-blue-600 to-cyan-600 rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 text-white">
           <div className="relative z-10">
-            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 sm:gap-6">
               <div>
-                <h1 className="text-4xl font-bold mb-2">My Skill Exchanges</h1>
-                <p className="text-blue-100 text-lg">Track your learning journey and teaching impact</p>
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2">My Skill Exchanges</h1>
+                <p className="text-blue-100 text-sm sm:text-base lg:text-lg">Track your learning journey and teaching impact</p>
                 
                 {/* Stats */}
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
-                  <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
-                    <div className="text-2xl font-bold">{stats.totalExchanges}</div>
-                    <div className="text-sm text-blue-100">Total Exchanges</div>
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 mt-4 sm:mt-6">
+                  <div className="bg-white/10 backdrop-blur-sm rounded-lg sm:rounded-xl p-3 sm:p-4">
+                    <div className="text-lg sm:text-xl lg:text-2xl font-bold">{stats.totalExchanges}</div>
+                    <div className="text-xs sm:text-sm text-blue-100">Total Exchanges</div>
                   </div>
-                  <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
-                    <div className="text-2xl font-bold">{stats.activeExchanges}</div>
-                    <div className="text-sm text-blue-100">Active Now</div>
+                  <div className="bg-white/10 backdrop-blur-sm rounded-lg sm:rounded-xl p-3 sm:p-4">
+                    <div className="text-lg sm:text-xl lg:text-2xl font-bold">{stats.activeExchanges}</div>
+                    <div className="text-xs sm:text-sm text-blue-100">Active Now</div>
                   </div>
-                  <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
-                    <div className="text-2xl font-bold">{stats.completedExchanges}</div>
-                    <div className="text-sm text-blue-100">Completed</div>
+                  <div className="bg-white/10 backdrop-blur-sm rounded-lg sm:rounded-xl p-3 sm:p-4">
+                    <div className="text-lg sm:text-xl lg:text-2xl font-bold">{stats.completedExchanges}</div>
+                    <div className="text-xs sm:text-sm text-blue-100">Completed</div>
                   </div>
-                  <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
-                    <div className="text-2xl font-bold">{stats.hoursLearned}</div>
-                    <div className="text-sm text-blue-100">Hours Learned</div>
+                  <div className="bg-white/10 backdrop-blur-sm rounded-lg sm:rounded-xl p-3 sm:p-4">
+                    <div className="text-lg sm:text-xl lg:text-2xl font-bold">{stats.hoursLearned}</div>
+                    <div className="text-xs sm:text-sm text-blue-100">Hours Learned</div>
                   </div>
                 </div>
               </div>
               
               <button 
                 onClick={() => router.push('/exchanges/new')}
-                className="flex items-center gap-3 px-6 py-3 bg-white text-blue-600 rounded-xl font-semibold hover:bg-blue-50 transition-all duration-300 shadow-lg hover:shadow-xl group"
+                className="flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 bg-white text-blue-600 rounded-lg sm:rounded-xl font-semibold hover:bg-blue-50 transition-all duration-300 shadow-lg hover:shadow-xl group text-sm sm:text-base"
               >
-                <Plus className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" />
+                <Plus className="w-4 h-4 sm:w-5 sm:h-5 group-hover:rotate-90 transition-transform duration-300" />
                 Start New Exchange
               </button>
             </div>
@@ -203,25 +203,25 @@ export default function ExchangesPage() {
         </div>
 
         {/* Filters and Search */}
-        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-          <div className="flex flex-col lg:flex-row gap-4">
+        <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100">
+          <div className="flex flex-col gap-4">
             <div className="relative flex-1">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <Search className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 sm:w-5 sm:h-5" />
               <input
                 type="text"
                 placeholder="Search exchanges by title, partner, or skill..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                className="w-full pl-10 sm:pl-12 pr-4 py-2 sm:py-3 border border-gray-200 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
               />
             </div>
             
-            <div className="flex gap-3">
+            <div className="flex flex-wrap gap-2 sm:gap-3">
               {['all', 'active', 'scheduled', 'pending', 'completed'].map((filter) => (
                 <button
                   key={filter}
                   onClick={() => setActiveFilter(filter)}
-                  className={`px-4 py-2 rounded-xl transition-all duration-300 font-medium ${
+                  className={`px-3 sm:px-4 py-2 rounded-lg sm:rounded-xl transition-all duration-300 font-medium text-xs sm:text-sm ${
                     activeFilter === filter
                       ? 'bg-blue-500 text-white shadow-md'
                       : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
@@ -245,46 +245,46 @@ export default function ExchangesPage() {
             if (!partner || !exchange._id) return null;
             
             return (
-              <div key={exchange._id} className="bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 overflow-hidden">
+              <div key={exchange._id} className="bg-white rounded-xl sm:rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 overflow-hidden">
                 
                 {/* Exchange Header */}
-                <div className="p-6 pb-4">
+                <div className="p-4 sm:p-6 pb-4">
                   <div className="flex flex-col lg:flex-row justify-between gap-4">
                     
                     {/* Main Info */}
                     <div className="flex-1">
-                      <div className="flex items-start gap-4">
-                        <div className="relative">
+                      <div className="flex items-start gap-3 sm:gap-4">
+                        <div className="relative flex-shrink-0">
                           <Image
                             src={partner.profile.profilePicture || 'https://i.pravatar.cc/150?img=1'}
                             alt={partner.profile.name || 'Partner profile'}
-                            className="w-16 h-16 rounded-full border-3 border-white shadow-lg"
+                            className="w-12 h-12 sm:w-16 sm:h-16 rounded-full border-2 sm:border-3 border-white shadow-lg"
                             width={64}
                             height={64}
                           />
                           {partner.profile.verified && (
-                            <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center border-2 border-white">
-                              <Star className="w-3 h-3 text-white fill-current" />
+                            <div className="absolute -bottom-1 -right-1 w-4 h-4 sm:w-6 sm:h-6 bg-blue-500 rounded-full flex items-center justify-center border-2 border-white">
+                              <Star className="w-2 h-2 sm:w-3 sm:h-3 text-white fill-current" />
                             </div>
                           )}
                         </div>
                         
-                        <div className="flex-1">
+                        <div className="flex-1 min-w-0">
                           <div className="flex items-start justify-between mb-2">
-                            <div>
-                              <h3 className="text-xl font-semibold text-gray-900 mb-1">{exchange.title}</h3>
-                              <p className="text-gray-600">{partner.profile.name} • {partner.profile?.role}</p>
+                            <div className="flex-1 min-w-0">
+                              <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-1 truncate">{exchange.title}</h3>
+                              <p className="text-gray-600 text-sm sm:text-base truncate">{partner.profile.name} • {partner.profile?.role}</p>
                               <div className="flex items-center gap-2 mt-1">
-                                <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                                <span className="text-sm font-medium text-gray-700">{partner.profile?.rating ? partner.profile.rating.toFixed(1) : 'N/A'}</span>
+                                <Star className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-400 fill-current" />
+                                <span className="text-xs sm:text-sm font-medium text-gray-700">{partner.profile?.rating ? partner.profile.rating.toFixed(1) : 'N/A'}</span>
                               </div>
                             </div>
                           </div>
                           
                           {/* Skills Exchange */}
-                          <div className="flex items-center gap-4 mb-4">
+                          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-4">
                             <div className="flex items-center gap-2">
-                              <div className={`px-3 py-1 rounded-full text-sm font-medium ${
+                              <div className={`px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium ${
                                 exchange.myRole === 'teacher' || exchange.myRole === 'both' 
                                   ? 'bg-green-100 text-green-800' 
                                   : 'bg-blue-100 text-blue-800'
@@ -294,23 +294,23 @@ export default function ExchangesPage() {
                               </div>
                             </div>
                             
-                            <div className="flex items-center gap-3">
-                              <div className="text-center">
+                            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 w-full sm:w-auto">
+                              <div className="text-center sm:text-left">
                                 <div className="text-xs text-gray-500 mb-1">
                                   {exchange.myRole === 'learner' ? 'Your Skill' : 'Teaching'}
                                 </div>
-                                <div className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
+                                <div className="px-2 sm:px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs sm:text-sm font-medium">
                                   {exchange.skillTaught?.name}
                                 </div>
                               </div>
                               
-                              <ArrowRight className="w-4 h-4 text-gray-400" />
+                              <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400 hidden sm:block" />
                               
-                              <div className="text-center">
+                              <div className="text-center sm:text-left">
                                 <div className="text-xs text-gray-500 mb-1">
                                   {exchange.myRole === 'learner' ? 'Learning' : 'Their Skill'}
                                 </div>
-                                <div className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm font-medium">
+                                <div className="px-2 sm:px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-xs sm:text-sm font-medium">
                                   {exchange.skillLearned?.name}
                                 </div>
                               </div>
@@ -318,22 +318,22 @@ export default function ExchangesPage() {
                           </div>
                           
                           {/* Session Info */}
-                          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 text-xs sm:text-sm">
                             <div className="flex items-center gap-2 text-gray-600">
-                              <Calendar className="w-4 h-4" />
-                              {exchange.nextSession?.date || exchange.proposedDate || exchange.completedDate}
+                              <Calendar className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                              <span className="truncate">{exchange.nextSession?.date || exchange.proposedDate || exchange.completedDate}</span>
                             </div>
                             <div className="flex items-center gap-2 text-gray-600">
-                              <Clock className="w-4 h-4" />
-                              {exchange.nextSession?.time || 'Completed'}
+                              <Clock className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                              <span className="truncate">{exchange.nextSession?.time || 'Completed'}</span>
                             </div>
                             <div className="flex items-center gap-2 text-gray-600">
-                              <MapPin className="w-4 h-4" />
-                              {exchange.location}
+                              <MapPin className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                              <span className="truncate">{exchange.location}</span>
                             </div>
                             <div className="flex items-center gap-2 text-gray-600">
-                              <Users className="w-4 h-4" />
-                              {exchange.type}
+                              <Users className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                              <span className="truncate">{exchange.type}</span>
                             </div>
                           </div>
                         </div>
@@ -341,16 +341,16 @@ export default function ExchangesPage() {
                     </div>
 
                     {/* Status and Actions */}
-                    <div className="flex flex-col items-end gap-4 lg:w-64">
-                      <div className={`flex items-center gap-2 px-4 py-2 rounded-full border ${statusInfo.color}`}>
-                        <StatusIcon className="w-4 h-4" />
+                    <div className="flex flex-col items-start sm:items-end gap-4 w-full sm:w-auto lg:w-64">
+                      <div className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full border ${statusInfo.color} text-xs sm:text-sm`}>
+                        <StatusIcon className="w-3 h-3 sm:w-4 sm:h-4" />
                         <span className="font-medium">{statusInfo.label}</span>
                       </div>
                       
                       {/* Progress Bar */}
                       {exchange.progress !== undefined && (
                         <div className="w-full">
-                          <div className="flex justify-between text-sm text-gray-600 mb-2">
+                          <div className="flex justify-between text-xs sm:text-sm text-gray-600 mb-2">
                             <span>Progress</span>
                             <span>{exchange.progress}%</span>
                           </div>
@@ -367,44 +367,44 @@ export default function ExchangesPage() {
                       )}
                       
                       {/* Action Buttons */}
-                      <div className="flex items-center gap-2 mt-4 pt-4 border-t border-gray-200">
+                      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 mt-4 pt-4 border-t border-gray-200 w-full">
                         <Link href={`/messages?exchangeId=${exchange._id}`} passHref>
-                          <Button variant="outline" size="sm" className="flex items-center gap-2 flex-1">
-                            <MessageSquare size={16} />
+                          <Button variant="outline" size="sm" className="flex items-center gap-2 flex-1 text-xs sm:text-sm">
+                            <MessageSquare size={14} className="sm:w-4 sm:h-4" />
                             Message
                           </Button>
                         </Link>
                         
                         {exchange.status === 'active' && (
                           <Link href={`/exchanges/${exchange._id}/call`} passHref>
-                            <Button size="sm" className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 flex-1">
-                              <Video size={16} />
+                            <Button size="sm" className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 flex-1 text-xs sm:text-sm">
+                              <Video size={14} className="sm:w-4 sm:h-4" />
                               Join Call
                             </Button>
                           </Link>
                         )}
                         
                         {exchange.status === 'scheduled' && (
-                          <Button size="sm" className="flex items-center gap-2 bg-green-500 hover:bg-green-600 flex-1">
-                            <Calendar size={16} />
+                          <Button size="sm" className="flex items-center gap-2 bg-green-500 hover:bg-green-600 flex-1 text-xs sm:text-sm">
+                            <Calendar size={14} className="sm:w-4 sm:h-4" />
                             Confirm
                           </Button>
                         )}
                         
                         {exchange.status === 'pending' && (
                           <Link href={`/exchanges/${exchange._id}`} passHref>
-                            <Button size="sm" className="flex items-center gap-2 bg-yellow-500 hover:bg-yellow-600 flex-1" onClick={() => {
+                            <Button size="sm" className="flex items-center gap-2 bg-yellow-500 hover:bg-yellow-600 flex-1 text-xs sm:text-sm" onClick={() => {
                               console.log('Review button clicked');
                             }}>
-                              <Clock size={16} />
+                              <Clock size={14} className="sm:w-4 sm:h-4" />
                               Review
                             </Button>
                           </Link>
                         )}
                         
                         {exchange.status === 'completed' && (
-                          <Button size="sm" className="flex items-center gap-2 bg-purple-500 hover:bg-purple-600 flex-1">
-                            <Award size={16} />
+                          <Button size="sm" className="flex items-center gap-2 bg-purple-500 hover:bg-purple-600 flex-1 text-xs sm:text-sm">
+                            <Award size={14} className="sm:w-4 sm:h-4" />
                             Review
                           </Button>
                         )}
@@ -415,23 +415,23 @@ export default function ExchangesPage() {
 
                 {/* Additional Info for Completed Exchanges */}
                 {exchange.status === 'completed' && exchange.feedback && (
-                  <div className="px-6 pb-6">
-                    <div className="bg-green-50 border border-green-200 rounded-xl p-4">
+                  <div className="px-4 sm:px-6 pb-4 sm:pb-6">
+                    <div className="bg-green-50 border border-green-200 rounded-lg sm:rounded-xl p-3 sm:p-4">
                       <div className="flex items-center gap-2 mb-2">
-                        <Award className="w-5 h-5 text-green-600" />
-                        <span className="font-medium text-green-800">Exchange Completed</span>
+                        <Award className="w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
+                        <span className="font-medium text-green-800 text-sm sm:text-base">Exchange Completed</span>
                         {partner.profile.rating && (
                           <div className="flex items-center gap-1 ml-auto">
                             {[...Array(5)].map((_, i) => (
                               <Star 
                                 key={i} 
-                                className={`w-4 h-4 ${i < (partner.profile?.rating || 0) ? 'text-yellow-400 fill-current' : 'text-gray-300'}`} 
+                                className={`w-3 h-3 sm:w-4 sm:h-4 ${i < (partner.profile?.rating || 0) ? 'text-yellow-400 fill-current' : 'text-gray-300'}`} 
                               />
                             ))}
                           </div>
                         )}
                       </div>
-                      <p className="text-green-700 italic">&quot;{exchange.feedback.map(f => f.comment).join(' ')}&quot;</p>
+                      <p className="text-green-700 italic text-sm sm:text-base">&quot;{exchange.feedback.map(f => f.comment).join(' ')}&quot;</p>
                     </div>
                   </div>
                 )}
@@ -442,14 +442,14 @@ export default function ExchangesPage() {
 
         {/* Empty State */}
         {filteredExchanges.length === 0 && (
-          <div className="bg-white rounded-2xl p-12 text-center border border-gray-100">
-            <div className="mx-auto w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center mb-6">
-              <BookOpen className="w-10 h-10 text-blue-600" />
+          <div className="bg-white rounded-xl sm:rounded-2xl p-6 sm:p-12 text-center border border-gray-100">
+            <div className="mx-auto w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-blue-100 flex items-center justify-center mb-4 sm:mb-6">
+              <BookOpen className="w-8 h-8 sm:w-10 sm:h-10 text-blue-600" />
             </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">
+            <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">
               {activeFilter === 'all' ? 'No Exchanges Yet' : `No ${activeFilter} Exchanges`}
             </h3>
-            <p className="text-gray-600 mb-8">
+            <p className="text-gray-600 mb-6 sm:mb-8 text-sm sm:text-base">
               {activeFilter === 'all' 
                 ? 'Start your learning journey by scheduling your first skill exchange'
                 : `You don't have any ${activeFilter} exchanges at the moment`
@@ -457,9 +457,9 @@ export default function ExchangesPage() {
             </p>
             <button 
               onClick={() => router.push('/exchanges/new')}
-              className="inline-flex items-center gap-3 px-6 py-3 bg-blue-500 text-white rounded-xl font-semibold hover:bg-blue-600 transition-all duration-300"
+              className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 bg-blue-500 text-white rounded-lg sm:rounded-xl font-semibold hover:bg-blue-600 transition-all duration-300 text-sm sm:text-base"
             >
-              <Plus className="w-5 h-5" />
+              <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
               Start New Exchange
             </button>
           </div>
