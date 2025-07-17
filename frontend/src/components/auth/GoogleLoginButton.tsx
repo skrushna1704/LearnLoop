@@ -79,7 +79,7 @@ export default function GoogleLoginButton({
     script.onload = () => {
       if (window.google) {
         window.google.accounts.id.initialize({
-          client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '',
+          client_id: process.env.GOOGLE_CLIENT_ID || '',
           callback: handleCredentialResponse,
           auto_select: false,
           cancel_on_tap_outside: true,

@@ -39,9 +39,9 @@ export default function GoogleCallbackPage() {
           },
           body: new URLSearchParams({
             code,
-            client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
-            client_secret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET!,
-            redirect_uri: process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI || 'http://localhost:3000/auth/google/callback',
+            client_id: process.env.GOOGLE_CLIENT_ID!,
+            client_secret: process.env.GOOGLE_CLIENT_SECRET!,
+            redirect_uri: process.env.GOOGLE_REDIRECT_URI || 'http://localhost:3000/auth/google/callback',
             grant_type: 'authorization_code',
           }),
         });
@@ -74,7 +74,7 @@ export default function GoogleCallbackPage() {
           body: new URLSearchParams({
             grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
             assertion: userInfo.id,
-            client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
+            client_id: process.env.GOOGLE_CLIENT_ID!,
           }),
         });
 
