@@ -12,7 +12,6 @@ import {
   Paperclip, 
   Smile,
   MoreVertical,
-  Phone,
   Video,
   Mic,
   Check,
@@ -175,7 +174,7 @@ export default function MessagesPage() {
       socket.off('call-accepted', handleCallAccepted);
       socket.off('call-ended', handleCallEnded);
     };
-  }, [socket, conversations]);
+  }, [socket, conversations, currentUser?.id, incomingCall?.exchangeId]);
 
   // Effect for fetching initial conversations
   useEffect(() => {

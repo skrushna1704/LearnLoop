@@ -35,6 +35,23 @@ const CallModal: React.FC<CallModalProps> = ({
   const { socket, isConnected } = useSocket();
   const { user: currentUser } = useAuth();
 
+  const handleEndCall = useCallback(() => {
+    if (socket) {
+      socket.emit('end-call', { roomId: callRoomId, exchangeId });
+    }
+    localStreamRef.current?.getTracks().forEach(track => track.stop());
+    peerConnectionRef.current?.close();
+    setCallState('ended');
+    onClose();
+  }, [socket, callRoomId, exchangeId, onClose]);
+
+  const handleDeclineCall = useCallback(() => {
+    if (socket) {
+      socket.emit('reject-call', { roomId: callRoomId, exchangeId });
+    }
+    handleEndCall();
+  }, [socket, callRoomId, exchangeId, handleEndCall]);
+
   // Auto-decline timer for incoming calls
   useEffect(() => {
     if (!open || callState !== 'incoming') return;
@@ -50,7 +67,7 @@ const CallModal: React.FC<CallModalProps> = ({
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [open, callState]);
+  }, [open, callState, handleDeclineCall]);
 
   const startPeerConnection = useCallback(async () => {
     if (peerConnectionRef.current) return;
@@ -136,22 +153,9 @@ const CallModal: React.FC<CallModalProps> = ({
     }
   };
 
-  const handleDeclineCall = () => {
-    if (socket) {
-      socket.emit('reject-call', { roomId: callRoomId, exchangeId });
-    }
-    handleEndCall();
-  };
 
-  const handleEndCall = () => {
-    if (socket) {
-      socket.emit('end-call', { roomId: callRoomId, exchangeId });
-    }
-    localStreamRef.current?.getTracks().forEach(track => track.stop());
-    peerConnectionRef.current?.close();
-    setCallState('ended');
-    onClose();
-  };
+
+
 
   const toggleMute = () => {
     if (localStreamRef.current) {

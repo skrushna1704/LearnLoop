@@ -70,7 +70,7 @@ export function CallNotificationProvider({ children }: { children: React.ReactNo
         socket.off('call-accepted', handleCallAccepted);
       };
     }
-  }, [socket, notification]);
+  }, [socket, notification, pathname]);
 
   const showNotification = (exchangeId: string, message: string) => {
     setNotification({
