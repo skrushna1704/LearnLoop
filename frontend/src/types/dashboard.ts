@@ -54,8 +54,17 @@ export interface ApiSkill {
     receiver: UserReference;
     status: 'pending' | 'active' | 'completed' | 'rejected' | 'scheduled';
     myRole?: 'teacher' | 'learner' | 'both'; 
+    offeredSkill?: { name: string; description?: string };
+    desiredSkill?: { name: string; description?: string };
+    // Keep the old fields for backward compatibility
     skillTaught?: { name: string };
     skillLearned?: { name: string };
+    // Add users array for skill data
+    users?: Array<{
+      user: UserReference;
+      role: 'teacher' | 'learner' | 'both';
+      skill?: { name: string; description?: string };
+    }>;
     progress: number;
     sessionsCompleted?: number;
     totalSessions?: number;

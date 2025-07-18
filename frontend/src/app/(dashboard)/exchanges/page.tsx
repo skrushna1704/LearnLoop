@@ -99,14 +99,14 @@ export default function ExchangesPage() {
     if (isConnected && socket && exchanges.length > 0) {
       const exchangeIds = exchanges.map(e => e._id);
       
-      console.log('STABLE: Joining rooms for exchanges:', exchangeIds);
+      // console.log('STABLE: Joining rooms for exchanges:', exchangeIds);
       socket.emit('joinMultipleRooms', exchangeIds);
 
       // This cleanup function will ONLY run when the component is truly unmounted,
       // not on every re-render.
       return () => {
         if (socket.connected) { // Check if socket is still connected before emitting
-          console.log('STABLE: Leaving rooms for exchanges:', exchangeIds);
+          // console.log('STABLE: Leaving rooms for exchanges:', exchangeIds);
           socket.emit('leaveMultipleRooms', exchangeIds);
         }
       };
@@ -127,10 +127,45 @@ export default function ExchangesPage() {
     const partner = exchange.proposer && exchange.proposer._id === currentUser?.id ? exchange.receiver : exchange.proposer;
     const matchesSearch = exchange.title?.toLowerCase().includes(searchLower) ||
                          (partner && partner.profile && partner.profile.name && partner.profile.name.toLowerCase().includes(searchLower)) ||
+                         (exchange.offeredSkill && exchange.offeredSkill.name && exchange.offeredSkill.name.toLowerCase().includes(searchLower)) ||
+                         (exchange.desiredSkill && exchange.desiredSkill.name && exchange.desiredSkill.name.toLowerCase().includes(searchLower)) ||
                          (exchange.skillTaught && exchange.skillTaught.name && exchange.skillTaught.name.toLowerCase().includes(searchLower)) ||
                          (exchange.skillLearned && exchange.skillLearned.name && exchange.skillLearned.name.toLowerCase().includes(searchLower));
     return matchesFilter && matchesSearch;
   });
+
+  // Helper function to determine if current user is the proposer
+  const isCurrentUserProposer = (exchange: IExchange) => {
+    return exchange.proposer && exchange.proposer._id === currentUser?.id;
+  };
+
+  // Helper function to get the correct skill labels
+  const getSkillLabels = (exchange: IExchange) => {
+    const isProposer = isCurrentUserProposer(exchange);
+    
+    // Get skills from users array
+    const teacherUser = exchange.users?.find(user => user.role === 'teacher');
+    const learnerUser = exchange.users?.find(user => user.role === 'learner');
+    
+    const teacherSkill = teacherUser?.skill?.name;
+    const learnerSkill = learnerUser?.skill?.name;
+    
+    if (isProposer) {
+      return {
+        offeredSkill: teacherSkill || exchange.offeredSkill?.name || exchange.skillTaught?.name || 'Your Skill',
+        requestedSkill: learnerSkill || exchange.desiredSkill?.name || exchange.skillLearned?.name || 'Their Skill',
+        offeredLabel: 'You are teaching',
+        requestedLabel: 'You want to learn'
+      };
+    } else {
+      return {
+        offeredSkill: teacherSkill || exchange.offeredSkill?.name || exchange.skillTaught?.name || 'Their Skill',
+        requestedSkill: learnerSkill || exchange.desiredSkill?.name || exchange.skillLearned?.name || 'Your Skill',
+        offeredLabel: 'They are teaching',
+        requestedLabel: 'You will teach'
+      };
+    }
+  };
 
   if (loading) {
     return (
@@ -281,39 +316,46 @@ export default function ExchangesPage() {
                             </div>
                           </div>
                           
-                          {/* Skills Exchange */}
+                          {/* Skills Exchange - Enhanced with clear skill information */}
                           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-4">
                             <div className="flex items-center gap-2">
                               <div className={`px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium ${
                                 exchange.myRole === 'teacher' || exchange.myRole === 'both' 
                                   ? 'bg-green-100 text-green-800' 
                                   : 'bg-blue-100 text-blue-800'
-                              }`}>
+                              }`} style={{marginTop:'20px'}}>
                                 {exchange.myRole === 'teacher' ? '👨‍🏫 Teaching' : 
-                                 exchange.myRole === 'learner' ? '👨‍🎓 Learning' : '🔄 Exchanging'}
+                                 exchange.myRole === 'learner' ? '🔄 Exchanging' : '🔄 Exchanging'}
                               </div>
                             </div>
                             
                             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 w-full sm:w-auto">
-                              <div className="text-center sm:text-left">
-                                <div className="text-xs text-gray-500 mb-1">
-                                  {exchange.myRole === 'learner' ? 'Your Skill' : 'Teaching'}
-                                </div>
-                                <div className="px-2 sm:px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs sm:text-sm font-medium">
-                                  {exchange.skillTaught?.name}
-                                </div>
-                              </div>
-                              
-                              <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400 hidden sm:block" />
-                              
-                              <div className="text-center sm:text-left">
-                                <div className="text-xs text-gray-500 mb-1">
-                                  {exchange.myRole === 'learner' ? 'Learning' : 'Their Skill'}
-                                </div>
-                                <div className="px-2 sm:px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-xs sm:text-sm font-medium">
-                                  {exchange.skillLearned?.name}
-                                </div>
-                              </div>
+                              {(() => {
+                                const skillLabels = getSkillLabels(exchange);
+                                return (
+                                  <>
+                                    <div className="text-center sm:text-left">
+                                      <div className="text-xs text-gray-500 mb-1">
+                                        {skillLabels.offeredLabel}
+                                      </div>
+                                      <div className="px-2 sm:px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs sm:text-sm font-medium">
+                                        {skillLabels.offeredSkill}
+                                      </div>
+                                    </div>
+                                    
+                                    <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400 hidden sm:block" />
+                                    
+                                    <div className="text-center sm:text-left">
+                                      <div className="text-xs text-gray-500 mb-1">
+                                        {skillLabels.requestedLabel}
+                                      </div>
+                                      <div className="px-2 sm:px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-xs sm:text-sm font-medium">
+                                        {skillLabels.requestedSkill}
+                                      </div>
+                                    </div>
+                                  </>
+                                );
+                              })()}
                             </div>
                           </div>
                           
@@ -393,11 +435,25 @@ export default function ExchangesPage() {
                         
                         {exchange.status === 'pending' && (
                           <Link href={`/exchanges/${exchange._id}`} passHref>
-                            <Button size="sm" className="flex items-center gap-2 bg-yellow-500 hover:bg-yellow-600 flex-1 text-xs sm:text-sm" onClick={() => {
-                              console.log('Review button clicked');
-                            }}>
+                            <Button 
+                              size="sm" 
+                              className={`flex items-center gap-2 flex-1 text-xs sm:text-sm ${
+                                isCurrentUserProposer(exchange) 
+                                  ? 'bg-gray-300 text-gray-500 cursor-not-allowed hover:bg-gray-300' 
+                                  : 'bg-yellow-500 hover:bg-yellow-600'
+                              }`}
+                              disabled={isCurrentUserProposer(exchange)}
+                              onClick={(e) => {
+                                if (isCurrentUserProposer(exchange)) {
+                                  e.preventDefault();
+                                  alert('You cannot review your own proposal. Please wait for the other user to respond.');
+                                } else {
+                                  console.log('Review button clicked');
+                                }
+                              }}
+                            >
                               <Clock size={14} className="sm:w-4 sm:h-4" />
-                              Review
+                              {isCurrentUserProposer(exchange) ? 'Waiting' : 'Review'}
                             </Button>
                           </Link>
                         )}

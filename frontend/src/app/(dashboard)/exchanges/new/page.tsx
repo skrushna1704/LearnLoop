@@ -302,10 +302,30 @@ export default function EnhancedNewExchangePage() {
           <h2 className="text-3xl font-bold text-gray-900 mb-4">Proposal Sent! 🎉</h2>
           <p className="text-gray-600 mb-6">Your exchange proposal has been successfully sent. You&apos;ll be notified when they respond.</p>
           <div className="space-y-3">
-            <button className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold py-3 px-6 rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-300">
+            <button 
+              onClick={() => router.push('/exchanges')}
+              className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold py-3 px-6 rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-300"
+            >
               View My Exchanges
             </button>
-            <button className="w-full text-gray-600 hover:text-gray-800 font-medium">
+            <button 
+              onClick={() => {
+                setCurrentStep(1);
+                setSelectedUser(null);
+                setFormData({
+                  receiverId: '',
+                  offeredSkillId: '',
+                  requestedSkillId: '',
+                  message: '',
+                  proposedDuration: 60,
+                  preferredTimes: [],
+                  sessionType: 'video',
+                  location: ''
+                });
+                setError(null);
+              }}
+              className="w-full text-gray-600 hover:text-gray-800 font-medium"
+            >
               Send Another Proposal
             </button>
           </div>
@@ -475,8 +495,15 @@ export default function EnhancedNewExchangePage() {
                 ) : (
                   <div className="text-center py-8 bg-gray-50 rounded-xl">
                     <Users className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                    <h3 className="text-lg font-semibold text-gray-800">No users found</h3>
-                    <p className="text-gray-500">Try adjusting your search or check back later.</p>
+                    <h3 className="text-lg font-semibold text-gray-800">
+                      {searchTerm ? 'No users found' : 'No other users available'}
+                    </h3>
+                    <p className="text-gray-500">
+                      {searchTerm 
+                        ? 'Try adjusting your search or check back later.' 
+                        : 'There are currently no other users available for skill exchange. Check back later or invite friends to join!'
+                      }
+                    </p>
                   </div>
                 )}
               </div>

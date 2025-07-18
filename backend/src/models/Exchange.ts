@@ -25,6 +25,15 @@ export interface IExchange extends Document {
     rating: number;
     comment: string;
   }[];
+  message?: string;
+  proposedDuration?: number;
+  sessionType?: string;
+  location?: string;
+  preferredTimes?: Array<{
+    date: string;
+    startTime: string;
+    endTime: string;
+  }>;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -37,6 +46,8 @@ const ExchangeSchema: Schema = new Schema({
     skill: { type: Schema.Types.ObjectId, ref: 'Skill', required: true },
     chatClearedAt: { type: Date },
   }],
+  offeredSkill: { type: Schema.Types.ObjectId, ref: 'Skill', required: true },
+  desiredSkill: { type: Schema.Types.ObjectId, ref: 'Skill', required: true },
   proposer: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   receiver: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   status: { 
@@ -55,6 +66,15 @@ const ExchangeSchema: Schema = new Schema({
     user: { type: Schema.Types.ObjectId, ref: 'User' },
     rating: { type: Number, min: 1, max: 5 },
     comment: { type: String }
+  }],
+  message: { type: String },
+  proposedDuration: { type: Number },
+  sessionType: { type: String },
+  location: { type: String },
+  preferredTimes: [{
+    date: { type: String },
+    startTime: { type: String },
+    endTime: { type: String }
   }]
 }, { timestamps: true });
 
