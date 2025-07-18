@@ -143,6 +143,7 @@ io.on('connection', (socket) => {
     socket.to(exchangeId).emit('call-incoming', {
       exchangeId,
       callerId: socket.id,
+      callerUserId: socket.handshake.query.userId as string,
       message: 'Someone wants to start a video call'
     });
   });
@@ -151,6 +152,29 @@ io.on('connection', (socket) => {
   socket.on('call-presence', ({ roomId, userId }) => {
     console.log(`call-presence from user ${userId} (socket ${socket.id}) in room ${roomId}`);
     socket.to(roomId).emit('call-presence', { userId, socketId: socket.id });
+  });
+
+  // Handle call acceptance
+  socket.on('accept-call', ({ roomId, exchangeId }) => {
+    console.log(`Call accepted for room ${roomId}, exchange ${exchangeId}`);
+    socket.to(roomId).emit('call-accepted', { exchangeId });
+    socket.to(exchangeId).emit('call-accepted', { exchangeId });
+    // Also emit to the exchange room to notify all participants
+    socket.to(exchangeId).emit('call-accepted', { exchangeId });
+  });
+
+  // Handle call rejection
+  socket.on('reject-call', ({ roomId, exchangeId }) => {
+    console.log(`Call rejected for room ${roomId}, exchange ${exchangeId}`);
+    socket.to(roomId).emit('call-rejected', { exchangeId });
+    socket.to(exchangeId).emit('call-rejected', { exchangeId });
+  });
+
+  // Handle call ending
+  socket.on('end-call', ({ roomId, exchangeId }) => {
+    console.log(`Call ended for room ${roomId}, exchange ${exchangeId}`);
+    socket.to(roomId).emit('call-ended', { exchangeId });
+    socket.to(exchangeId).emit('call-ended', { exchangeId });
   });
 
   socket.on('webrtc-offer', ({ sdp, offererId, roomId }) => {

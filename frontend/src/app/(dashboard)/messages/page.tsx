@@ -20,7 +20,7 @@ import {
   Trash2,
   X
 } from 'lucide-react';
-import toast from 'react-hot-toast';
+
 import { uploadFileToS3ViaBackend } from '@/lib/uploadFile';
 import CallModal from '@/components/features/messages/CallModal';
 import { Conversation, FileData, Message } from '@/types/dashboard';
@@ -49,6 +49,12 @@ export default function MessagesPage() {
   const [fileType, setFileType] = useState<'all' | 'image' | 'pdf' | 'doc'>('all');
   const [callModalOpen, setCallModalOpen] = useState(false);
   const [callAudioOnly, setCallAudioOnly] = useState(false);
+  const [incomingCall, setIncomingCall] = useState<{
+    exchangeId: string;
+    callerId: string;
+    callerUserId: string;
+    message: string;
+  } | null>(null);
 
   // Update ref whenever selectedConversation changes
   useEffect(() => {
@@ -72,84 +78,104 @@ export default function MessagesPage() {
 
     // Set up global event listeners that don't depend on selectedConversation
     const handleNewMessage = (newMessage: Message) => {
-      // If the message is for the currently selected conversation
+      console.log('📨 New message received:', newMessage);
+      
+      // Check if this message belongs to the currently selected conversation
       if (selectedConversationRef.current && newMessage.exchangeId === selectedConversationRef.current._id) {
         setMessages(prevMessages => {
-          if (prevMessages.some(msg => msg._id === newMessage._id)) {
+          // Check if message already exists
+          const exists = prevMessages.some(msg => msg._id === newMessage._id);
+          if (exists) {
             return prevMessages;
           }
           return [...prevMessages, newMessage];
         });
-        setConversations(prevConvs => prevConvs.map(conv =>
-          conv._id === newMessage.exchangeId
-            ? { ...conv, lastMessage: newMessage.content, lastMessageTime: newMessage.createdAt }
-            : conv
-        ));
-      } else {
-        // Message is for another conversation
-        setConversations(prevConvs => prevConvs.map(conv =>
-          conv._id === newMessage.exchangeId
-            ? { ...conv, lastMessage: newMessage.content, lastMessageTime: newMessage.createdAt, unread: (conv.unread || 0) + 1 }
-            : conv
-        ));
-        // Show toast notification
-        toast.custom((t) => (
-          <div className={`bg-white shadow-lg rounded-lg px-4 py-3 flex items-center gap-3 border-l-4 border-blue-500 ${t.visible ? 'animate-enter' : 'animate-leave'}`}> 
-            <Image src={newMessage.senderId.profile.profilePicture || 'https://i.pravatar.cc/150?img=1'} alt={newMessage.senderId.profile.name} width={32} height={32} className="w-8 h-8 rounded-full" />
-            <div>
-              <div className="font-semibold text-gray-800">{newMessage.senderId.profile.name}</div>
-              <div className="text-gray-600 text-sm">{newMessage.content}</div>
-            </div>
-          </div>
-        ), { duration: 4000 });
+        
         // Play notification sound
         if (audioRef.current) {
-          audioRef.current.currentTime = 0;
-          audioRef.current.play();
+          audioRef.current.play().catch(console.error);
+        }
+      }
+      
+      // Update conversation list with new message
+      setConversations(prevConversations => {
+        return prevConversations.map(conv => {
+          if (conv._id === newMessage.exchangeId) {
+            return {
+              ...conv,
+              lastMessage: newMessage.content,
+              lastMessageTime: newMessage.createdAt,
+              unread: conv._id === selectedConversationRef.current?._id ? conv.unread : (conv.unread || 0) + 1
+            };
+          }
+          return conv;
+        });
+      });
+    };
+
+    // Handle incoming call notifications
+    const handleIncomingCall = (callData: { exchangeId: string; callerId: string; callerUserId: string; message: string }) => {
+      console.log('📞 Incoming call received:', callData);
+      
+      // Don't show incoming call notification if we are the caller
+      if (callData.callerUserId === currentUser?.id) {
+        console.log('📞 Ignoring incoming call notification - we are the caller');
+        return;
+      }
+      
+      // Check if this call is for a conversation we have
+      const conversation = conversations.find(conv => conv._id === callData.exchangeId);
+      if (conversation) {
+        setIncomingCall(callData);
+        setCallModalOpen(true);
+        setCallAudioOnly(false); // Default to video call
+        
+        // Play notification sound
+        if (audioRef.current) {
+          audioRef.current.play().catch(console.error);
         }
       }
     };
 
-    const handleChatCleared = (data: { exchangeId: string }) => {
-      console.log('Received chat cleared event:', data);
-      const currentConv = selectedConversationRef.current;
-      if (currentConv && data.exchangeId === currentConv._id) {
-        console.log('Clearing messages for current conversation');
-        setMessages([]);
+    // Handle call rejection
+    const handleCallRejected = ({ exchangeId }: { exchangeId: string }) => {
+      console.log('❌ Call rejected for exchange:', exchangeId);
+      if (incomingCall?.exchangeId === exchangeId) {
+        setIncomingCall(null);
+        setCallModalOpen(false);
       }
     };
 
+    // Handle call acceptance
+    const handleCallAccepted = ({ exchangeId }: { exchangeId: string }) => {
+      console.log('✅ Call accepted for exchange:', exchangeId);
+      if (incomingCall?.exchangeId === exchangeId) {
+        setIncomingCall(null);
+        // Keep modal open for the call
+      }
+    };
+
+    // Handle call ended
+    const handleCallEnded = ({ exchangeId }: { exchangeId: string }) => {
+      console.log('📞 Call ended for exchange:', exchangeId);
+      setIncomingCall(null);
+      setCallModalOpen(false);
+    };
+
     socket.on('newMessage', handleNewMessage);
-    socket.on('chatCleared', handleChatCleared);
-
-    // Add test response handler
-    socket.on('testResponse', (data) => {
-      console.log('✅ Test response received:', data);
-    });
-
-    // Add connection status listeners
-    socket.on('connect', () => {
-      console.log('🔗 Socket connected in messages page');
-    });
-
-    socket.on('disconnect', () => {
-      console.log('🔌 Socket disconnected in messages page');
-    });
-
-    socket.on('connect_error', (error) => {
-      console.error('❌ Socket connection error in messages page:', error);
-    });
+    socket.on('call-incoming', handleIncomingCall);
+    socket.on('call-rejected', handleCallRejected);
+    socket.on('call-accepted', handleCallAccepted);
+    socket.on('call-ended', handleCallEnded);
 
     return () => {
-      console.log('🧹 Cleaning up socket event listeners');
       socket.off('newMessage', handleNewMessage);
-      socket.off('chatCleared', handleChatCleared);
-      socket.off('testResponse');
-      socket.off('connect');
-      socket.off('disconnect');
-      socket.off('connect_error');
+      socket.off('call-incoming', handleIncomingCall);
+      socket.off('call-rejected', handleCallRejected);
+      socket.off('call-accepted', handleCallAccepted);
+      socket.off('call-ended', handleCallEnded);
     };
-  }, [socket]); // Only depend on socket, not empty array
+  }, [socket, conversations]);
 
   // Effect for fetching initial conversations
   useEffect(() => {
@@ -452,14 +478,19 @@ export default function MessagesPage() {
     <div className="h-[calc(100vh-2rem)] bg-gradient-to-br from-blue-50 via-white to-purple-50 rounded-2xl overflow-hidden shadow-lg">
       {/* Notification sound */}
       <audio ref={audioRef} src="/notification.mp3" preload="auto" />
+      
       {/* Call Modal */}
       {selectedConversation && (
-        <CallModal
-          exchangeId={selectedConversation._id}
-          open={callModalOpen}
-          onClose={() => setCallModalOpen(false)}
-          audioOnly={callAudioOnly}
-        />
+                  <CallModal
+            exchangeId={selectedConversation._id}
+            open={callModalOpen}
+            onClose={() => {
+              setCallModalOpen(false);
+              setIncomingCall(null);
+            }}
+            audioOnly={callAudioOnly}
+            isIncoming={!!incomingCall}
+          />
       )}
 
       
@@ -574,7 +605,7 @@ export default function MessagesPage() {
               
               {/* Action Buttons */}
               <div className="flex items-center gap-2">
-                <button
+                {/* <button
                   className="p-3 hover:bg-white/70 rounded-xl transition-colors duration-200 group"
                   onClick={() => {
                     setCallAudioOnly(true);
@@ -582,7 +613,7 @@ export default function MessagesPage() {
                   }}
                 >
                   <Phone className="w-5 h-5 text-gray-600 group-hover:text-blue-600" />
-                </button>
+                </button> */}
                 <button
                   className="p-3 hover:bg-white/70 rounded-xl transition-colors duration-200 group"
                   onClick={() => {

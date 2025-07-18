@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useSocket } from './SocketContext';
 import CallNotification from '@/components/CallNotification';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 
 interface CallNotificationContextType {
   showNotification: (exchangeId: string, message: string) => void;
@@ -23,6 +23,7 @@ const CallNotificationContext = createContext<CallNotificationContextType | unde
 export function CallNotificationProvider({ children }: { children: React.ReactNode }) {
   const { socket } = useSocket();
   const router = useRouter();
+  const pathname = usePathname();
   const [notification, setNotification] = useState<IncomingCall | null>(null);
 
   useEffect(() => {
@@ -32,6 +33,13 @@ export function CallNotificationProvider({ children }: { children: React.ReactNo
       // Listen for incoming calls
       const handleCallIncoming = (callData: IncomingCall) => {
         console.log('Incoming call notification received:', callData);
+        
+        // Don't show notification if we're on the messages page (handled by messages page itself)
+        if (pathname === '/messages') {
+          console.log('Ignoring call notification on messages page');
+          return;
+        }
+        
         setNotification(callData);
       };
 
@@ -88,8 +96,10 @@ export function CallNotificationProvider({ children }: { children: React.ReactNo
         exchangeId: notification.exchangeId
       });
       
-      // Navigate to the call page
-      router.push(`/exchanges/${notification.exchangeId}/call`);
+      // Only navigate to exchanges page if not on messages page
+      if (pathname !== '/messages') {
+        router.push(`/exchanges/${notification.exchangeId}/call`);
+      }
       
       // Hide notification
       setNotification(null);

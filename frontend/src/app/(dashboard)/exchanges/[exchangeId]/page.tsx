@@ -437,10 +437,10 @@ export default function ExchangeReviewPage() {
                 <span className="truncate">{isUpdating ? 'Rejecting...' : 'Reject Proposal'}</span>
               </Button>
               <Button 
-                onClick={() => handleStatusUpdate('active')}
-                disabled={isUpdating}
+            onClick={() => handleStatusUpdate('active')}
+            disabled={isUpdating}
                 className="flex items-center gap-2 flex-1 bg-green-600 hover:bg-green-700 min-w-0"
-              >
+          >
                 <Check className="w-4 h-4" />
                 <span className="truncate">{isUpdating ? 'Accepting...' : 'Accept Proposal'}</span>
               </Button>
