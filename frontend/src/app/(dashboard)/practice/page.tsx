@@ -28,6 +28,8 @@ import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { LoadingSpinner } from '@/components/common';
+import SessionCompletionModal from '@/components/practice/SessionCompletionModal';
+import ReviewSessionModal from '@/components/practice/ReviewSessionModal';
 import toast from 'react-hot-toast';
 import { apiClient } from '@/lib/api-client';
 import { PracticeSession, UserProgress } from '@/types/practice';
@@ -51,6 +53,17 @@ export default function PracticePage() {
   const [leaderboard, setLeaderboard] = useState<Array<{userId: string; user: {profile: {name: string}}; category: string; averageScore: number}>>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [sessionLoading, setSessionLoading] = useState<boolean>(false);
+  const [showCompletionModal, setShowCompletionModal] = useState<boolean>(false);
+  const [showReviewModal, setShowReviewModal] = useState<boolean>(false);
+  const [sessionResult, setSessionResult] = useState<{
+    score: number;
+    totalQuestions: number;
+    correctAnswers: number;
+    category: string;
+    difficulty: string;
+  } | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [sessionQuestions, setSessionQuestions] = useState<any[]>([]);
 
   // Timer for question
   useEffect(() => {
@@ -120,7 +133,10 @@ export default function PracticePage() {
   };
 
   const submitAnswer = async () => {
-    console.log(currentSession?.questions)
+    console.log('Current session questions:', currentSession?.questions);
+    console.log('User answer:', userAnswer);
+    console.log('Question ID:', currentSession?.questions[currentQuestionIndex]._id);
+    
     if (!userAnswer.trim()) {
       toast.error('Please enter an answer');
       return;
@@ -133,6 +149,13 @@ export default function PracticePage() {
         answer: userAnswer,
         timeSpent
       });
+      
+      console.log('API Response:', data);
+      console.log('Is Correct:', data.isCorrect);
+      console.log('Correct Answers:', data.correctAnswers);
+      console.log('AI Feedback:', data.aiFeedback);
+      console.log('Confidence:', data.confidence);
+      
       setIsCorrect(data.isCorrect);
       setCorrectAnswers(data.correctAnswers);
       setInterviewTip(data.interview_tip);
@@ -144,7 +167,8 @@ export default function PracticePage() {
       } else {
         toast.error('Incorrect answer. Check the explanation below.');
       }
-    } catch {
+    } catch (error) {
+      console.error('Error submitting answer:', error);
       toast.error('Failed to submit answer');
     } finally {
       setLoading(false);
@@ -165,7 +189,36 @@ export default function PracticePage() {
   const completeSession = async () => {
     try {
       const { data } = await apiClient.post(`/practice/session/${currentSession?.sessionId}/complete`);
-      toast.success(`Session completed! Score: ${data.score}%`);
+      
+      // Store populated session questions for review
+      if (data.session?.questions) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const reviewQuestions = data.session.questions.map((q: any) => ({
+          _id: q.questionId._id,
+          title: q.questionId.title,
+          question: q.questionId.question,
+          difficulty: q.questionId.difficulty,
+          userAnswer: q.userAnswer,
+          isCorrect: q.isCorrect,
+          timeSpent: q.timeSpent,
+          correctAnswers: q.questionId.answer,
+          interview_tip: q.questionId.interview_tip,
+          references: q.questionId.references,
+          aiFeedback: q.aiFeedback,
+          confidence: q.confidence
+        }));
+        setSessionQuestions(reviewQuestions);
+      }
+      
+      // Set session result and show modal
+      setSessionResult({
+        score: data.score,
+        totalQuestions: data.totalQuestions,
+        correctAnswers: data.correctAnswers,
+        category: selectedCategory,
+        difficulty: selectedDifficulty
+      });
+      setShowCompletionModal(true);
       
       // Reset session
       setCurrentSession(null);
@@ -180,6 +233,11 @@ export default function PracticePage() {
     } catch {
       toast.error('Failed to complete session');
     }
+  };
+
+  const handleReviewAnswers = () => {
+    setShowCompletionModal(false);
+    setShowReviewModal(true);
   };
 
   const formatTime = (seconds: number) => {
@@ -644,6 +702,39 @@ export default function PracticePage() {
           </div>
         </div>
       </div>
+      
+      {/* Session Completion Modal */}
+      {sessionResult && (
+        <SessionCompletionModal
+          isOpen={showCompletionModal}
+          onClose={() => {
+            setShowCompletionModal(false);
+            setSessionResult(null);
+          }}
+          onReviewAnswers={handleReviewAnswers}
+          sessionData={sessionResult}
+        />
+      )}
+
+      {/* Review Session Modal */}
+      {sessionResult && sessionQuestions.length > 0 && (
+        <ReviewSessionModal
+          isOpen={showReviewModal}
+          onClose={() => {
+            setShowReviewModal(false);
+            setSessionResult(null);
+            setSessionQuestions([]);
+          }}
+          sessionData={{
+            questions: sessionQuestions,
+            score: sessionResult.score,
+            totalQuestions: sessionResult.totalQuestions,
+            correctAnswers: sessionResult.correctAnswers,
+            category: sessionResult.category,
+            difficulty: sessionResult.difficulty
+          }}
+        />
+      )}
     </div>
   );
 }

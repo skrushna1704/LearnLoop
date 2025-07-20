@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { Question, PracticeSession, UserProgress } from '../models/Practice';
 import { asyncHandler } from '../utils/asyncHandler';
 import { VM } from 'vm2';
+import { evaluateAnswerWithAI, fallbackEvaluation } from '../utils/aiEvaluator';
 const stringSimilarity = require('string-similarity');
 
 // @desc    Get available categories and difficulties
@@ -127,14 +128,34 @@ export const submitAnswer = asyncHandler(async (req: Request, res: Response) => 
     throw new Error('Question not found');
   }
 
-  // Fuzzy answer matching using string-similarity
-  const isCorrect = question.answer.some(ans => {
-    const similarity = stringSimilarity.compareTwoStrings(
-      answer.toLowerCase().trim(),
-      ans.toLowerCase().trim()
-    );
-    return similarity > 0.55; // Adjust threshold as needed
-  });
+  // AI-powered answer evaluation using utility
+  let isCorrect = false;
+  let aiFeedback = '';
+  let confidence = 0;
+  
+  try {
+    const evaluation = await evaluateAnswerWithAI(answer, {
+      question: question.question,
+      category: question.category,
+      answer: question.answer
+    });
+    
+    isCorrect = evaluation.isCorrect;
+    aiFeedback = evaluation.feedback;
+    confidence = evaluation.confidence;
+    
+    // console.log('✅ AI Evaluation Result:', { isCorrect, aiFeedback, confidence });
+  } catch (error) {
+    // console.error('❌ AI evaluation failed, using fallback:', error);
+    
+    // Fallback to simple keyword matching
+    const fallbackResult = fallbackEvaluation(answer, question.answer);
+    isCorrect = fallbackResult.isCorrect;
+    aiFeedback = fallbackResult.feedback;
+    confidence = fallbackResult.confidence;
+    
+    console.log('🔄 Fallback Result:', { isCorrect, aiFeedback, confidence });
+  }
 
   // Update session
   const questionIndex = session.questions.findIndex(q => 
@@ -153,7 +174,9 @@ export const submitAnswer = asyncHandler(async (req: Request, res: Response) => 
     isCorrect,
     correctAnswers: question.answer,
     interview_tip: question.interview_tip,
-    references: question.references
+    references: question.references,
+    aiFeedback: aiFeedback || null,
+    confidence: confidence || null
   });
 });
 
@@ -180,11 +203,19 @@ export const completeSession = asyncHandler(async (req: Request, res: Response) 
   // Update user progress
   await updateUserProgress(userId, session.category, session.totalQuestions, correctAnswers, score);
 
+  // Populate session with question details for review
+  const populatedSession = await PracticeSession.findById(sessionId)
+    .populate({
+      path: 'questions.questionId',
+      model: 'Question',
+      select: 'title question answer interview_tip references difficulty'
+    });
+
   res.json({
     score,
     totalQuestions: session.totalQuestions,
     correctAnswers,
-    session: session
+    session: populatedSession
   });
 });
 
