@@ -15,7 +15,8 @@ import {
   HelpCircle,
   TrendingUp,
   User,
-  Gift
+  Gift,
+  HelpCircle as QuizIcon
 } from 'lucide-react';
 
 // Navigation item interface
@@ -78,6 +79,19 @@ const navigationItems: NavigationItem[] = [
     name: 'Skills',
     href: '/skills',
     icon: BookOpen,
+    requiresAuth: true,
+    isNew: true,
+  },
+  {
+    name: 'Practice',
+    href: '/practice',
+    icon: BookOpen,
+    requiresAuth: true,
+  },
+  {
+    name: 'Quiz',
+    href: '/quiz',
+    icon: QuizIcon,
     requiresAuth: true,
     isNew: true,
   },

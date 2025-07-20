@@ -18,6 +18,7 @@ import postRoutes from './routes/postRoutes';
 import aiRoutes from './routes/aiRoutes';
 import uploadRoutes from './routes/uploadRoutes';
 import practiceRoutes from './routes/practiceRoutes';
+import quizRoutes from './routes/quiz';
 
 const app = express();
 const httpServer = createServer(app);
@@ -75,6 +76,7 @@ app.use('/api/posts', postRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/practice', practiceRoutes);
+app.use('/api/quiz', quizRoutes);
 
 const onlineUsers: { [userId: string]: string } = {};
 

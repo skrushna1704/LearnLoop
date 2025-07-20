@@ -1,0 +1,5401 @@
+[
+  {
+    "id": 1,
+    "title": "Is JavaScript a dynamically typed language or statically typed?",
+    "category": "JavaScript",
+    "difficulty": "Beginner",
+    "question": "Is JavaScript a dynamically typed language or statically typed?",
+    "options": [
+      {
+        "id": "a",
+        "text": "JavaScript is a dynamically typed language.",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "It uses static typing like C++.",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "JavaScript is a dynamically typed language. It means that variables can hold values of any type.",
+    "interview_tip": null,
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "is-javascript-a-dynamically-typed-language-or-"
+  },
+  {
+    "id": 2,
+    "title": "What are the different datatypes in JavaScript?",
+    "category": "JavaScript",
+    "difficulty": "Beginner",
+    "question": "What are the different datatypes in JavaScript?",
+    "options": [
+      { "id": "a", "text": "String", "isCorrect": true },
+      { "id": "b", "text": "Function", "isCorrect": false },
+      { "id": "c", "text": "null", "isCorrect": false }
+    ],
+    "explanation": "Primitive datatypes: String, number, boolean, undefined, null, BigInt, Symbol.",
+    "interview_tip": "(Most asked)",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "what-are-the-different-datatypes-in-javascript"
+  },
+  {
+    "id": 3,
+    "title": "List out some key features of ES6",
+    "category": "JavaScript",
+    "difficulty": "Beginner",
+    "question": "List out some key features of ES6.",
+    "options": [
+      { "id": "a", "text": "Arrow functions", "isCorrect": true },
+      { "id": "b", "text": "with keyword", "isCorrect": false }
+    ],
+    "explanation": "Arrow functions, Let and Const declarations.",
+    "interview_tip": "Here try to explain definitions (provided in below example) of listed features to extend conversation.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "list-out-some-key-features-of-es6"
+  },
+  {
+    "id": 4,
+    "title": "What are modules in JavaScript?",
+    "category": "JavaScript",
+    "difficulty": "Beginner",
+    "question": "What are modules in JavaScript?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Modules allow us to break down large pieces of code into smaller, manageable pieces.",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "Modules are global functions.",
+        "isCorrect": false
+      },
+      { "id": "c", "text": "Modules disable hoisting.", "isCorrect": false }
+    ],
+    "explanation": "Modules help manage complexity in larger applications.",
+    "interview_tip": null,
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "what-are-modules-in-javascript"
+  },
+  {
+    "id": 5,
+    "title": "What is NaN in JavaScript?",
+    "category": "JavaScript",
+    "difficulty": "Beginner",
+    "question": "What is NaN in JavaScript?",
+    "options": [
+      { "id": "a", "text": "NaN stands for Not-a-Number.", "isCorrect": true },
+      { "id": "b", "text": "NaN is a type of undefined.", "isCorrect": false },
+      {
+        "id": "c",
+        "text": "NaN means Null Assignment Noted.",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "NaN is a special number indicating the result of a failed number conversion.",
+    "interview_tip": null,
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "what-is-nan-in-javascript"
+  },
+  {
+    "id": 6,
+    "title": "Is JavaScript synchronous or asynchronous?",
+    "category": "JavaScript",
+    "difficulty": "Beginner",
+    "question": "Is JavaScript synchronous or asynchronous?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Single-threaded and synchronous.",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Multi-threaded and blocking.", "isCorrect": false },
+      { "id": "c", "text": "Single-threaded but blocking.", "isCorrect": false }
+    ],
+    "explanation": "JS is single-threaded but supports async programming with callbacks and promises.",
+    "interview_tip": null,
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "is-javascript-synchronous-or-asynchronous"
+  },
+  {
+    "id": 7,
+    "title": "What is 'typeof null' in JavaScript?",
+    "category": "JavaScript",
+    "difficulty": "Beginner",
+    "question": "What is 'typeof null' in JavaScript?",
+    "options": [
+      { "id": "a", "text": "object", "isCorrect": true },
+      { "id": "b", "text": "null", "isCorrect": false },
+      { "id": "c", "text": "undefined", "isCorrect": false }
+    ],
+    "explanation": "typeof null is 'object' — this is a known bug in JS but left for legacy reasons.",
+    "interview_tip": "One of the most popular JS trivia questions.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "what-is-typeof-null-in-javascript"
+  },
+  {
+    "id": 8,
+    "title": "Difference between '==' and '==='",
+    "category": "JavaScript",
+    "difficulty": "Beginner",
+    "question": "What is the difference between '==' and '===' in JavaScript?",
+    "options": [
+      {
+        "id": "a",
+        "text": "'===' compares both type and value",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "'==' compares only type", "isCorrect": false },
+      {
+        "id": "c",
+        "text": "'===' is used only in TypeScript",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "Strict equality (===) checks both value and type.",
+    "interview_tip": null,
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "difference-between-and-in-javascript"
+  },
+  {
+    "id": 9,
+    "title": "What is 'undefined' in JavaScript?",
+    "category": "JavaScript",
+    "difficulty": "Beginner",
+    "question": "What is 'undefined' in JavaScript?",
+    "options": [
+      {
+        "id": "a",
+        "text": "A variable that has been declared but not assigned",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "A syntax error", "isCorrect": false },
+      { "id": "c", "text": "A variable with value null", "isCorrect": false }
+    ],
+    "explanation": "Undefined means a variable exists but hasn't been assigned a value yet.",
+    "interview_tip": null,
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "what-is-undefined-in-javascript"
+  },
+  {
+    "id": 10,
+    "title": "Difference between null and undefined",
+    "category": "JavaScript",
+    "difficulty": "Beginner",
+    "question": "What is the difference between null and undefined?",
+    "options": [
+      {
+        "id": "a",
+        "text": "undefined means not assigned; null is explicitly assigned",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "They are the same", "isCorrect": false }
+    ],
+    "explanation": "null is intentional absence of value; undefined is uninitialized.",
+    "interview_tip": null,
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "difference-between-null-and-undefined"
+  },
+  {
+    "id": 11,
+    "title": "What is Hoisting in JavaScript?",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "What is Hoisting in JavaScript?",
+    "options": [
+      {
+        "id": "a",
+        "text": "The JavaScript compiler moves all the declarations of variables and functions on top, so there will not be any error.",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "In JavaScript, variables and functions can be used before declaring it.",
+        "isCorrect": false
+      },
+      {
+        "id": "c",
+        "text": "This is called hoisting.",
+        "isCorrect": false
+      },
+      {
+        "id": "d",
+        "text": "In other scripting/server side languages, variables or functions must be declared before using it.",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "In other scripting/server side languages, variables or functions must be declared before using it. In JavaScript, variables and functions can be used before declaring it.",
+    "interview_tip": "Mention buzz word temporal dead zone in above answer so that interviewer will ask What is temporal dead zone.",
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "what-is-hoisting-in-javascript"
+  },
+  {
+    "id": 12,
+    "title": "What are the various things hoisted in JavaScript?",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "What are the various things hoisted in JavaScript?",
+    "options": [
+      {
+        "id": "a",
+        "text": "var - Hoisted",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "class declarations - Hoisted but not initialized.",
+        "isCorrect": false
+      },
+      {
+        "id": "c",
+        "text": "Anonymous Function expressions: Not hoisted",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "Function declarations: Fully hoisted. var - Hoisted",
+    "interview_tip": null,
+    "references": ["https://stackabuse.com/hoisting-in-javascript/"],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "what-are-the-various-things-hoisted-in-javascript"
+  },
+  {
+    "id": 13,
+    "title": "JavaScript Closure Basics",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "What is a closure in JavaScript?",
+    "options": [
+      {
+        "id": "a",
+        "text": "A function having access to its outer function scope even after the outer function has returned",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "A block that prevents access to variables",
+        "isCorrect": false
+      },
+      {
+        "id": "c",
+        "text": "An immediately invoked function expression",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "Closures allow functions to retain access to their lexical scope even when executed outside their original context.",
+    "interview_tip": "Explain with a simple counter or factory function example.",
+    "references": ["MDN: Closures"],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "javascript-closure-basics"
+  },
+  {
+    "id": 14,
+    "title": "Event Delegation in JavaScript",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "What is event delegation in JavaScript?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Attaching a single event listener to a parent element to handle events from its children",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "Using setTimeout to delay event handlers",
+        "isCorrect": false
+      },
+      {
+        "id": "c",
+        "text": "Using async functions inside event handlers",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "Event delegation uses event bubbling to efficiently manage events by attaching one listener to a parent.",
+    "interview_tip": "Mention dynamic DOM scenarios where it's useful.",
+    "references": ["https://javascript.info/event-delegation"],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "event-delegation-javascript"
+  },
+  {
+    "id": 15,
+    "title": "Truthy and Falsy Values",
+    "category": "JavaScript",
+    "difficulty": "Beginner",
+    "question": "Which of the following is a falsy value in JavaScript?",
+    "options": [
+      { "id": "a", "text": "0", "isCorrect": true },
+      { "id": "b", "text": "'false'", "isCorrect": false },
+      { "id": "c", "text": "[]", "isCorrect": false },
+      { "id": "d", "text": "{}", "isCorrect": false }
+    ],
+    "explanation": "Falsy values include 0, '', null, undefined, NaN, false. Others are truthy even if empty.",
+    "interview_tip": "Asked often to test conditional logic understanding.",
+    "references": ["MDN: Falsy"],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "truthy-falsy-values"
+  },
+  {
+    "id": 16,
+    "title": "JavaScript Debouncing",
+    "category": "JavaScript",
+    "difficulty": "Advanced",
+    "question": "What is debouncing in JavaScript?",
+    "options": [
+      {
+        "id": "a",
+        "text": "A technique to delay execution until after a specified time has passed since the last call",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "A method to queue multiple functions in parallel",
+        "isCorrect": false
+      },
+      {
+        "id": "c",
+        "text": "A promise that retries failed API calls",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "Debouncing improves performance by limiting how often a function is invoked — useful in resize, scroll, input events.",
+    "interview_tip": "Common in frontend apps for input or resize listeners.",
+    "references": [],
+    "timeLimit": 60,
+    "points": 3,
+    "slug": "javascript-debouncing"
+  },
+  {
+    "id": 17,
+    "title": "Difference Between call() and apply()",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "What is the difference between call() and apply() in JavaScript?",
+    "options": [
+      {
+        "id": "a",
+        "text": "apply() takes arguments as an array, call() takes them separately",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "call() is async, apply() is sync",
+        "isCorrect": false
+      },
+      {
+        "id": "c",
+        "text": "call() changes scope; apply() does not",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "Both invoke functions with explicit `this`, but apply takes arguments as an array, call does not.",
+    "interview_tip": "Add bind() comparison to enrich answer.",
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "call-apply-difference"
+  },
+  {
+    "id": 18,
+    "title": "JavaScript Temporal Dead Zone",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "Which behavior is associated with the temporal dead zone?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Accessing a let/const variable before declaration causes a ReferenceError",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "It makes variables globally accessible",
+        "isCorrect": false
+      },
+      {
+        "id": "c",
+        "text": "Only affects variables declared with var",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "let and const are hoisted but not initialized; accessing them before assignment throws an error.",
+    "interview_tip": "Combine this with hoisting and scope examples.",
+    "references": ["MDN: Temporal Dead Zone"],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "temporal-dead-zone-error"
+  },
+  {
+    "id": 19,
+    "title": "JavaScript Symbol Type",
+    "category": "JavaScript",
+    "difficulty": "Advanced",
+    "question": "What is a Symbol in JavaScript?",
+    "options": [
+      {
+        "id": "a",
+        "text": "A primitive type for creating unique identifiers",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "A data type for large integers",
+        "isCorrect": false
+      },
+      {
+        "id": "c",
+        "text": "A wrapper for regular expressions",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "Symbols are unique and immutable identifiers, useful for property keys to avoid collisions.",
+    "interview_tip": "Used in advanced API design and meta programming.",
+    "references": ["MDN: Symbol"],
+    "timeLimit": 60,
+    "points": 3,
+    "slug": "javascript-symbol-type"
+  },
+  {
+    "id": 20,
+    "title": "JavaScript Event Loop",
+    "category": "JavaScript",
+    "difficulty": "Advanced",
+    "question": "What is the role of the event loop in JavaScript?",
+    "options": [
+      {
+        "id": "a",
+        "text": "It handles async callbacks by queuing them after synchronous code",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "It makes JS multi-threaded", "isCorrect": false },
+      { "id": "c", "text": "It prevents memory leaks", "isCorrect": false }
+    ],
+    "explanation": "The event loop processes callback queues and ensures non-blocking execution.",
+    "interview_tip": "Mention microtask and macrotask queues (e.g. promises vs setTimeout).",
+    "references": [
+      "https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop"
+    ],
+    "timeLimit": 60,
+    "points": 3,
+    "slug": "javascript-event-loop"
+  },
+  {
+    "id": 21,
+    "title": "Object.freeze vs Object.seal",
+    "category": "JavaScript",
+    "difficulty": "Advanced",
+    "question": "What is the difference between Object.freeze() and Object.seal()?",
+    "options": [
+      {
+        "id": "a",
+        "text": "freeze prevents any changes; seal allows changing existing properties",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "seal prevents extension; freeze allows adding properties",
+        "isCorrect": false
+      },
+      { "id": "c", "text": "freeze only works on arrays", "isCorrect": false }
+    ],
+    "explanation": "Object.freeze() locks the object completely. Object.seal() prevents new properties but allows edits.",
+    "interview_tip": "Often used in immutability-related discussions.",
+    "references": ["MDN: Object.freeze"],
+    "timeLimit": 60,
+    "points": 3,
+    "slug": "object-freeze-vs-seal"
+  },
+  {
+    "id": 22,
+    "title": "JavaScript typeof quirks",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "What does typeof null return in JavaScript?",
+    "options": [
+      { "id": "a", "text": "'object'", "isCorrect": true },
+      { "id": "b", "text": "'null'", "isCorrect": false },
+      { "id": "c", "text": "'undefined'", "isCorrect": false }
+    ],
+    "explanation": "typeof null is 'object' due to a historical bug in the language.",
+    "interview_tip": "Useful trick question — don't forget it's a bug, not a feature.",
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "typeof-null-quirk"
+  },
+  {
+    "id": 23,
+    "title": "What is IIFE in JavaScript?",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "What does IIFE stand for and what does it do?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Immediately Invoked Function Expression",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "Internal Inline Function Execution",
+        "isCorrect": false
+      },
+      {
+        "id": "c",
+        "text": "Independent Internal Function Evaluation",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "IIFE is a function that runs as soon as it is defined. It creates a private scope.",
+    "interview_tip": "Used in modular patterns or to avoid global scope pollution.",
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "what-is-iife-in-javascript"
+  },
+  {
+    "id": 24,
+    "title": "What is 'this' in arrow functions?",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "How does the 'this' keyword behave in arrow functions?",
+    "options": [
+      {
+        "id": "a",
+        "text": "It retains the value of 'this' from the enclosing lexical context",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "It creates its own context", "isCorrect": false },
+      {
+        "id": "c",
+        "text": "It behaves differently each time",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "Arrow functions don't have their own 'this'; they capture it from the surrounding scope.",
+    "interview_tip": "Often asked with event handlers or object methods.",
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "arrow-function-this"
+  },
+  {
+    "id": 25,
+    "title": "Shallow vs Deep Copy",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "Which of the following creates a deep copy of an object?",
+    "options": [
+      {
+        "id": "a",
+        "text": "JSON.parse(JSON.stringify(obj))",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Object.assign({}, obj)", "isCorrect": false },
+      { "id": "c", "text": "Spread operator {...obj}", "isCorrect": false }
+    ],
+    "explanation": "Only JSON.stringify/parse creates a deep copy, though with limitations.",
+    "interview_tip": "Mention limitations like undefined, functions, circular refs.",
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "deep-copy-vs-shallow-copy"
+  },
+  {
+    "id": 26,
+    "title": "What is Memoization?",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "What is the purpose of memoization?",
+    "options": [
+      {
+        "id": "a",
+        "text": "To cache results of expensive function calls",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "To prevent memory leaks", "isCorrect": false },
+      {
+        "id": "c",
+        "text": "To run async functions in sequence",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "Memoization helps optimize performance by storing the result of function calls.",
+    "interview_tip": "Show example with recursive Fibonacci.",
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "memoization-javascript"
+  },
+  {
+    "id": 27,
+    "title": "Falsy but Truthy Looking Value",
+    "category": "JavaScript",
+    "difficulty": "Beginner",
+    "question": "Which of these is falsy in JavaScript?",
+    "options": [
+      { "id": "a", "text": "0", "isCorrect": true },
+      { "id": "b", "text": "'false'", "isCorrect": false },
+      { "id": "c", "text": "[]", "isCorrect": false },
+      { "id": "d", "text": "{}", "isCorrect": false }
+    ],
+    "explanation": "Only 0 is falsy; others are truthy despite their name or appearance.",
+    "interview_tip": "Important for conditional logic.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "falsy-looking-value"
+  },
+  {
+    "id": 28,
+    "title": "Optional Chaining Operator",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "What does the optional chaining operator (?.) do?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Safely access deeply nested properties without throwing an error",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Creates a chain of promises", "isCorrect": false },
+      { "id": "c", "text": "Declares optional variables", "isCorrect": false }
+    ],
+    "explanation": "?. prevents runtime errors when accessing undefined/null deeply nested properties.",
+    "interview_tip": "Combine with nullish coalescing in answers.",
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "optional-chaining-operator"
+  },
+  {
+    "id": 29,
+    "title": "What is event bubbling?",
+    "category": "JavaScript",
+    "difficulty": "Beginner",
+    "question": "Which direction does event bubbling propagate in the DOM?",
+    "options": [
+      {
+        "id": "a",
+        "text": "From target element up to ancestors",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "From root to target element", "isCorrect": false },
+      { "id": "c", "text": "Only on leaf nodes", "isCorrect": false }
+    ],
+    "explanation": "Bubbling means event propagates from the target element to its parents.",
+    "interview_tip": "Also learn event capturing for contrast.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "event-bubbling-direction"
+  },
+  {
+    "id": 30,
+    "title": "What is a WeakMap?",
+    "category": "JavaScript",
+    "difficulty": "Advanced",
+    "question": "Which key characteristic defines a WeakMap?",
+    "options": [
+      {
+        "id": "a",
+        "text": "It allows only object keys and is not iterable",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "It allows primitive keys and is iterable",
+        "isCorrect": false
+      },
+      {
+        "id": "c",
+        "text": "It supports deep cloning of keys",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "WeakMaps are used for memory-managed key-value pairs using object keys.",
+    "interview_tip": "Mention use case like private data in classes.",
+    "references": [],
+    "timeLimit": 60,
+    "points": 3,
+    "slug": "weakmap-characteristics"
+  },
+  {
+    "id": 31,
+    "title": "Difference: Array.map vs forEach",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "Which of the following is true about map() vs forEach()?",
+    "options": [
+      {
+        "id": "a",
+        "text": "map returns a new array, forEach does not",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "forEach returns a new array", "isCorrect": false },
+      {
+        "id": "c",
+        "text": "map modifies the original array",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "map() transforms and returns a new array. forEach() executes side-effects only.",
+    "interview_tip": "Often asked in functional array manipulation rounds.",
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "map-vs-foreach"
+  },
+  {
+    "id": 32,
+    "title": "Infinity in JavaScript",
+    "category": "JavaScript",
+    "difficulty": "Beginner",
+    "question": "What is the result of dividing a positive number by 0 in JavaScript?",
+    "options": [
+      { "id": "a", "text": "Infinity", "isCorrect": true },
+      { "id": "b", "text": "NaN", "isCorrect": false },
+      { "id": "c", "text": "0", "isCorrect": false }
+    ],
+    "explanation": "In JavaScript, dividing a positive number by 0 results in Infinity.",
+    "interview_tip": "Also test what happens with negative or 0/0.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "division-by-zero-infinity"
+  },
+  {
+    "id": 33,
+    "title": "What is generator function in JavaScript?",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "What is generator function in JavaScript?",
+    "options": [
+      {
+        "id": "a",
+        "text": "They are defined using function* syntax and contain one or more yield expressions.",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "The main method of a generator is next(), which returns an object with properties done and value.",
+        "isCorrect": false
+      },
+      {
+        "id": "c",
+        "text": "A generator function is a function which can be paused and resumed at any point during execution.",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "A generator function is a function which can be paused and resumed at any point during execution. They are defined using function* syntax and contain one or more yield expressions.",
+    "interview_tip": null,
+    "references": ["https://javascript.info/generators"],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "what-is-generator-function-in-javascript"
+  },
+  {
+    "id": 34,
+    "title": "What is JWT?",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "What is JWT?",
+    "options": [
+      {
+        "id": "a",
+        "text": "JWT stands for JSON Web Token.",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "It is a compact, URL-safe way of representing claims between two parties.",
+        "isCorrect": false
+      },
+      {
+        "id": "c",
+        "text": "JWTs are commonly used for authentication and authorization.",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "JWT stands for JSON Web Token. It is a compact, URL-safe way of representing claims between two parties.",
+    "interview_tip": "Mention that JWTs can be stored in localStorage or cookies, and the pros/cons of each.",
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "what-is-jwt"
+  },
+  {
+    "id": 35,
+    "title": "What is event capturing?",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "What is event capturing?",
+    "options": [
+      {
+        "id": "a",
+        "text": "It's less commonly used than bubbling.",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "Event capturing is the opposite of bubbling.",
+        "isCorrect": false
+      },
+      {
+        "id": "c",
+        "text": "Events are first captured from the outermost ancestor down to the target element.",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "Event capturing is the opposite of bubbling. Events are first captured from the outermost ancestor down to the target element.",
+    "interview_tip": null,
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "what-is-event-capturing"
+  },
+  {
+    "id": 36,
+    "title": "What's the difference between Object.keys, Object.values and Object.entries?",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "What's the difference between Object.keys, Object.values and Object.entries?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Object.values(): returns an array of values.",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "Object.entries(): returns an array of [key, value] pairs.",
+        "isCorrect": false
+      },
+      {
+        "id": "c",
+        "text": "Object.keys(): returns an array of keys.",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "Object.keys(): returns an array of keys. Object.values(): returns an array of values.",
+    "interview_tip": "Practice examples for this—it might be asked.",
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "what-s-the-difference-between-object-keys-object-values-and-object-entries"
+  },
+  {
+    "id": 37,
+    "title": "What does strict mode do in JavaScript?",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "What does strict mode do in JavaScript?",
+    "options": [
+      {
+        "id": "a",
+        "text": "It changes the value of this in functions to undefined instead of window in non-method calls.",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "It prevents the use of undeclared variables.",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "Strict mode makes JavaScript more secure and reduces silent errors. It prevents the use of undeclared variables.",
+    "interview_tip": null,
+    "references": [
+      "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode"
+    ],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "what-does-strict-mode-do-in-javascript"
+  },
+  {
+    "id": 38,
+    "title": "What is event bubbling?",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "What is event bubbling?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Event bubbling is when an event triggered on a child element propagates up through its ancestors in the DOM tree.",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "It allows event listeners on parent elements to respond to events fired on children.",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "Event bubbling is when an event triggered on a child element propagates up through its ancestors in the DOM tree. It allows event listeners on parent elements to respond to events fired on children.",
+    "interview_tip": null,
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "what-is-event-bubbling"
+  },
+  {
+    "id": 39,
+    "title": "What is Set in JavaScript?",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "What is Set in JavaScript?",
+    "options": [
+      {
+        "id": "a",
+        "text": "It does not allow duplicate elements.",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "A Set is a collection of unique values.",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "A Set is a collection of unique values. It does not allow duplicate elements.",
+    "interview_tip": null,
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "what-is-set-in-javascript"
+  },
+  {
+    "id": 40,
+    "title": "What is helmet in Express.js?",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "What is helmet in Express.js?",
+    "options": [
+      {
+        "id": "a",
+        "text": "helmet is a middleware for Express.js that helps secure your apps by setting various HTTP headers.",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "It prevents common vulnerabilities like XSS, clickjacking, and more.",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "helmet is a middleware for Express.js that helps secure your apps by setting various HTTP headers. It prevents common vulnerabilities like XSS, clickjacking, and more.",
+    "interview_tip": null,
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "what-is-helmet-in-express-js"
+  },
+  {
+    "id": 41,
+    "title": "What is morgan in Express.js?",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "What is morgan in Express.js?",
+    "options": [
+      {
+        "id": "a",
+        "text": "morgan is a middleware used for HTTP request logging in Express.js applications.",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "It helps in debugging and logging requests in different formats.",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "morgan is a middleware used for HTTP request logging in Express.js applications. It helps in debugging and logging requests in different formats.",
+    "interview_tip": null,
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "what-is-morgan-in-express-js"
+  },
+  {
+    "id": 42,
+    "title": "What is the difference between stopPropagation() and stopImmediatePropagation()?",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "What is the difference between stopPropagation() and stopImmediatePropagation()?",
+    "options": [
+      {
+        "id": "a",
+        "text": "stopPropagation() prevents further propagation of the event in the bubbling or capturing phase.",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "stopImmediatePropagation() not only prevents further propagation but also prevents other handlers of the same event on the same element from being executed.",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "stopPropagation() prevents further propagation of the event in the bubbling or capturing phase. stopImmediatePropagation() not only prevents further propagation but also prevents other handlers of the same event on the same element from being executed.",
+    "interview_tip": null,
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "what-is-the-difference-between-stoppropagation-and-stopimmediatepropagation"
+  },
+  {
+    "id": 43,
+    "title": "How can you check if a variable is an array?",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "How can you check if a variable is an array?",
+    "options": [
+      {
+        "id": "a",
+        "text": "variable instanceof Array",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "Array.isArray(variable)",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "Array.isArray(variable) variable instanceof Array",
+    "interview_tip": null,
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "how-can-you-check-if-a-variable-is-an-array"
+  },
+  {
+    "id": 44,
+    "title": "What is the difference between map and filter?",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "What is the difference between map and filter?",
+    "options": [
+      {
+        "id": "a",
+        "text": "map transforms each element of an array and creates a new array containing the transformed elements.",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "filter creates a new array with only those elements which satisfy the specified condition.",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "map transforms each element of an array and creates a new array containing the transformed elements. filter creates a new array with only those elements which satisfy the specified condition.",
+    "interview_tip": "(Frequently asked)",
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "what-is-the-difference-between-map-and-filter"
+  },
+  {
+    "id": 45,
+    "title": "What is the use of addEventListener?",
+    "category": "JavaScript",
+    "difficulty": "Beginner",
+    "question": "What is the use of addEventListener?",
+    "options": [
+      {
+        "id": "a",
+        "text": "addEventListener allows us to attach multiple event handlers to the same element for the same event.",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "It provides control over event bubbling and capturing phases.",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "addEventListener allows us to attach multiple event handlers to the same element for the same event. It provides control over event bubbling and capturing phases.",
+    "interview_tip": null,
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "what-is-the-use-of-addeventlistener"
+  },
+  {
+    "id": 46,
+    "title": "What is NaN === NaN?",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "What is NaN === NaN?",
+    "options": [
+      {
+        "id": "a",
+        "text": "NaN === NaN returns false.",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "NaN is the only value in JavaScript that is not equal to itself.",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "NaN === NaN returns false. NaN is the only value in JavaScript that is not equal to itself.",
+    "interview_tip": null,
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "what-is-nan-nan"
+  },
+  {
+    "id": 47,
+    "title": "What is bcrypt?",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "What is bcrypt?",
+    "options": [
+      {
+        "id": "a",
+        "text": "It incorporates salting to make hashes unique and computationally expensive to crack.",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "bcrypt is a hashing algorithm used to secure passwords.",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "bcrypt is a hashing algorithm used to secure passwords. It incorporates salting to make hashes unique and computationally expensive to crack.",
+    "interview_tip": null,
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "what-is-bcrypt"
+  },
+  {
+    "id": 48,
+    "title": "What is middleware in Express.js?",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "What is middleware in Express.js?",
+    "options": [
+      {
+        "id": "a",
+        "text": "It can modify the request/response, end the request-response cycle, or call the next middleware in the stack.",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "Middleware in Express.js is a function that has access to the request, response, and next objects.",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "Middleware in Express.js is a function that has access to the request, response, and next objects. It can modify the request/response, end the request-response cycle, or call the next middleware in the stack.",
+    "interview_tip": null,
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "what-is-middleware-in-express-js"
+  },
+  {
+    "id": 49,
+    "title": "What is the purpose of the this keyword?",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "What is the purpose of the this keyword?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Its value depends on how the function was called.",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "this refers to the object that is executing the current function.",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "this refers to the object that is executing the current function. Its value depends on how the function was called.",
+    "interview_tip": null,
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "what-is-the-purpose-of-the-this-keyword"
+  },
+  {
+    "id": 50,
+    "title": "How do you prevent event bubbling?",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "How do you prevent event bubbling?",
+    "options": [
+      {
+        "id": "a",
+        "text": "This prevents the event from bubbling up the DOM tree.",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "By using event.stopPropagation() method.",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "By using event.stopPropagation() method. This prevents the event from bubbling up the DOM tree.",
+    "interview_tip": null,
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "how-do-you-prevent-event-bubbling"
+  },
+  {
+    "id": 51,
+    "title": "What is error-first callback?",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "What is error-first callback?",
+    "options": [
+      {
+        "id": "a",
+        "text": "If there's no error, the first argument is null.",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "An error-first callback is a pattern where the first argument of the callback is reserved for an error object, and the second argument contains the result data.",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "An error-first callback is a pattern where the first argument of the callback is reserved for an error object, and the second argument contains the result data. If there's no error, the first argument is null.",
+    "interview_tip": null,
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "what-is-error-first-callback"
+  },
+  {
+    "id": 52,
+    "title": "What is event delegation?",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "What is event delegation?",
+    "options": [
+      {
+        "id": "a",
+        "text": "It works by leveraging event bubbling.",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "Event delegation is a technique where a single event listener is added to a parent element to manage events on multiple child elements.",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "Event delegation is a technique where a single event listener is added to a parent element to manage events on multiple child elements. It works by leveraging event bubbling.",
+    "interview_tip": "They might ask you to write an event delegation example.",
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "what-is-event-delegation"
+  },
+  {
+    "id": 53,
+    "title": "What is process.env in Node.js?",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "What is process.env in Node.js?",
+    "options": [
+      {
+        "id": "a",
+        "text": "process.env is an object in Node.js that stores environment variables.",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "It allows access to configuration values defined in the system or in .env files.",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "process.env is an object in Node.js that stores environment variables. It allows access to configuration values defined in the system or in .env files.",
+    "interview_tip": null,
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "what-is-process-env-in-node-js"
+  },
+  {
+    "id": 54,
+    "title": "What is package.json?",
+    "category": "JavaScript",
+    "difficulty": "Beginner",
+    "question": "What is package.json?",
+    "options": [
+      {
+        "id": "a",
+        "text": "It includes details such as project name, version, dependencies, scripts, and other configuration.",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "package.json is a file used to manage a Node.js project's metadata.",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "package.json is a file used to manage a Node.js project's metadata. It includes details such as project name, version, dependencies, scripts, and other configuration.",
+    "interview_tip": null,
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "what-is-package-json"
+  },
+  {
+    "id": 55,
+    "title": "What is Buffer in Node.js?",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "What is Buffer in Node.js?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Buffer is a global object in Node.js used to handle binary data.",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "It allows reading and writing of binary streams such as files and network protocols.",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "Buffer is a global object in Node.js used to handle binary data. It allows reading and writing of binary streams such as files and network protocols.",
+    "interview_tip": null,
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "what-is-buffer-in-node-js"
+  },
+  {
+    "id": 56,
+    "title": "How can you copy an object in JavaScript?",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "How can you copy an object in JavaScript?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Using Object.assign({}, obj)",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "Using the spread operator {...obj}",
+        "isCorrect": false
+      },
+      {
+        "id": "c",
+        "text": "Using JSON.parse(JSON.stringify(obj)) for deep cloning",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "Using Object.assign({}, obj) Using the spread operator {...obj}",
+    "interview_tip": "Be aware of shallow vs deep copy differences.",
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "how-can-you-copy-an-object-in-javascript"
+  },
+  {
+    "id": 57,
+    "title": "How do you handle asynchronous code in JavaScript?",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "How do you handle asynchronous code in JavaScript?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Using Promises",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "Using callbacks",
+        "isCorrect": false
+      },
+      {
+        "id": "c",
+        "text": "Using async/await syntax",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "Using callbacks Using Promises",
+    "interview_tip": "Practice writing code snippets with each of these approaches and explain them with examples during interviews.",
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "how-do-you-handle-asynchronous-code-in-javascript"
+  },
+  {
+    "id": 58,
+    "title": "JavaScript NaN Check",
+    "category": "JavaScript",
+    "difficulty": "Beginner",
+    "question": "Which method can be used to check if a value is NaN?",
+    "options": [
+      { "id": "a", "text": "Number.isNaN()", "isCorrect": true },
+      { "id": "b", "text": "isInteger()", "isCorrect": false },
+      { "id": "c", "text": "typeof()", "isCorrect": false }
+    ],
+    "explanation": "Number.isNaN() accurately checks if a value is NaN without coercion.",
+    "interview_tip": "Don't confuse with global isNaN(), which coerces values.",
+    "references": ["MDN: Number.isNaN"],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "check-if-value-is-nan"
+  },
+  {
+    "id": 59,
+    "title": "Undefined vs Not Defined",
+    "category": "JavaScript",
+    "difficulty": "Beginner",
+    "question": "What is the difference between 'undefined' and 'not defined'?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Undefined is declared but not assigned; not defined is not declared",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "Both mean variable not declared",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "'undefined' means a variable exists but has no value. 'not defined' means it doesn't exist.",
+    "interview_tip": "This is commonly used in trick questions during interviews.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "undefined-vs-not-defined"
+  },
+  {
+    "id": 60,
+    "title": "JavaScript typeof Behavior",
+    "category": "JavaScript",
+    "difficulty": "Beginner",
+    "question": "What is the output of typeof NaN in JavaScript?",
+    "options": [
+      { "id": "a", "text": "'number'", "isCorrect": true },
+      { "id": "b", "text": "'NaN'", "isCorrect": false },
+      { "id": "c", "text": "'undefined'", "isCorrect": false }
+    ],
+    "explanation": "NaN is considered a number in JavaScript, which can be confusing.",
+    "interview_tip": "Mention it during type coercion discussions.",
+    "references": ["MDN: typeof"],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "typeof-nan"
+  },
+  {
+    "id": 61,
+    "title": "String to Number Conversion",
+    "category": "JavaScript",
+    "difficulty": "Beginner",
+    "question": "Which of the following correctly converts a string '123' to a number?",
+    "options": [
+      { "id": "a", "text": "Number('123')", "isCorrect": true },
+      { "id": "b", "text": "'123' + 0", "isCorrect": false },
+      { "id": "c", "text": "parseString('123')", "isCorrect": false }
+    ],
+    "explanation": "Number('123') or parseInt can be used for conversion.",
+    "interview_tip": "Show difference between Number(), parseInt(), and unary +.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "string-to-number-conversion"
+  },
+  {
+    "id": 62,
+    "title": "Variable Scope",
+    "category": "JavaScript",
+    "difficulty": "Beginner",
+    "question": "Which keyword is block-scoped?",
+    "options": [
+      { "id": "a", "text": "let", "isCorrect": true },
+      { "id": "b", "text": "var", "isCorrect": false },
+      { "id": "c", "text": "function", "isCorrect": false }
+    ],
+    "explanation": "Only 'let' and 'const' are block-scoped.",
+    "interview_tip": "This often connects to hoisting and TDZ topics.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "block-scope-variable"
+  },
+  {
+    "id": 63,
+    "title": "JavaScript Promises",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "What is the initial state of a Promise?",
+    "options": [
+      { "id": "a", "text": "pending", "isCorrect": true },
+      { "id": "b", "text": "fulfilled", "isCorrect": false },
+      { "id": "c", "text": "rejected", "isCorrect": false }
+    ],
+    "explanation": "A promise starts in a pending state until it is either fulfilled or rejected.",
+    "interview_tip": "Understand promise lifecycle and chaining.",
+    "references": ["MDN: Promises"],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "promise-initial-state"
+  },
+  {
+    "id": 64,
+    "title": "JavaScript Async/Await",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "What does 'await' do in an async function?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Pauses execution until promise settles",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Runs code concurrently", "isCorrect": false },
+      { "id": "c", "text": "Creates a blocking loop", "isCorrect": false }
+    ],
+    "explanation": "'await' pauses execution until the promise resolves or rejects.",
+    "interview_tip": "Mention that only works inside async functions.",
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "await-behavior"
+  },
+  {
+    "id": 65,
+    "title": "Destructuring Arrays",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "How can you extract the first two items from an array using destructuring?",
+    "options": [
+      { "id": "a", "text": "const [a, b] = array", "isCorrect": true },
+      {
+        "id": "b",
+        "text": "const a = array[0]; const b = array[2]",
+        "isCorrect": false
+      },
+      { "id": "c", "text": "const a, b = array", "isCorrect": false }
+    ],
+    "explanation": "Destructuring syntax allows direct variable assignment from arrays.",
+    "interview_tip": "Show nested and object destructuring for depth.",
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "array-destructuring"
+  },
+  {
+    "id": 66,
+    "title": "typeof Symbol",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "What does typeof Symbol() return?",
+    "options": [
+      { "id": "a", "text": "'symbol'", "isCorrect": true },
+      { "id": "b", "text": "'object'", "isCorrect": false },
+      { "id": "c", "text": "'function'", "isCorrect": false }
+    ],
+    "explanation": "Symbols are a primitive type introduced in ES6.",
+    "interview_tip": "Great for unique keys in objects.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "typeof-symbol"
+  },
+  {
+    "id": 67,
+    "title": "Nullish Coalescing Operator",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "What does the nullish coalescing operator (??) do?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Returns right-hand side if left is null or undefined",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "Returns right-hand side if left is falsy",
+        "isCorrect": false
+      },
+      { "id": "c", "text": "Throws error if left is null", "isCorrect": false }
+    ],
+    "explanation": "?? is used to assign fallback values only for null/undefined, not other falsy values.",
+    "interview_tip": "Use with optional chaining for robustness.",
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "nullish-coalescing-operator"
+  },
+  {
+    "id": 68,
+    "title": "Array.isArray Usage",
+    "category": "JavaScript",
+    "difficulty": "Beginner",
+    "question": "How can you check if a variable is an array?",
+    "options": [
+      { "id": "a", "text": "Array.isArray(value)", "isCorrect": true },
+      { "id": "b", "text": "typeof value === 'array'", "isCorrect": false },
+      { "id": "c", "text": "value instanceof Object", "isCorrect": false }
+    ],
+    "explanation": "`Array.isArray()` is the reliable method to check for arrays.",
+    "interview_tip": "typeof arrays returns 'object', which is misleading.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "check-if-array"
+  },
+  {
+    "id": 69,
+    "title": "JavaScript Pass-by Behavior",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "Are JavaScript function arguments passed by value or reference?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Primitives by value, objects by reference",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Everything by value", "isCorrect": false },
+      { "id": "c", "text": "Everything by reference", "isCorrect": false }
+    ],
+    "explanation": "Primitive types (like numbers) are passed by value. Objects/arrays are passed by reference.",
+    "interview_tip": "Demonstrate mutation in object example.",
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "pass-by-value-or-reference"
+  },
+  {
+    "id": 70,
+    "title": "setTimeout Execution Order",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "What happens when setTimeout is called with a delay of 0ms?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Callback is queued after current execution completes",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "Callback executes immediately",
+        "isCorrect": false
+      },
+      { "id": "c", "text": "Callback is ignored", "isCorrect": false }
+    ],
+    "explanation": "Even with 0ms, setTimeout is queued after the call stack clears.",
+    "interview_tip": "This tests your understanding of the event loop.",
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "settimeout-zero-delay"
+  },
+  {
+    "id": 71,
+    "title": "Object.keys() Output",
+    "category": "JavaScript",
+    "difficulty": "Beginner",
+    "question": "What does Object.keys({a: 1, b: 2}) return?",
+    "options": [
+      { "id": "a", "text": "['a', 'b']", "isCorrect": true },
+      { "id": "b", "text": "[1, 2]", "isCorrect": false },
+      { "id": "c", "text": "[['a', 1], ['b', 2]]", "isCorrect": false }
+    ],
+    "explanation": "Object.keys() returns an array of property names.",
+    "interview_tip": "Also learn Object.values and Object.entries.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "object-keys-output"
+  },
+  {
+    "id": 72,
+    "title": "JSON.stringify Limitation",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "Which value is excluded from JSON.stringify output?",
+    "options": [
+      { "id": "a", "text": "undefined", "isCorrect": true },
+      { "id": "b", "text": "string", "isCorrect": false },
+      { "id": "c", "text": "null", "isCorrect": false }
+    ],
+    "explanation": "undefined and functions are skipped in JSON.stringify.",
+    "interview_tip": "Test this with nested properties too.",
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "json-stringify-limitation"
+  },
+  {
+    "id": 73,
+    "title": "Function Declaration vs Expression",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "Which of the following is NOT hoisted?",
+    "options": [
+      { "id": "a", "text": "Function expression", "isCorrect": true },
+      { "id": "b", "text": "Function declaration", "isCorrect": false },
+      { "id": "c", "text": "var functionName()", "isCorrect": false }
+    ],
+    "explanation": "Only function declarations are hoisted fully. Expressions are hoisted as undefined.",
+    "interview_tip": "Use practical code snippets for clarity.",
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "function-expression-hoisting"
+  },
+  {
+    "id": 74,
+    "title": "for...in vs for...of",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "What is the difference between for...in and for...of?",
+    "options": [
+      {
+        "id": "a",
+        "text": "for...in iterates keys; for...of iterates values",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "They both iterate values", "isCorrect": false },
+      { "id": "c", "text": "for...in only works on arrays", "isCorrect": false }
+    ],
+    "explanation": "for...in gets object keys, for...of gets iterable values (like arrays).",
+    "interview_tip": "Mix this with object/array examples.",
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "for-in-vs-for-of"
+  },
+  {
+    "id": 75,
+    "title": "Optional Parameters in Functions",
+    "category": "JavaScript",
+    "difficulty": "Beginner",
+    "question": "How do you define optional parameters in JavaScript functions?",
+    "options": [
+      { "id": "a", "text": "Using default values", "isCorrect": true },
+      { "id": "b", "text": "Using const inside function", "isCorrect": false },
+      { "id": "c", "text": "Prefix with a question mark", "isCorrect": false }
+    ],
+    "explanation": "Using default values (e.g., function(x = 1)) creates optional parameters.",
+    "interview_tip": "Show how it differs from TypeScript optional syntax.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "optional-function-params"
+  },
+  {
+    "id": 76,
+    "title": "Set vs Array",
+    "category": "JavaScript",
+    "difficulty": "Intermediate",
+    "question": "What is a key benefit of using Set over Array?",
+    "options": [
+      { "id": "a", "text": "Stores only unique values", "isCorrect": true },
+      { "id": "b", "text": "Supports index-based access", "isCorrect": false },
+      { "id": "c", "text": "Stores key-value pairs", "isCorrect": false }
+    ],
+    "explanation": "Set objects store unique values and are iterable.",
+    "interview_tip": "Use it when duplicates should be avoided.",
+    "references": [],
+    "timeLimit": 45,
+    "points": 2,
+    "slug": "set-vs-array"
+  },
+  {
+    "id": 77,
+    "title": "Infinity Check",
+    "category": "JavaScript",
+    "difficulty": "Beginner",
+    "question": "What is the result of 1 / 0 in JavaScript?",
+    "options": [
+      { "id": "a", "text": "Infinity", "isCorrect": true },
+      { "id": "b", "text": "NaN", "isCorrect": false },
+      { "id": "c", "text": "Error", "isCorrect": false }
+    ],
+    "explanation": "JavaScript returns Infinity for positive division by 0.",
+    "interview_tip": "Try with -1 / 0 too.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "infinity-in-js"
+  },
+  {
+    "id": 3000,
+    "title": "HTML Boilerplate",
+    "category": "HTML",
+    "difficulty": "Beginner",
+    "question": "Which tag is required at the very beginning of every HTML document?",
+    "options": [
+      { "id": "a", "text": "<!DOCTYPE html>", "isCorrect": true },
+      { "id": "b", "text": "<html>", "isCorrect": false },
+      { "id": "c", "text": "<head>", "isCorrect": false }
+    ],
+    "explanation": "<!DOCTYPE html> declares the document type and HTML version.",
+    "interview_tip": "Always use the latest doctype for HTML5 documents.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "html-boilerplate"
+  },
+  {
+    "id": 3001,
+    "title": "Main Heading",
+    "category": "HTML",
+    "difficulty": "Beginner",
+    "question": "Which tag is used for the most important heading in HTML?",
+    "options": [
+      { "id": "a", "text": "<h1>", "isCorrect": true },
+      { "id": "b", "text": "<h6>", "isCorrect": false },
+      { "id": "c", "text": "<header>", "isCorrect": false }
+    ],
+    "explanation": "<h1> defines the main heading, <h6> the lowest heading.",
+    "interview_tip": "Use only one <h1> per page for SEO.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "main-heading"
+  },
+  {
+    "id": 3002,
+    "title": "HTML Paragraph",
+    "category": "HTML",
+    "difficulty": "Beginner",
+    "question": "What is the correct HTML tag for inserting a paragraph?",
+    "options": [
+      { "id": "a", "text": "<p>", "isCorrect": true },
+      { "id": "b", "text": "<span>", "isCorrect": false },
+      { "id": "c", "text": "<div>", "isCorrect": false }
+    ],
+    "explanation": "<p> is used for paragraphs in HTML.",
+    "interview_tip": "Use paragraphs for semantic text grouping.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "html-paragraph"
+  },
+  {
+    "id": 3003,
+    "title": "HTML Lists",
+    "category": "HTML",
+    "difficulty": "Beginner",
+    "question": "Which HTML tag is used to create an ordered list?",
+    "options": [
+      { "id": "a", "text": "<ol>", "isCorrect": true },
+      { "id": "b", "text": "<ul>", "isCorrect": false },
+      { "id": "c", "text": "<li>", "isCorrect": false }
+    ],
+    "explanation": "<ol> creates a numbered list, <ul> creates a bullet list.",
+    "interview_tip": "Use <li> elements inside both <ul> and <ol>.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "html-ordered-list"
+  },
+  {
+    "id": 3004,
+    "title": "HTML Link",
+    "category": "HTML",
+    "difficulty": "Beginner",
+    "question": "Which tag is used to create a hyperlink?",
+    "options": [
+      { "id": "a", "text": "<a>", "isCorrect": true },
+      { "id": "b", "text": "<link>", "isCorrect": false },
+      { "id": "c", "text": "<href>", "isCorrect": false }
+    ],
+    "explanation": "The <a> tag is used for hyperlinks and requires an href attribute.",
+    "interview_tip": "Use target=\"_blank\" to open links in a new tab.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "html-link"
+  },
+  {
+    "id": 3005,
+    "title": "Image Embedding",
+    "category": "HTML",
+    "difficulty": "Beginner",
+    "question": "What is the correct HTML element for inserting an image?",
+    "options": [
+      { "id": "a", "text": "<img>", "isCorrect": true },
+      { "id": "b", "text": "<picture>", "isCorrect": false },
+      { "id": "c", "text": "<src>", "isCorrect": false }
+    ],
+    "explanation": "<img> embeds an image. Use the src attribute to specify the image path.",
+    "interview_tip": "Always provide an alt attribute for accessibility.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "image-embedding"
+  },
+  {
+    "id": 3006,
+    "title": "Line Break",
+    "category": "HTML",
+    "difficulty": "Beginner",
+    "question": "Which HTML element is used for a line break?",
+    "options": [
+      { "id": "a", "text": "<br>", "isCorrect": true },
+      { "id": "b", "text": "<hr>", "isCorrect": false },
+      { "id": "c", "text": "<lb>", "isCorrect": false }
+    ],
+    "explanation": "<br> inserts a single line break.",
+    "interview_tip": "Don't overuse <br>; use semantic elements for layout.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "line-break"
+  },
+  {
+    "id": 3007,
+    "title": "HTML Comment",
+    "category": "HTML",
+    "difficulty": "Beginner",
+    "question": "How do you write a comment in HTML?",
+    "options": [
+      { "id": "a", "text": "<!-- Comment -->", "isCorrect": true },
+      { "id": "b", "text": "// Comment", "isCorrect": false },
+      { "id": "c", "text": "# Comment", "isCorrect": false }
+    ],
+    "explanation": "HTML comments use <!-- and --> around the text.",
+    "interview_tip": "Comments are not displayed in the browser.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "html-comment"
+  },
+  {
+    "id": 3008,
+    "title": "Bold Text",
+    "category": "HTML",
+    "difficulty": "Beginner",
+    "question": "Which tag is used to make text bold in HTML?",
+    "options": [
+      { "id": "a", "text": "<b>", "isCorrect": true },
+      { "id": "b", "text": "<strong>", "isCorrect": false },
+      { "id": "c", "text": "<em>", "isCorrect": false }
+    ],
+    "explanation": "<b> makes text bold without semantic importance, <strong> adds importance.",
+    "interview_tip": "Use <strong> when the bold text is important.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "bold-text"
+  },
+  {
+    "id": 3009,
+    "title": "HTML Table",
+    "category": "HTML",
+    "difficulty": "Beginner",
+    "question": "Which of the following tags is used to create a table row?",
+    "options": [
+      { "id": "a", "text": "<tr>", "isCorrect": true },
+      { "id": "b", "text": "<td>", "isCorrect": false },
+      { "id": "c", "text": "<table>", "isCorrect": false }
+    ],
+    "explanation": "<tr> creates a table row, and <td> is for table data cells.",
+    "interview_tip": "Always organize <tr> elements within <table>.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "html-table-row"
+  },
+  {
+    "id": 3010,
+    "title": "HTML Table Cell",
+    "category": "HTML",
+    "difficulty": "Beginner",
+    "question": "Which tag is used for a cell in a table row?",
+    "options": [
+      { "id": "a", "text": "<td>", "isCorrect": true },
+      { "id": "b", "text": "<th>", "isCorrect": false },
+      { "id": "c", "text": "<tr>", "isCorrect": false }
+    ],
+    "explanation": "<td> defines a table data cell.",
+    "interview_tip": "<th> is for header cells.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "html-table-cell"
+  },
+  {
+    "id": 3011,
+    "title": "HTML Title",
+    "category": "HTML",
+    "difficulty": "Beginner",
+    "question": "Where does the <title> tag belong in HTML?",
+    "options": [
+      { "id": "a", "text": "Inside <head>", "isCorrect": true },
+      { "id": "b", "text": "Inside <body>", "isCorrect": false },
+      { "id": "c", "text": "Anywhere", "isCorrect": false }
+    ],
+    "explanation": "<title> sets the page title in the browser tab.",
+    "interview_tip": "Always specify a unique title for each page.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "html-title-location"
+  },
+  {
+    "id": 3012,
+    "title": "CSS Syntax",
+    "category": "CSS",
+    "difficulty": "Beginner",
+    "question": "How do you select an element with id \"main\" in CSS?",
+    "options": [
+      { "id": "a", "text": "#main", "isCorrect": true },
+      { "id": "b", "text": ".main", "isCorrect": false },
+      { "id": "c", "text": "main", "isCorrect": false }
+    ],
+    "explanation": "# selects by id; . selects by class.",
+    "interview_tip": "Use unique ids for page elements to keep CSS clear.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "css-id-selector"
+  },
+  {
+    "id": 3013,
+    "title": "CSS Class Selector",
+    "category": "CSS",
+    "difficulty": "Beginner",
+    "question": "How do you select all elements with class 'item' in CSS?",
+    "options": [
+      { "id": "a", "text": ".item", "isCorrect": true },
+      { "id": "b", "text": "#item", "isCorrect": false },
+      { "id": "c", "text": "item", "isCorrect": false }
+    ],
+    "explanation": ". selects by class.",
+    "interview_tip": "Classes can be reused across elements.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "css-class-selector"
+  },
+  {
+    "id": 3014,
+    "title": "CSS Color Property",
+    "category": "CSS",
+    "difficulty": "Beginner",
+    "question": "Which property sets the text color in CSS?",
+    "options": [
+      { "id": "a", "text": "color", "isCorrect": true },
+      { "id": "b", "text": "background-color", "isCorrect": false },
+      { "id": "c", "text": "font-color", "isCorrect": false }
+    ],
+    "explanation": "Use color for text color.",
+    "interview_tip": "Colors can be named, hex, or rgb values.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "css-color-property"
+  },
+  {
+    "id": 3015,
+    "title": "CSS Background Property",
+    "category": "CSS",
+    "difficulty": "Beginner",
+    "question": "Which property sets the background color?",
+    "options": [
+      { "id": "a", "text": "background-color", "isCorrect": true },
+      { "id": "b", "text": "color", "isCorrect": false },
+      { "id": "c", "text": "bgcolor", "isCorrect": false }
+    ],
+    "explanation": "background-color sets the element's background color.",
+    "interview_tip": "Don't confuse color with background-color.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "css-background-property"
+  },
+  {
+    "id": 3016,
+    "title": "CSS Font Size",
+    "category": "CSS",
+    "difficulty": "Beginner",
+    "question": "How do you set the font size to 16 pixels in CSS?",
+    "options": [
+      { "id": "a", "text": "font-size: 16px;", "isCorrect": true },
+      { "id": "b", "text": "text-size: 16px;", "isCorrect": false },
+      { "id": "c", "text": "size: 16px;", "isCorrect": false }
+    ],
+    "explanation": "font-size property sets the size of text.",
+    "interview_tip": "Use relative units for responsive font sizes.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "css-font-size"
+  },
+  {
+    "id": 3017,
+    "title": "CSS Add External Stylesheet",
+    "category": "CSS",
+    "difficulty": "Beginner",
+    "question": "Which HTML tag is used to add an external CSS file?",
+    "options": [
+      { "id": "a", "text": "<link>", "isCorrect": true },
+      { "id": "b", "text": "<style>", "isCorrect": false },
+      { "id": "c", "text": "<script>", "isCorrect": false }
+    ],
+    "explanation": "<link> in <head> includes external CSS.",
+    "interview_tip": "Remember the rel and href attributes.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "add-external-css"
+  },
+  {
+    "id": 3018,
+    "title": "CSS Inline Style",
+    "category": "CSS",
+    "difficulty": "Beginner",
+    "question": "How do you apply a style to a single HTML element?",
+    "options": [
+      { "id": "a", "text": "Using the style attribute", "isCorrect": true },
+      { "id": "b", "text": "Using the id attribute", "isCorrect": false },
+      { "id": "c", "text": "Using the class attribute", "isCorrect": false }
+    ],
+    "explanation": "The style attribute sets inline CSS.",
+    "interview_tip": "Use sparingly; prefer classes and ids.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "css-inline-style"
+  },
+  {
+    "id": 3019,
+    "title": "CSS Comments",
+    "category": "CSS",
+    "difficulty": "Beginner",
+    "question": "How do you write a comment in CSS?",
+    "options": [
+      { "id": "a", "text": "/* comment */", "isCorrect": true },
+      { "id": "b", "text": "// comment", "isCorrect": false },
+      { "id": "c", "text": "# comment", "isCorrect": false }
+    ],
+    "explanation": "CSS comments use /* and */.",
+    "interview_tip": "Comments help make CSS readable.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "css-comments"
+  },
+  {
+    "id": 3020,
+    "title": "CSS Center Text",
+    "category": "CSS",
+    "difficulty": "Beginner",
+    "question": "Which property centers text horizontally?",
+    "options": [
+      { "id": "a", "text": "text-align: center;", "isCorrect": true },
+      { "id": "b", "text": "vertical-align: center;", "isCorrect": false },
+      { "id": "c", "text": "align: center;", "isCorrect": false }
+    ],
+    "explanation": "text-align horizontally aligns inline content.",
+    "interview_tip": "Only works on inline or inline-block elements.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "css-center-text"
+  },
+  {
+    "id": 3021,
+    "title": "CSS Box Model",
+    "category": "CSS",
+    "difficulty": "Beginner",
+    "question": "Which of these is NOT part of the standard box model?",
+    "options": [
+      { "id": "a", "text": "border-radius", "isCorrect": true },
+      { "id": "b", "text": "padding", "isCorrect": false },
+      { "id": "c", "text": "margin", "isCorrect": false }
+    ],
+    "explanation": "Standard box model: content, padding, border, margin. border-radius is a property.",
+    "interview_tip": "Know how padding and border affect element size.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "css-box-model"
+  },
+  {
+    "id": 3022,
+    "title": "CSS Padding",
+    "category": "CSS",
+    "difficulty": "Beginner",
+    "question": "What does the CSS property 'padding' control?",
+    "options": [
+      { "id": "a", "text": "Space inside the border", "isCorrect": true },
+      { "id": "b", "text": "Space outside the border", "isCorrect": false },
+      { "id": "c", "text": "Element's border width", "isCorrect": false }
+    ],
+    "explanation": "Padding is space inside the border, between the content and border.",
+    "interview_tip": "Combine with margin for layout.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "css-padding"
+  },
+  {
+    "id": 3023,
+    "title": "CSS Margin",
+    "category": "CSS",
+    "difficulty": "Beginner",
+    "question": "What does the CSS property 'margin' control?",
+    "options": [
+      { "id": "a", "text": "Space outside the border", "isCorrect": true },
+      { "id": "b", "text": "Space inside the border", "isCorrect": false },
+      { "id": "c", "text": "Element's content width", "isCorrect": false }
+    ],
+    "explanation": "Margin creates space outside the element's border.",
+    "interview_tip": "Avoid margin collapse.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "css-margin"
+  },
+  {
+    "id": 3024,
+    "title": "CSS Display Block",
+    "category": "CSS",
+    "difficulty": "Beginner",
+    "question": "What does 'display: block;' do to an element?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Element takes up the full width",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Element flows inline", "isCorrect": false },
+      { "id": "c", "text": "Element hides from view", "isCorrect": false }
+    ],
+    "explanation": "Block elements take a new line and full width available.",
+    "interview_tip": "Default for <div>, <p>, <h*>.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "css-display-block"
+  },
+  {
+    "id": 3025,
+    "title": "CSS Display Inline",
+    "category": "CSS",
+    "difficulty": "Beginner",
+    "question": "What does 'display: inline;' do to an element?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Element flows inline with other elements",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "Element takes up the full width",
+        "isCorrect": false
+      },
+      { "id": "c", "text": "Element acts as a block", "isCorrect": false }
+    ],
+    "explanation": "Inline elements do not start on a new line and only take necessary width.",
+    "interview_tip": "Examples: <span>, <a>.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "css-display-inline"
+  },
+  {
+    "id": 3026,
+    "title": "CSS Hide Element",
+    "category": "CSS",
+    "difficulty": "Beginner",
+    "question": "Which property hides an element from view?",
+    "options": [
+      { "id": "a", "text": "display: none;", "isCorrect": true },
+      { "id": "b", "text": "visibility: none;", "isCorrect": false },
+      { "id": "c", "text": "hide: true;", "isCorrect": false }
+    ],
+    "explanation": "display: none completely removes the element from layout.",
+    "interview_tip": "visibility: hidden hides the element but reserves space.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "css-hide-element"
+  },
+  {
+    "id": 3027,
+    "title": "CSS Border",
+    "category": "CSS",
+    "difficulty": "Beginner",
+    "question": "Which property creates a border around an element?",
+    "options": [
+      { "id": "a", "text": "border", "isCorrect": true },
+      { "id": "b", "text": "outline", "isCorrect": false },
+      { "id": "c", "text": "line", "isCorrect": false }
+    ],
+    "explanation": "border adds an outline around all sides of an element.",
+    "interview_tip": "Specify border-width, style, and color.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "css-border"
+  },
+  {
+    "id": 3028,
+    "title": "CSS Font Family",
+    "category": "CSS",
+    "difficulty": "Beginner",
+    "question": "Which property changes the font in CSS?",
+    "options": [
+      { "id": "a", "text": "font-family", "isCorrect": true },
+      { "id": "b", "text": "font-face", "isCorrect": false },
+      { "id": "c", "text": "font-style", "isCorrect": false }
+    ],
+    "explanation": "font-family specifies the typeface of the text.",
+    "interview_tip": "Use fallbacks to ensure consistent look.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "css-font-family"
+  },
+  {
+    "id": 3029,
+    "title": "CSS Text Decoration",
+    "category": "CSS",
+    "difficulty": "Beginner",
+    "question": "Which property is used to underline text?",
+    "options": [
+      { "id": "a", "text": "text-decoration: underline;", "isCorrect": true },
+      { "id": "b", "text": "font-style: underline;", "isCorrect": false },
+      { "id": "c", "text": "text-style: underline;", "isCorrect": false }
+    ],
+    "explanation": "text-decoration is used for underlines, overlines, line-through.",
+    "interview_tip": "Commonly used for links.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "css-text-decoration"
+  },
+
+  {
+    "id": 3030,
+    "title": "HTML Input Type File",
+    "category": "HTML",
+    "difficulty": "Intermediate",
+    "question": "Which input type allows users to upload files?",
+    "options": [
+      { "id": "a", "text": "file", "isCorrect": true },
+      { "id": "b", "text": "upload", "isCorrect": false },
+      { "id": "c", "text": "text", "isCorrect": false }
+    ],
+    "explanation": "type=\"file\" lets users browse and select files for upload.",
+    "interview_tip": "Always validate uploaded files server-side.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "html-input-file"
+  },
+  {
+    "id": 3031,
+    "title": "HTML Form Submission",
+    "category": "HTML",
+    "difficulty": "Intermediate",
+    "question": "Which attribute specifies the destination URL for a form submission?",
+    "options": [
+      { "id": "a", "text": "action", "isCorrect": true },
+      { "id": "b", "text": "method", "isCorrect": false },
+      { "id": "c", "text": "target", "isCorrect": false }
+    ],
+    "explanation": "The action attribute sets the form submission endpoint.",
+    "interview_tip": "Always define method and action for forms.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "html-form-action"
+  },
+  {
+    "id": 3032,
+    "title": "HTML Description List",
+    "category": "HTML",
+    "difficulty": "Intermediate",
+    "question": "Which tags make up a description list in HTML?",
+    "options": [
+      { "id": "a", "text": "<dl>, <dt>, <dd>", "isCorrect": true },
+      { "id": "b", "text": "<ul>, <li>, <ol>", "isCorrect": false },
+      { "id": "c", "text": "<table>, <tr>, <td>", "isCorrect": false }
+    ],
+    "explanation": "<dl> is a description list, with <dt> for terms, <dd> for definitions.",
+    "interview_tip": "Useful for glossaries or pairs of info.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "html-description-list"
+  },
+  {
+    "id": 3033,
+    "title": "HTML Placeholder Attribute",
+    "category": "HTML",
+    "difficulty": "Intermediate",
+    "question": "What does the placeholder attribute do in an <input> element?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Displays sample text inside the field",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Validates user input", "isCorrect": false },
+      { "id": "c", "text": "Adds a tooltip", "isCorrect": false }
+    ],
+    "explanation": "placeholder shows hint text until user enters data.",
+    "interview_tip": "Don't use only placeholders for important labels.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "html-placeholder"
+  },
+  {
+    "id": 3034,
+    "title": "HTML Required Attribute",
+    "category": "HTML",
+    "difficulty": "Intermediate",
+    "question": "Which attribute forces a form field to be filled before submission?",
+    "options": [
+      { "id": "a", "text": "required", "isCorrect": true },
+      { "id": "b", "text": "mandatory", "isCorrect": false },
+      { "id": "c", "text": "validate", "isCorrect": false }
+    ],
+    "explanation": "required attribute prevents empty submission.",
+    "interview_tip": "Use for basic frontend validation.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "html-required-attribute"
+  },
+  {
+    "id": 3035,
+    "title": "HTML Radio Button",
+    "category": "HTML",
+    "difficulty": "Intermediate",
+    "question": "How do you group radio buttons so only one can be selected at a time?",
+    "options": [
+      { "id": "a", "text": "Same name attribute", "isCorrect": true },
+      { "id": "b", "text": "Same value attribute", "isCorrect": false },
+      { "id": "c", "text": "Same id attribute", "isCorrect": false }
+    ],
+    "explanation": "Radio inputs with the same name work as a group.",
+    "interview_tip": "Always pair labels for accessibility.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "html-radio-grouping"
+  },
+  {
+    "id": 3036,
+    "title": "HTML Data Attribute",
+    "category": "HTML",
+    "difficulty": "Intermediate",
+    "question": "What is the purpose of data-* attributes in HTML?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Store custom data private to the page",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Add accessibility labels", "isCorrect": false },
+      { "id": "c", "text": "Style elements", "isCorrect": false }
+    ],
+    "explanation": "data-* allows embedding custom attribute data on elements.",
+    "interview_tip": "Commonly used for dynamic frontend scripting.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "html-data-attribute"
+  },
+  {
+    "id": 3037,
+    "title": "HTML Audio Element",
+    "category": "HTML",
+    "difficulty": "Intermediate",
+    "question": "Which element is used to embed sound content in HTML5?",
+    "options": [
+      { "id": "a", "text": "<audio>", "isCorrect": true },
+      { "id": "b", "text": "<sound>", "isCorrect": false },
+      { "id": "c", "text": "<media>", "isCorrect": false }
+    ],
+    "explanation": "<audio> supports multiple formats and playback controls.",
+    "interview_tip": "Always provide fallback content.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "html-audio-embed"
+  },
+  {
+    "id": 3038,
+    "title": "HTML Video Element",
+    "category": "HTML",
+    "difficulty": "Intermediate",
+    "question": "What tag is used to embed video in HTML5?",
+    "options": [
+      { "id": "a", "text": "<video>", "isCorrect": true },
+      { "id": "b", "text": "<movie>", "isCorrect": false },
+      { "id": "c", "text": "<media>", "isCorrect": false }
+    ],
+    "explanation": "<video> tag embeds video content.",
+    "interview_tip": "Offer multiple sources for browser support.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "html-video-embed"
+  },
+  {
+    "id": 3039,
+    "title": "HTML rowspan Attribute",
+    "category": "HTML",
+    "difficulty": "Intermediate",
+    "question": "What does the rowspan attribute do in an HTML table?",
+    "options": [
+      { "id": "a", "text": "Merges cells vertically", "isCorrect": true },
+      { "id": "b", "text": "Merges cells horizontally", "isCorrect": false },
+      { "id": "c", "text": "Creates a row", "isCorrect": false }
+    ],
+    "explanation": "rowspan tells a cell to span multiple rows.",
+    "interview_tip": "colspan merges cells horizontally.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "html-rowspan"
+  },
+  {
+    "id": 3040,
+    "title": "HTML colspan Attribute",
+    "category": "HTML",
+    "difficulty": "Intermediate",
+    "question": "What does the colspan attribute do in an HTML table?",
+    "options": [
+      { "id": "a", "text": "Merges cells horizontally", "isCorrect": true },
+      { "id": "b", "text": "Merges cells vertically", "isCorrect": false },
+      { "id": "c", "text": "Creates a column", "isCorrect": false }
+    ],
+    "explanation": "colspan allows one cell to span multiple columns.",
+    "interview_tip": "Use for table headers covering several columns.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "html-colspan"
+  },
+  {
+    "id": 3041,
+    "title": "HTML Meta Charset",
+    "category": "HTML",
+    "difficulty": "Intermediate",
+    "question": "Which meta tag specifies character encoding in HTML5?",
+    "options": [
+      { "id": "a", "text": "<meta charset=\"UTF-8\">", "isCorrect": true },
+      { "id": "b", "text": "<meta encoding=\"UTF-8\">", "isCorrect": false },
+      { "id": "c", "text": "<charset=UTF-8>", "isCorrect": false }
+    ],
+    "explanation": "<meta charset=\"UTF-8\"> sets Unicode encoding for the page.",
+    "interview_tip": "Place this tag early in <head>.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "html-meta-charset"
+  },
+  {
+    "id": 3042,
+    "title": "HTML <label> Usage",
+    "category": "HTML",
+    "difficulty": "Intermediate",
+    "question": "Why should you use the <label> tag with form inputs?",
+    "options": [
+      { "id": "a", "text": "Improves accessibility", "isCorrect": true },
+      { "id": "b", "text": "Provides tooltips", "isCorrect": false },
+      { "id": "c", "text": "All the above", "isCorrect": false }
+    ],
+    "explanation": "<label> is essential for accessibility and screen readers.",
+    "interview_tip": "Link labels to inputs using the 'for' attribute.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "html-label"
+  },
+  {
+    "id": 3043,
+    "title": "CSS Combinator Descendant",
+    "category": "CSS",
+    "difficulty": "Intermediate",
+    "question": "Which selector targets all <em> elements inside a <div>?",
+    "options": [
+      { "id": "a", "text": "div em", "isCorrect": true },
+      { "id": "b", "text": "div > em", "isCorrect": false },
+      { "id": "c", "text": ".div em", "isCorrect": false }
+    ],
+    "explanation": "div em selects any <em> descendant of <div>.",
+    "interview_tip": "Whitespace is the descendant combinator.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "css-descendant-selector"
+  },
+  {
+    "id": 3044,
+    "title": "CSS Grouping Selector",
+    "category": "CSS",
+    "difficulty": "Intermediate",
+    "question": "How do you apply the same style to multiple selectors?",
+    "options": [
+      { "id": "a", "text": "Separate with commas", "isCorrect": true },
+      { "id": "b", "text": "Separate with spaces", "isCorrect": false },
+      { "id": "c", "text": "Separate with hyphens", "isCorrect": false }
+    ],
+    "explanation": "Comma-separated selectors group styles.",
+    "interview_tip": "Reduces repetition in your stylesheet.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "css-grouping-selector"
+  },
+  {
+    "id": 3045,
+    "title": "CSS Attribute Selector",
+    "category": "CSS",
+    "difficulty": "Intermediate",
+    "question": "Which selector targets <input> elements with a type of 'text'?",
+    "options": [
+      { "id": "a", "text": "input[type=\"text\"]", "isCorrect": true },
+      { "id": "b", "text": ".input[text]", "isCorrect": false },
+      { "id": "c", "text": "input.text", "isCorrect": false }
+    ],
+    "explanation": "Attribute selectors target specific attribute/value pairs.",
+    "interview_tip": "Useful for styling form elements by type.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "css-attribute-selector"
+  },
+  {
+    "id": 3046,
+    "title": "CSS Child Selector",
+    "category": "CSS",
+    "difficulty": "Intermediate",
+    "question": "Which selector matches all <li> elements that are direct children of <ul>?",
+    "options": [
+      { "id": "a", "text": "ul > li", "isCorrect": true },
+      { "id": "b", "text": "ul li", "isCorrect": false },
+      { "id": "c", "text": ".ul > li", "isCorrect": false }
+    ],
+    "explanation": "ul > li uses the child combinator for direct children.",
+    "interview_tip": "Reduces selector specificity issues.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "css-child-selector"
+  },
+  {
+    "id": 3047,
+    "title": "CSS Pseudo-class Hover",
+    "category": "CSS",
+    "difficulty": "Intermediate",
+    "question": "How do you style an element when the mouse is over it?",
+    "options": [
+      { "id": "a", "text": ":hover", "isCorrect": true },
+      { "id": "b", "text": "::hover", "isCorrect": false },
+      { "id": "c", "text": "onHover", "isCorrect": false }
+    ],
+    "explanation": ":hover applies styles on mouse over.",
+    "interview_tip": "Works on most elements, commonly used for links and buttons.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "css-hover-pseudo"
+  },
+  {
+    "id": 3048,
+    "title": "CSS Pseudo-class First-child",
+    "category": "CSS",
+    "difficulty": "Intermediate",
+    "question": "Which selector targets the first child of its parent?",
+    "options": [
+      { "id": "a", "text": ":first-child", "isCorrect": true },
+      { "id": "b", "text": "::first-child", "isCorrect": false },
+      { "id": "c", "text": ".first-child", "isCorrect": false }
+    ],
+    "explanation": ":first-child selects an element if it is first among its siblings.",
+    "interview_tip": "Useful for styling lists or menus differently.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "css-first-child"
+  },
+  {
+    "id": 3049,
+    "title": "CSS Box Sizing",
+    "category": "CSS",
+    "difficulty": "Intermediate",
+    "question": "Which value for box-sizing includes border and padding in width?",
+    "options": [
+      { "id": "a", "text": "border-box", "isCorrect": true },
+      { "id": "b", "text": "content-box", "isCorrect": false },
+      { "id": "c", "text": "padding-box", "isCorrect": false }
+    ],
+    "explanation": "border-box makes sizing more predictable.",
+    "interview_tip": "Common to apply box-sizing: border-box to all elements.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "css-box-sizing"
+  },
+  {
+    "id": 3050,
+    "title": "CSS Inheritance",
+    "category": "CSS",
+    "difficulty": "Intermediate",
+    "question": "Which CSS properties are typically inherited?",
+    "options": [
+      { "id": "a", "text": "color and font-family", "isCorrect": true },
+      { "id": "b", "text": "margin and padding", "isCorrect": false },
+      { "id": "c", "text": "border and width", "isCorrect": false }
+    ],
+    "explanation": "Text and font properties are usually inherited.",
+    "interview_tip": "Structural properties typically are NOT inherited.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "css-inheritance"
+  },
+  {
+    "id": 3051,
+    "title": "CSS Priority",
+    "category": "CSS",
+    "difficulty": "Intermediate",
+    "question": "What increases a CSS declaration's priority the most?",
+    "options": [
+      { "id": "a", "text": "!important", "isCorrect": true },
+      { "id": "b", "text": "Specificity", "isCorrect": false },
+      { "id": "c", "text": "Order in stylesheet", "isCorrect": false }
+    ],
+    "explanation": "!important overrides other declarations (use sparingly).",
+    "interview_tip": "Overusing !important can make CSS unmaintainable.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "css-important"
+  },
+  {
+    "id": 3052,
+    "title": "CSS Float Property",
+    "category": "CSS",
+    "difficulty": "Intermediate",
+    "question": "What does the CSS float property do?",
+    "options": [
+      { "id": "a", "text": "Moves elements left or right", "isCorrect": true },
+      { "id": "b", "text": "Increases font size", "isCorrect": false },
+      { "id": "c", "text": "Adds padding", "isCorrect": false }
+    ],
+    "explanation": "float positions elements to the left or right, wrapping non-floated content.",
+    "interview_tip": "Use clearfix to avoid layout issues.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "css-float"
+  },
+  {
+    "id": 3053,
+    "title": "CSS Clear Property",
+    "category": "CSS",
+    "difficulty": "Intermediate",
+    "question": "Which property stops an element from flowing next to floated elements?",
+    "options": [
+      { "id": "a", "text": "clear", "isCorrect": true },
+      { "id": "b", "text": "float: none", "isCorrect": false },
+      { "id": "c", "text": "overflow", "isCorrect": false }
+    ],
+    "explanation": "clear prevents elements from sitting beside floated elements.",
+    "interview_tip": "Clearfix hack uses overflow or pseudo-elements.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "css-clear"
+  },
+  {
+    "id": 3054,
+    "title": "CSS z-index",
+    "category": "CSS",
+    "difficulty": "Intermediate",
+    "question": "What does the z-index property control?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Stacking order of positioned elements",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Element opacity", "isCorrect": false },
+      { "id": "c", "text": "Element width", "isCorrect": false }
+    ],
+    "explanation": "z-index controls which positioned elements appear in front of others.",
+    "interview_tip": "Applies only to positioned elements (not static).",
+    "references": [],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "css-z-index"
+  },
+  {
+    "id": 3055,
+    "title": "CSS Overflow",
+    "category": "CSS",
+    "difficulty": "Intermediate",
+    "question": "Which CSS property handles content that exceeds an element's box?",
+    "options": [
+      { "id": "a", "text": "overflow", "isCorrect": true },
+      { "id": "b", "text": "scroll", "isCorrect": false },
+      { "id": "c", "text": "max-content", "isCorrect": false }
+    ],
+    "explanation": "overflow can hide, scroll, or display extra content.",
+    "interview_tip": "Common values: visible, hidden, scroll, auto.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "css-overflow"
+  },
+  {
+    "id": 3056,
+    "title": "CSS Flexbox",
+    "category": "CSS",
+    "difficulty": "Intermediate",
+    "question": "Which property declares a flexible container?",
+    "options": [
+      { "id": "a", "text": "display: flex;", "isCorrect": true },
+      { "id": "b", "text": "display: block;", "isCorrect": false },
+      { "id": "c", "text": "display: grid;", "isCorrect": false }
+    ],
+    "explanation": "display: flex; creates a flex container for advanced layouts.",
+    "interview_tip": "Combine with justify-content and align-items.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "css-flexbox"
+  },
+  {
+    "id": 3057,
+    "title": "CSS Media Queries",
+    "category": "CSS",
+    "difficulty": "Intermediate",
+    "question": "What are CSS media queries used for?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Responsive design for different devices",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Styling media files", "isCorrect": false },
+      { "id": "c", "text": "Creating hyperlinks", "isCorrect": false }
+    ],
+    "explanation": "Media queries allow styles to adapt to screen size and device features.",
+    "interview_tip": "Start with mobile-first approach.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "css-media-queries"
+  },
+  {
+    "id": 3058,
+    "title": "CSS Transition",
+    "category": "CSS",
+    "difficulty": "Intermediate",
+    "question": "What does the transition property control in CSS?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Animation speed and property changes",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Color contrast", "isCorrect": false },
+      { "id": "c", "text": "Media queries", "isCorrect": false }
+    ],
+    "explanation": "transition enables smooth changes for properties over time.",
+    "interview_tip": "Common for hover effects.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "css-transition"
+  },
+  {
+    "id": 3059,
+    "title": "CSS Vendor Prefixes",
+    "category": "CSS",
+    "difficulty": "Intermediate",
+    "question": "Which is a vendor prefix for Mozilla browsers?",
+    "options": [
+      { "id": "a", "text": "-moz-", "isCorrect": true },
+      { "id": "b", "text": "-webkit-", "isCorrect": false },
+      { "id": "c", "text": "-ms-", "isCorrect": false }
+    ],
+    "explanation": "-moz- is for Mozilla (Firefox) properties.",
+    "interview_tip": "Test your CSS on multiple browsers for compatibility.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "css-vendor-prefix-moz"
+  },
+  {
+    "id": 3060,
+    "title": "Semantic Main Tag",
+    "category": "HTML",
+    "difficulty": "Advanced",
+    "question": "Which tag defines the main content of a document, unique on a web page?",
+    "options": [
+      { "id": "a", "text": "<main>", "isCorrect": true },
+      { "id": "b", "text": "<section>", "isCorrect": false },
+      { "id": "c", "text": "<div>", "isCorrect": false }
+    ],
+    "explanation": "<main> marks the document's unique primary content.",
+    "interview_tip": "There should only be one <main> per page.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "html-main-advanced"
+  },
+  {
+    "id": 3061,
+    "title": "Semantic Accessibility",
+    "category": "HTML",
+    "difficulty": "Advanced",
+    "question": "Which HTML element is most appropriate for navigation menus?",
+    "options": [
+      { "id": "a", "text": "<nav>", "isCorrect": true },
+      { "id": "b", "text": "<aside>", "isCorrect": false },
+      { "id": "c", "text": "<footer>", "isCorrect": false }
+    ],
+    "explanation": "<nav> is for navigation blocks like menus or links.",
+    "interview_tip": "Use with ARIA roles for complex navigation.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "html-nav-element"
+  },
+  {
+    "id": 3062,
+    "title": "HTML Picture Element",
+    "category": "HTML",
+    "difficulty": "Advanced",
+    "question": "Which element is used for responsive images in HTML?",
+    "options": [
+      { "id": "a", "text": "<picture>", "isCorrect": true },
+      { "id": "b", "text": "<img>", "isCorrect": false },
+      { "id": "c", "text": "<canvas>", "isCorrect": false }
+    ],
+    "explanation": "<picture> allows serving different images for devices/screen sizes.",
+    "interview_tip": "Use <source> inside <picture> for flexibility.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "html-picture-responsive"
+  },
+  {
+    "id": 3063,
+    "title": "HTML ARIA Labels",
+    "category": "HTML",
+    "difficulty": "Advanced",
+    "question": "What is the purpose of ARIA roles in HTML?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Improve accessibility for assistive technologies",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Add animation", "isCorrect": false },
+      { "id": "c", "text": "Style elements", "isCorrect": false }
+    ],
+    "explanation": "ARIA roles describe elements to screen readers.",
+    "interview_tip": "Not all elements need ARIA; use semantically first.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "html-aria-roles"
+  },
+  {
+    "id": 3064,
+    "title": "Canvas Drawing",
+    "category": "HTML",
+    "difficulty": "Advanced",
+    "question": "Which tag provides a bitmap drawing area in HTML5?",
+    "options": [
+      { "id": "a", "text": "<canvas>", "isCorrect": true },
+      { "id": "b", "text": "<svg>", "isCorrect": false },
+      { "id": "c", "text": "<picture>", "isCorrect": false }
+    ],
+    "explanation": "<canvas> renders graphics via JavaScript.",
+    "interview_tip": "SVG is vector, canvas is pixel-based.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "html-canvas"
+  },
+  {
+    "id": 3065,
+    "title": "HTML Custom Elements",
+    "category": "HTML",
+    "difficulty": "Advanced",
+    "question": "Which HTML5 API is used to define new custom elements?",
+    "options": [
+      { "id": "a", "text": "Custom Elements API", "isCorrect": true },
+      { "id": "b", "text": "Web Storage API", "isCorrect": false },
+      { "id": "c", "text": "Service Workers API", "isCorrect": false }
+    ],
+    "explanation": "Custom Elements API extends HTML with user-defined tags.",
+    "interview_tip": "Part of Web Components technology.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "html-custom-elements"
+  },
+  {
+    "id": 3066,
+    "title": "HTML Local Storage",
+    "category": "HTML",
+    "difficulty": "Advanced",
+    "question": "Which object is used to store data on the client side that persists after page reloads?",
+    "options": [
+      { "id": "a", "text": "localStorage", "isCorrect": true },
+      { "id": "b", "text": "sessionStorage", "isCorrect": false },
+      { "id": "c", "text": "cookies", "isCorrect": false }
+    ],
+    "explanation": "localStorage keeps key-value pairs until explicitly cleared.",
+    "interview_tip": "sessionStorage only lives for the session.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "html-localstorage"
+  },
+  {
+    "id": 3067,
+    "title": "HTML Drag and Drop",
+    "category": "HTML",
+    "difficulty": "Advanced",
+    "question": "Which HTML5 API enables drag-and-drop functionality?",
+    "options": [
+      { "id": "a", "text": "Drag and Drop API", "isCorrect": true },
+      { "id": "b", "text": "Clipboard API", "isCorrect": false },
+      { "id": "c", "text": "Push API", "isCorrect": false }
+    ],
+    "explanation": "Drag and Drop API provides methods to handle drag-and-drop actions.",
+    "interview_tip": "Requires event handling in JavaScript.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "html-drag-drop"
+  },
+  {
+    "id": 3068,
+    "title": "HTML Microdata",
+    "category": "HTML",
+    "difficulty": "Advanced",
+    "question": "What is the purpose of microdata attributes like itemscope and itemprop?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Annotate content for search engines",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Style content", "isCorrect": false },
+      { "id": "c", "text": "Validate forms", "isCorrect": false }
+    ],
+    "explanation": "Microdata enhances SEO and semantic meaning for machines.",
+    "interview_tip": "Used for rich search results.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "html-microdata"
+  },
+  {
+    "id": 3069,
+    "title": "HTML <template> Element",
+    "category": "HTML",
+    "difficulty": "Advanced",
+    "question": "What is the purpose of the <template> element in HTML?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Holds content not rendered at page load",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Defines a CSS grid", "isCorrect": false },
+      { "id": "c", "text": "Creates responsive images", "isCorrect": false }
+    ],
+    "explanation": "<template> stores fragments for later JavaScript rendering.",
+    "interview_tip": "Useful for dynamic client-side rendering.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "html-template"
+  },
+  {
+    "id": 3070,
+    "title": "CSS Grid Layout",
+    "category": "CSS",
+    "difficulty": "Advanced",
+    "question": "Which property enables CSS Grid Layout on a container?",
+    "options": [
+      { "id": "a", "text": "display: grid;", "isCorrect": true },
+      { "id": "b", "text": "display: flex;", "isCorrect": false },
+      { "id": "c", "text": "grid-template:", "isCorrect": false }
+    ],
+    "explanation": "display: grid gives a container grid layout features.",
+    "interview_tip": "Combine with grid-template-rows and columns.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "css-grid-layout"
+  },
+  {
+    "id": 3071,
+    "title": "CSS Grid Placement",
+    "category": "CSS",
+    "difficulty": "Advanced",
+    "question": "How do you explicitly place items in a CSS grid?",
+    "options": [
+      { "id": "a", "text": "grid-row and grid-column", "isCorrect": true },
+      {
+        "id": "b",
+        "text": "flex-direction and justify-content",
+        "isCorrect": false
+      },
+      { "id": "c", "text": "box-align and box-pack", "isCorrect": false }
+    ],
+    "explanation": "grid-row and grid-column assign cells for grid children.",
+    "interview_tip": "Use line numbers or named areas for placement.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "css-grid-placement"
+  },
+  {
+    "id": 3072,
+    "title": "CSS Variables",
+    "category": "CSS",
+    "difficulty": "Advanced",
+    "question": "How are CSS custom properties defined and used?",
+    "options": [
+      {
+        "id": "a",
+        "text": "With --var-name and var(--var-name)",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "$var-name and use($var-name)", "isCorrect": false },
+      { "id": "c", "text": "Using @var-name", "isCorrect": false }
+    ],
+    "explanation": "CSS variables start with '--' and are accessed with var().",
+    "interview_tip": "Good for consistent themes and reusability.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "css-variables"
+  },
+  {
+    "id": 3073,
+    "title": "CSS calc() Function",
+    "category": "CSS",
+    "difficulty": "Advanced",
+    "question": "What is the purpose of calc() in CSS?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Performs calculations for CSS values",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Sets variable names", "isCorrect": false },
+      { "id": "c", "text": "Creates gradients", "isCorrect": false }
+    ],
+    "explanation": "calc() lets you mix units and do CSS math.",
+    "interview_tip": "Spaces are required around +, -, * and /.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "css-calc-function"
+  },
+  {
+    "id": 3074,
+    "title": "CSS ::before Pseudo-element",
+    "category": "CSS",
+    "difficulty": "Advanced",
+    "question": "What does the ::before pseudo-element do?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Inserts content before element's content",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "Selects the first child element",
+        "isCorrect": false
+      },
+      { "id": "c", "text": "Makes the element bold", "isCorrect": false }
+    ],
+    "explanation": "::before adds generated content before an element.",
+    "interview_tip": "Use with content property; great for icons or design.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "css-before"
+  },
+  {
+    "id": 3075,
+    "title": "CSS Specificity",
+    "category": "CSS",
+    "difficulty": "Advanced",
+    "question": "Which selector has the highest specificity?",
+    "options": [
+      { "id": "a", "text": "#header", "isCorrect": true },
+      { "id": "b", "text": ".header", "isCorrect": false },
+      { "id": "c", "text": "header", "isCorrect": false }
+    ],
+    "explanation": "ID selectors outrank class and element selectors in specificity.",
+    "interview_tip": "Avoid excessive use of ID selectors for maintainability.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "css-specificity"
+  },
+  {
+    "id": 3076,
+    "title": "CSS Animation Keyframes",
+    "category": "CSS",
+    "difficulty": "Advanced",
+    "question": "How are keyframes defined in CSS for animations?",
+    "options": [
+      { "id": "a", "text": "@keyframes", "isCorrect": true },
+      { "id": "b", "text": "animation-frames", "isCorrect": false },
+      { "id": "c", "text": "keyframe()", "isCorrect": false }
+    ],
+    "explanation": "@keyframes block maps out style changes over time.",
+    "interview_tip": "Combine with animation-name and animation-duration.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "css-animation-keyframes"
+  },
+  {
+    "id": 3077,
+    "title": "CSS Transform",
+    "category": "CSS",
+    "difficulty": "Advanced",
+    "question": "Which property is used to rotate or scale elements?",
+    "options": [
+      { "id": "a", "text": "transform", "isCorrect": true },
+      { "id": "b", "text": "transition", "isCorrect": false },
+      { "id": "c", "text": "position", "isCorrect": false }
+    ],
+    "explanation": "transform allows rotation, scaling, skewing, and translating elements.",
+    "interview_tip": "Great for hover effects and animations.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "css-transform"
+  },
+  {
+    "id": 3078,
+    "title": "CSS Filter",
+    "category": "CSS",
+    "difficulty": "Advanced",
+    "question": "What does the CSS filter property do?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Applies visual effects like blur or grayscale",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Creates image sprites", "isCorrect": false },
+      { "id": "c", "text": "Renders SVG graphics", "isCorrect": false }
+    ],
+    "explanation": "filter enables effects, e.g., filter: blur(4px) or grayscale(100%).",
+    "interview_tip": "Use filters for subtle design touches.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "css-filter"
+  },
+  {
+    "id": 3079,
+    "title": "CSS Clip-path",
+    "category": "CSS",
+    "difficulty": "Advanced",
+    "question": "Which CSS property creates non-rectangular shapes by clipping an element?",
+    "options": [
+      { "id": "a", "text": "clip-path", "isCorrect": true },
+      { "id": "b", "text": "border-radius", "isCorrect": false },
+      { "id": "c", "text": "mask", "isCorrect": false }
+    ],
+    "explanation": "clip-path restricts the visible portion of an element to a shape.",
+    "interview_tip": "Common shapes: circle, polygon, ellipse.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "css-clip-path"
+  },
+  {
+    "id": 3080,
+    "title": "CSS Responsive Units",
+    "category": "CSS",
+    "difficulty": "Advanced",
+    "question": "What is the 'vw' unit in CSS based on?",
+    "options": [
+      { "id": "a", "text": "Viewport width", "isCorrect": true },
+      { "id": "b", "text": "Vertical width", "isCorrect": false },
+      { "id": "c", "text": "View width of parent", "isCorrect": false }
+    ],
+    "explanation": "1vw = 1% of the viewport width.",
+    "interview_tip": "Great for responsive typography and layouts.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "css-vw"
+  },
+  {
+    "id": 3081,
+    "title": "CSS Aspect Ratio",
+    "category": "CSS",
+    "difficulty": "Advanced",
+    "question": "Which CSS property maintains an element's width-to-height relationship?",
+    "options": [
+      { "id": "a", "text": "aspect-ratio", "isCorrect": true },
+      { "id": "b", "text": "ratio", "isCorrect": false },
+      { "id": "c", "text": "scale", "isCorrect": false }
+    ],
+    "explanation": "aspect-ratio locks width:height for responsive boxes.",
+    "interview_tip": "No JS necessary for aspect-ratio since CSS 2021.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "css-aspect-ratio"
+  },
+  {
+    "id": 3082,
+    "title": "CSS Scroll Snap",
+    "category": "CSS",
+    "difficulty": "Advanced",
+    "question": "Which feature makes scrolling stop at set positions?",
+    "options": [
+      { "id": "a", "text": "scroll-snap-type", "isCorrect": true },
+      { "id": "b", "text": "snap-align", "isCorrect": false },
+      { "id": "c", "text": "scroll-to-fit", "isCorrect": false }
+    ],
+    "explanation": "scroll-snap-type provides smooth, predictable scrolling.",
+    "interview_tip": "Use with scroll-snap-align for children.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "css-scroll-snap"
+  },
+  {
+    "id": 3083,
+    "title": "CSS Container Queries",
+    "category": "CSS",
+    "difficulty": "Advanced",
+    "question": "What do container queries allow that media queries do not?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Style based on parent element size",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Target print output", "isCorrect": false },
+      {
+        "id": "c",
+        "text": "Style based on device orientation",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "Container queries let you adapt components to their parent's size.",
+    "interview_tip": "Supported in latest browsers; perfect for component-based design.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "css-container-queries"
+  },
+  {
+    "id": 3084,
+    "title": "CSS Logical Properties",
+    "category": "CSS",
+    "difficulty": "Advanced",
+    "question": "Which is an example of a logical property in CSS?",
+    "options": [
+      { "id": "a", "text": "margin-inline-start", "isCorrect": true },
+      { "id": "b", "text": "margin-left", "isCorrect": false },
+      { "id": "c", "text": "padding-bottom", "isCorrect": false }
+    ],
+    "explanation": "margin-inline-start respects language direction for global layouts.",
+    "interview_tip": "Good for multilingual websites.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "css-logical-properties"
+  },
+  {
+    "id": 3085,
+    "title": "CSS custom @media Features",
+    "category": "CSS",
+    "difficulty": "Advanced",
+    "question": "Which media feature detects dark or light UI themes?",
+    "options": [
+      { "id": "a", "text": "prefers-color-scheme", "isCorrect": true },
+      { "id": "b", "text": "color-gamut", "isCorrect": false },
+      { "id": "c", "text": "device-aspect-ratio", "isCorrect": false }
+    ],
+    "explanation": "prefers-color-scheme adapts UI to user's OS theme preference.",
+    "interview_tip": "Use to provide dark mode out of the box.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "css-prefers-color-scheme"
+  },
+  {
+    "id": 3086,
+    "title": "CSS :not() Pseudo-class",
+    "category": "CSS",
+    "difficulty": "Advanced",
+    "question": "What does :not(.disabled) select?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Elements without class 'disabled'",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "Elements with class 'disabled'",
+        "isCorrect": false
+      },
+      { "id": "c", "text": "Children of .disabled", "isCorrect": false }
+    ],
+    "explanation": ":not() excludes the specified selector.",
+    "interview_tip": "Combine with other selectors for complex logic.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "css-not-pseudo"
+  },
+  {
+    "id": 3087,
+    "title": "CSS Isolation",
+    "category": "CSS",
+    "difficulty": "Advanced",
+    "question": "What does the 'isolation: isolate;' property do?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Creates a new stacking context",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Clears floated elements", "isCorrect": false },
+      { "id": "c", "text": "Prevents inheritance of color", "isCorrect": false }
+    ],
+    "explanation": "isolation isolates child stacking context, useful for layers.",
+    "interview_tip": "Good for complex UI components.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "css-isolation"
+  },
+  {
+    "id": 3088,
+    "title": "CSS Backdrop-filter",
+    "category": "CSS",
+    "difficulty": "Advanced",
+    "question": "Which CSS property applies a blur effect behind an element?",
+    "options": [
+      { "id": "a", "text": "backdrop-filter", "isCorrect": true },
+      { "id": "b", "text": "behind-filter", "isCorrect": false },
+      { "id": "c", "text": "background-blur", "isCorrect": false }
+    ],
+    "explanation": "backdrop-filter modifies background content behind semi-transparent elements.",
+    "interview_tip": "Requires transparency for visible effect.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "css-backdrop-filter"
+  },
+  {
+    "id": 3089,
+    "title": "CSS Scrollbar Styling",
+    "category": "CSS",
+    "difficulty": "Advanced",
+    "question": "Which pseudo-element customizes the appearance of scrollbars in webkit browsers?",
+    "options": [
+      { "id": "a", "text": "::-webkit-scrollbar", "isCorrect": true },
+      { "id": "b", "text": "::scrollbar", "isCorrect": false },
+      { "id": "c", "text": "::-scrollbar-track", "isCorrect": false }
+    ],
+    "explanation": "::-webkit-scrollbar targets and styles the browser's scrollbar.",
+    "interview_tip": "Supported mainly in Chrome, Safari, Edge.",
+    "references": [],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "css-webkit-scrollbar"
+  },
+  {
+    "id": 4000,
+    "title": "JSX Syntax Basics",
+    "category": "ReactJS",
+    "difficulty": "Beginner",
+    "question": "Which of the following is valid JSX syntax?",
+    "options": [
+      { "id": "a", "text": "<div>Hello World</div>", "isCorrect": true },
+      { "id": "b", "text": "<div>Hello World>", "isCorrect": false },
+      { "id": "c", "text": "div{Hello World}", "isCorrect": false }
+    ],
+    "explanation": "JSX requires correct opening and closing tags, similar to HTML.",
+    "interview_tip": "Always wrap multiple JSX elements in a parent container or React.Fragment.",
+    "references": ["https://reactjs.org/docs/introducing-jsx.html"],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "jsx-syntax-basics"
+  },
+  {
+    "id": 4001,
+    "title": "React Component Declaration",
+    "category": "ReactJS",
+    "difficulty": "Beginner",
+    "question": "Which of the following is the correct way to define a functional React component?",
+    "options": [
+      {
+        "id": "a",
+        "text": "function Welcome() { return <h1>Hello</h1>; }",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "class Welcome = () => <h1>Hello</h1>;",
+        "isCorrect": false
+      },
+      {
+        "id": "c",
+        "text": "component Welcome() { return 'Hello'; }",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "Functional components are simple functions returning JSX.",
+    "interview_tip": "Since React 16.8, functional components are preferred with hooks.",
+    "references": ["https://reactjs.org/docs/components-and-props.html"],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "functional-component-declaration"
+  },
+  {
+    "id": 4002,
+    "title": "React Props Usage",
+    "category": "ReactJS",
+    "difficulty": "Beginner",
+    "question": "How do you pass data from a parent to a child component in React?",
+    "options": [
+      { "id": "a", "text": "Using props", "isCorrect": true },
+      { "id": "b", "text": "Using state", "isCorrect": false },
+      { "id": "c", "text": "Using localStorage", "isCorrect": false }
+    ],
+    "explanation": "Props are used to pass immutable data from parent to child.",
+    "interview_tip": "Props enable component reusability and data flow top-down.",
+    "references": ["https://reactjs.org/docs/components-and-props.html"],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "react-props-usage"
+  },
+  {
+    "id": 4003,
+    "title": "React State Basics",
+    "category": "ReactJS",
+    "difficulty": "Beginner",
+    "question": "Where should you store data that changes over time in a React component?",
+    "options": [
+      { "id": "a", "text": "In state", "isCorrect": true },
+      { "id": "b", "text": "In props", "isCorrect": false },
+      { "id": "c", "text": "In external files", "isCorrect": false }
+    ],
+    "explanation": "State holds data that can change and affect the UI.",
+    "interview_tip": "Use the useState hook in functional components for state management.",
+    "references": ["https://reactjs.org/docs/state-and-lifecycle.html"],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "react-state-basics"
+  },
+  {
+    "id": 4004,
+    "title": "React Rendering Lists",
+    "category": "ReactJS",
+    "difficulty": "Beginner",
+    "question": "What special prop should you provide when rendering a list of elements in React?",
+    "options": [
+      { "id": "a", "text": "key", "isCorrect": true },
+      { "id": "b", "text": "id", "isCorrect": false },
+      { "id": "c", "text": "ref", "isCorrect": false }
+    ],
+    "explanation": "Keys help React identify items uniquely for efficient re-rendering.",
+    "interview_tip": "Keys should be unique and stable, ideally not using array indexes.",
+    "references": ["https://reactjs.org/docs/lists-and-keys.html"],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "react-rendering-lists"
+  },
+  {
+    "id": 4005,
+    "title": "React Synthetic Events",
+    "category": "ReactJS",
+    "difficulty": "Beginner",
+    "question": "How does React handle events such as clicks?",
+    "options": [
+      { "id": "a", "text": "Using Synthetic Events", "isCorrect": true },
+      {
+        "id": "b",
+        "text": "Using native browser events directly",
+        "isCorrect": false
+      },
+      { "id": "c", "text": "Using XMLHttpRequest", "isCorrect": false }
+    ],
+    "explanation": "React wraps native events into Synthetic Events for cross-browser compatibility.",
+    "interview_tip": "Synthetic Events pool for performance — event properties become nullified asynchronously.",
+    "references": ["https://reactjs.org/docs/events.html"],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "react-synthetic-events"
+  },
+  {
+    "id": 4006,
+    "title": "React Component Lifecycle",
+    "category": "ReactJS",
+    "difficulty": "Beginner",
+    "question": "Which lifecycle method is called when a component is first added to the DOM (in class components)?",
+    "options": [
+      { "id": "a", "text": "componentDidMount", "isCorrect": true },
+      { "id": "b", "text": "componentWillUnmount", "isCorrect": false },
+      { "id": "c", "text": "getSnapshotBeforeUpdate", "isCorrect": false }
+    ],
+    "explanation": "componentDidMount runs after the component is mounted.",
+    "interview_tip": "Use it for initializing network requests or timers.",
+    "references": [
+      "https://reactjs.org/docs/react-component.html#componentdidmount"
+    ],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "react-lifecycle-componentdidmount"
+  },
+  {
+    "id": 4007,
+    "title": "Redux Store Purpose",
+    "category": "Redux",
+    "difficulty": "Beginner",
+    "question": "What is the main purpose of the Redux store?",
+    "options": [
+      { "id": "a", "text": "Holds the entire app state", "isCorrect": true },
+      { "id": "b", "text": "Generates reducers", "isCorrect": false },
+      { "id": "c", "text": "Manages API calls", "isCorrect": false }
+    ],
+    "explanation": "The store holds the global state and enables access and dispatching actions.",
+    "interview_tip": "The store should be a single source of truth.",
+    "references": ["https://redux.js.org/api/store"],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "redux-store-purpose"
+  },
+  {
+    "id": 4008,
+    "title": "Redux Actions",
+    "category": "Redux",
+    "difficulty": "Beginner",
+    "question": "What is a Redux action?",
+    "options": [
+      {
+        "id": "a",
+        "text": "A plain object describing a state change",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "A function that modifies the state",
+        "isCorrect": false
+      },
+      { "id": "c", "text": "A database query", "isCorrect": false }
+    ],
+    "explanation": "Actions are objects with a type property that describe what happened.",
+    "interview_tip": "Actions do not directly modify the state.",
+    "references": ["https://redux.js.org/basics/actions"],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "redux-actions"
+  },
+  {
+    "id": 4009,
+    "title": "Redux Reducers",
+    "category": "Redux",
+    "difficulty": "Beginner",
+    "question": "What is the role of a reducer in a Redux application?",
+    "options": [
+      {
+        "id": "a",
+        "text": "To compute the new state based on action and previous state",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "To dispatch actions", "isCorrect": false },
+      { "id": "c", "text": "To hold the middleware logic", "isCorrect": false }
+    ],
+    "explanation": "Reducers are pure functions that take current state and action, return new state.",
+    "interview_tip": "Reducers must be pure and not mutate the state.",
+    "references": ["https://redux.js.org/basics/reducers"],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "redux-reducers"
+  },
+  {
+    "id": 4010,
+    "title": "Redux Dispatch Function",
+    "category": "Redux",
+    "difficulty": "Beginner",
+    "question": "What does the dispatch function do in Redux?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Sends an action to the store to update the state",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Stores the state", "isCorrect": false },
+      { "id": "c", "text": "Creates reducers", "isCorrect": false }
+    ],
+    "explanation": "Dispatch triggers state transitions by sending actions to reducers.",
+    "interview_tip": "Use dispatch to indicate user or system events.",
+    "references": ["https://redux.js.org/api/store#dispatchaction"],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "redux-dispatch"
+  },
+  {
+    "id": 4011,
+    "title": "Connecting React and Redux",
+    "category": "Redux",
+    "difficulty": "Beginner",
+    "question": "Which function connects a React component to the Redux store?",
+    "options": [
+      { "id": "a", "text": "connect()", "isCorrect": true },
+      { "id": "b", "text": "store()", "isCorrect": false },
+      { "id": "c", "text": "mapStateToProps()", "isCorrect": false }
+    ],
+    "explanation": "connect() allows React components to access state and dispatch via props.",
+    "interview_tip": "It comes from 'react-redux' package.",
+    "references": ["https://react-redux.js.org/api/connect"],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "react-redux-connect"
+  },
+  {
+    "id": 4012,
+    "title": "React useState Hook",
+    "category": "ReactJS",
+    "difficulty": "Beginner",
+    "question": "What does the useState hook return?",
+    "options": [
+      {
+        "id": "a",
+        "text": "An array with current state and function to update it",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "A Promise", "isCorrect": false },
+      { "id": "c", "text": "A class instance", "isCorrect": false }
+    ],
+    "explanation": "useState provides the current state value and a setter function.",
+    "interview_tip": "Destructure both returned values using array destructuring syntax.",
+    "references": ["https://reactjs.org/docs/hooks-state.html"],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "react-usestate"
+  },
+  {
+    "id": 4013,
+    "title": "React Props Are Immutable",
+    "category": "ReactJS",
+    "difficulty": "Beginner",
+    "question": "Which statement about React props is correct?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Props are read-only and should not be modified inside a component",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "Props can be changed in the child component",
+        "isCorrect": false
+      },
+      { "id": "c", "text": "Props and state are the same", "isCorrect": false }
+    ],
+    "explanation": "Props are immutable data passed from parent to children.",
+    "interview_tip": "Use state to hold mutable data instead.",
+    "references": [
+      "https://reactjs.org/docs/components-and-props.html#props-are-read-only"
+    ],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "react-props-immutable"
+  },
+  {
+    "id": 4014,
+    "title": "React Fragments",
+    "category": "ReactJS",
+    "difficulty": "Beginner",
+    "question": "What is the purpose of React Fragments?",
+    "options": [
+      {
+        "id": "a",
+        "text": "To group multiple elements without adding extra nodes to the DOM",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "To style components directly", "isCorrect": false },
+      { "id": "c", "text": "To handle errors", "isCorrect": false }
+    ],
+    "explanation": "Fragments let you return multiple children without markup wrapper elements.",
+    "interview_tip": "Use <>...</> shorthand or <React.Fragment>.",
+    "references": ["https://reactjs.org/docs/fragments.html"],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "react-fragments"
+  },
+  {
+    "id": 4015,
+    "title": "React Keys in Lists",
+    "category": "ReactJS",
+    "difficulty": "Beginner",
+    "question": "Why should keys be unique among siblings when rendering lists in React?",
+    "options": [
+      {
+        "id": "a",
+        "text": "To help React identify which items have changed for efficient updates",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "To use them as HTML element ids",
+        "isCorrect": false
+      },
+      { "id": "c", "text": "To format the list order", "isCorrect": false }
+    ],
+    "explanation": "Unique keys enable reconciliation and prevent unnecessary re-renders.",
+    "interview_tip": "Avoid using array indexes as keys if list order may change.",
+    "references": ["https://reactjs.org/docs/lists-and-keys.html#keys"],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "react-keys-uniqueness"
+  },
+  {
+    "id": 4016,
+    "title": "React useEffect Hook Basic",
+    "category": "ReactJS",
+    "difficulty": "Beginner",
+    "question": "When does a useEffect hook run by default?",
+    "options": [
+      { "id": "a", "text": "After every render", "isCorrect": true },
+      { "id": "b", "text": "Only once at mount", "isCorrect": false },
+      { "id": "c", "text": "Before render", "isCorrect": false }
+    ],
+    "explanation": "Without dependencies, useEffect runs after each completed render.",
+    "interview_tip": "Specify dependency array to control execution frequency.",
+    "references": ["https://reactjs.org/docs/hooks-effect.html"],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "react-useeffect-basic"
+  },
+  {
+    "id": 4017,
+    "title": "Redux combineReducers",
+    "category": "Redux",
+    "difficulty": "Beginner",
+    "question": "What is the purpose of combineReducers in Redux?",
+    "options": [
+      {
+        "id": "a",
+        "text": "To combine multiple reducers into one root reducer",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "To dispatch multiple actions", "isCorrect": false },
+      { "id": "c", "text": "To merge multiple stores", "isCorrect": false }
+    ],
+    "explanation": "combineReducers helps split state management into modular reducers.",
+    "interview_tip": "Each reducer manages its slice of state.",
+    "references": ["https://redux.js.org/api/combinereducers"],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "redux-combineReducers"
+  },
+  {
+    "id": 4018,
+    "title": "Redux Provider Component",
+    "category": "Redux",
+    "difficulty": "Beginner",
+    "question": "What is the role of the <Provider> component in a React-Redux app?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Makes the Redux store available to all nested components",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Creates the Redux store", "isCorrect": false },
+      {
+        "id": "c",
+        "text": "Dispatches actions to the store",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "<Provider> wraps the app and passes store via context.",
+    "interview_tip": "Must wrap your app’s root component to use react-redux hooks or connect.",
+    "references": ["https://react-redux.js.org/api/provider"],
+    "timeLimit": 30,
+    "points": 1,
+    "slug": "redux-provider"
+  },
+  {
+    "id": 4020,
+    "title": "React useEffect Dependencies",
+    "category": "ReactJS",
+    "difficulty": "Intermediate",
+    "question": "How do you make useEffect run only once after the initial render?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Provide an empty dependency array []",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Omit all dependencies", "isCorrect": false },
+      { "id": "c", "text": "Set a boolean flag", "isCorrect": false }
+    ],
+    "explanation": "An empty array as the second argument ensures useEffect runs once.",
+    "interview_tip": "Dependencies control when effects re-run.",
+    "references": [
+      "https://reactjs.org/docs/hooks-effect.html#tip-optimizing-performance-by-skipping-effects"
+    ],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "react-useeffect-once"
+  },
+  {
+    "id": 4021,
+    "title": "React useRef Purpose",
+    "category": "ReactJS",
+    "difficulty": "Intermediate",
+    "question": "What is the primary use of the useRef hook in React?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Access DOM nodes or persist values across renders",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Store stateful values", "isCorrect": false },
+      { "id": "c", "text": "Trigger re-renders", "isCorrect": false }
+    ],
+    "explanation": "useRef returns a mutable ref object whose .current persists between renders.",
+    "interview_tip": "Changing ref doesn’t cause re-render.",
+    "references": ["https://reactjs.org/docs/hooks-reference.html#useref"],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "react-useref"
+  },
+  {
+    "id": 4022,
+    "title": "React Context API Use",
+    "category": "ReactJS",
+    "difficulty": "Intermediate",
+    "question": "What problem does the Context API solve in React?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Prop drilling between deeply nested components",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Avoiding useState", "isCorrect": false },
+      { "id": "c", "text": "Managing global variables", "isCorrect": false }
+    ],
+    "explanation": "Context API provides a way to share values across the component tree without explicit props.",
+    "interview_tip": "Use for global data like themes, auth, language.",
+    "references": ["https://reactjs.org/docs/context.html"],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "react-context-problem"
+  },
+  {
+    "id": 4023,
+    "title": "React Controlled Components",
+    "category": "ReactJS",
+    "difficulty": "Intermediate",
+    "question": "In a controlled component, where is the form data stored?",
+    "options": [
+      { "id": "a", "text": "In React component state", "isCorrect": true },
+      { "id": "b", "text": "In the DOM elements", "isCorrect": false },
+      { "id": "c", "text": "In localStorage", "isCorrect": false }
+    ],
+    "explanation": "Controlled components use state to manage input values.",
+    "interview_tip": "Value and onChange are required for controlled inputs.",
+    "references": ["https://reactjs.org/docs/forms.html"],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "react-controlled-component"
+  },
+  {
+    "id": 4024,
+    "title": "React PropTypes Purpose",
+    "category": "ReactJS",
+    "difficulty": "Intermediate",
+    "question": "What does PropTypes provide for React components?",
+    "options": [
+      { "id": "a", "text": "Runtime validation of props", "isCorrect": true },
+      { "id": "b", "text": "Compilation-time validation", "isCorrect": false },
+      { "id": "c", "text": "Styling utility", "isCorrect": false }
+    ],
+    "explanation": "PropTypes help catch bugs by checking types of props at runtime.",
+    "interview_tip": "Does not affect production bundle by default.",
+    "references": ["https://reactjs.org/docs/typechecking-with-proptypes.html"],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "react-proptypes"
+  },
+  {
+    "id": 4025,
+    "title": "React Memoization",
+    "category": "ReactJS",
+    "difficulty": "Intermediate",
+    "question": "What is the purpose of React.memo?",
+    "options": [
+      {
+        "id": "a",
+        "text": "To prevent unnecessary re-rendering of components",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "To memoize local variables", "isCorrect": false },
+      { "id": "c", "text": "To memoize hooks", "isCorrect": false }
+    ],
+    "explanation": "React.memo shallowly compares props and skips re-render if unchanged.",
+    "interview_tip": "Best for 'pure' functional components.",
+    "references": ["https://reactjs.org/docs/react-api.html#reactmemo"],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "react-memo"
+  },
+  {
+    "id": 4026,
+    "title": "React useCallback Hook",
+    "category": "ReactJS",
+    "difficulty": "Intermediate",
+    "question": "Why would you use the useCallback hook in React?",
+    "options": [
+      {
+        "id": "a",
+        "text": "To memoize callback functions for dependencies",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "To manage component state", "isCorrect": false },
+      { "id": "c", "text": "To memoize computed values", "isCorrect": false }
+    ],
+    "explanation": "useCallback returns a memoized callback unless dependencies change.",
+    "interview_tip": "Useful when passing callbacks to memoized children.",
+    "references": ["https://reactjs.org/docs/hooks-reference.html#usecallback"],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "react-usecallback"
+  },
+  {
+    "id": 4027,
+    "title": "Redux Action Creators",
+    "category": "Redux",
+    "difficulty": "Intermediate",
+    "question": "What is an action creator in Redux?",
+    "options": [
+      {
+        "id": "a",
+        "text": "A function that returns an action object",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "A reducer function", "isCorrect": false },
+      { "id": "c", "text": "A middleware", "isCorrect": false }
+    ],
+    "explanation": "Actions creators are functions that encapsulate action creation logic.",
+    "interview_tip": "Promotes reuse and testing of dispatched actions.",
+    "references": ["https://redux.js.org/basics/actions#action-creators"],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "redux-action-creator"
+  },
+  {
+    "id": 4028,
+    "title": "Redux Middleware",
+    "category": "Redux",
+    "difficulty": "Intermediate",
+    "question": "What is the main purpose of middleware in Redux?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Intercept and act on actions before reaching reducers",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Combine reducers", "isCorrect": false },
+      { "id": "c", "text": "Initialize the Redux store", "isCorrect": false }
+    ],
+    "explanation": "Middleware add custom logic to the dispatching of actions.",
+    "interview_tip": "Thunk and Logger are common middlewares.",
+    "references": [
+      "https://redux.js.org/understanding/history-and-design/middleware"
+    ],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "redux-middleware"
+  },
+  {
+    "id": 4029,
+    "title": "Redux State Shape",
+    "category": "Redux",
+    "difficulty": "Intermediate",
+    "question": "How should Redux global state be structured?",
+    "options": [
+      {
+        "id": "a",
+        "text": "As a single plain JavaScript object",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "As an array", "isCorrect": false },
+      { "id": "c", "text": "As multiple stores", "isCorrect": false }
+    ],
+    "explanation": "State is always a single JS object tree, never multiple stores.",
+    "interview_tip": "Each key in the root object may be managed by a different reducer.",
+    "references": [
+      "https://redux.js.org/usage/structuring-reducers/normalizing-state-shape"
+    ],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "redux-state-shape"
+  },
+  {
+    "id": 4030,
+    "title": "React Children Prop",
+    "category": "ReactJS",
+    "difficulty": "Intermediate",
+    "question": "What does the special prop 'children' in React represent?",
+    "options": [
+      {
+        "id": "a",
+        "text": "The child elements/nodes enclosed between component tags",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Child component state", "isCorrect": false },
+      { "id": "c", "text": "Global app state", "isCorrect": false }
+    ],
+    "explanation": "children lets you nest elements between component's opening and closing tag.",
+    "interview_tip": "children is implicit, no need to declare in parent.",
+    "references": ["https://reactjs.org/docs/composition-vs-inheritance.html"],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "react-children-prop"
+  },
+  {
+    "id": 4031,
+    "title": "React Conditional Rendering",
+    "category": "ReactJS",
+    "difficulty": "Intermediate",
+    "question": "How do you conditionally render elements in React?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Using JavaScript logical or ternary operators",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Using CSS", "isCorrect": false },
+      { "id": "c", "text": "Using HTML attributes", "isCorrect": false }
+    ],
+    "explanation": "React allows conditionals within JSX via JS logical expressions.",
+    "interview_tip": "Use && or ternary ? : for inline decisions.",
+    "references": ["https://reactjs.org/docs/conditional-rendering.html"],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "react-conditional-rendering"
+  },
+  {
+    "id": 4032,
+    "title": "Redux mapStateToProps",
+    "category": "Redux",
+    "difficulty": "Intermediate",
+    "question": "What is the primary use of the mapStateToProps function in Redux?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Select pieces of state to pass as props to a component",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Map action creators", "isCorrect": false },
+      { "id": "c", "text": "Create new stores", "isCorrect": false }
+    ],
+    "explanation": "It selects needed state and passes it to the component as props.",
+    "interview_tip": "Use selectors to keep it efficient and reusable.",
+    "references": [
+      "https://react-redux.js.org/using-react-redux/connect-mapstate"
+    ],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "redux-mapstatetoprops"
+  },
+  {
+    "id": 4033,
+    "title": "Redux mapDispatchToProps",
+    "category": "Redux",
+    "difficulty": "Intermediate",
+    "question": "Which function in React-Redux is used for binding action creators to props?",
+    "options": [
+      { "id": "a", "text": "mapDispatchToProps", "isCorrect": true },
+      { "id": "b", "text": "connect()", "isCorrect": false },
+      { "id": "c", "text": "useSelector", "isCorrect": false }
+    ],
+    "explanation": "mapDispatchToProps binds dispatch to props for triggering actions.",
+    "interview_tip": "You can pass mapDispatchToProps as the second argument to connect.",
+    "references": [
+      "https://react-redux.js.org/using-react-redux/connect-mapdispatch"
+    ],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "redux-mapdispatchtoprops"
+  },
+  {
+    "id": 4034,
+    "title": "React useContext Hook",
+    "category": "ReactJS",
+    "difficulty": "Intermediate",
+    "question": "What does the useContext hook allow in React?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Consuming a context's value in functional components",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Subscribe to Redux store", "isCorrect": false },
+      { "id": "c", "text": "Navigate between pages", "isCorrect": false }
+    ],
+    "explanation": "useContext reads and subscribes to context changes.",
+    "interview_tip": "Only works with React Contexts, not Redux directly.",
+    "references": ["https://reactjs.org/docs/hooks-reference.html#usecontext"],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "react-usecontext"
+  },
+  {
+    "id": 4035,
+    "title": "React PureComponent",
+    "category": "ReactJS",
+    "difficulty": "Intermediate",
+    "question": "What is the main benefit of extending React.PureComponent?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Automatic shallow prop and state comparison for shouldComponentUpdate",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Provides state immutability", "isCorrect": false },
+      { "id": "c", "text": "Memoizes all functions", "isCorrect": false }
+    ],
+    "explanation": "Prevents unnecessary re-renders via shallow comparison.",
+    "interview_tip": "Use when props/state are simple/immutable.",
+    "references": [
+      "https://reactjs.org/docs/react-api.html#reactpurecomponent"
+    ],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "react-pure-component"
+  },
+  {
+    "id": 4036,
+    "title": "Redux Selectors",
+    "category": "Redux",
+    "difficulty": "Intermediate",
+    "question": "Why use selectors in Redux?",
+    "options": [
+      {
+        "id": "a",
+        "text": "To encapsulate state selection logic and enable memoization",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "To bind actions to props", "isCorrect": false },
+      {
+        "id": "c",
+        "text": "To register reducers dynamically",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "Selectors improve performance and code maintainability.",
+    "interview_tip": "Consider using Reselect for derived data.",
+    "references": ["https://redux.js.org/usage/deriving-data-selectors"],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "redux-selectors"
+  },
+  {
+    "id": 4037,
+    "title": "Redux Thunk Middleware",
+    "category": "Redux",
+    "difficulty": "Intermediate",
+    "question": "What does Redux Thunk middleware let you do?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Dispatch functions for async logic",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "Synchronously dispatch actions",
+        "isCorrect": false
+      },
+      { "id": "c", "text": "Combine reducers", "isCorrect": false }
+    ],
+    "explanation": "Thunk middleware handles async operations in Redux via action creators.",
+    "interview_tip": "Without thunks, actions must be plain objects.",
+    "references": ["https://github.com/reduxjs/redux-thunk"],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "redux-thunk"
+  },
+  {
+    "id": 4038,
+    "title": "React Default Props",
+    "category": "ReactJS",
+    "difficulty": "Intermediate",
+    "question": "How do you set default prop values for a React function component?",
+    "options": [
+      {
+        "id": "a",
+        "text": "By using default parameter values in function arguments",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Using state", "isCorrect": false },
+      {
+        "id": "c",
+        "text": "By assigning to this.defaultProps",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "Default parameters in destructuring provide defaults for missing props.",
+    "interview_tip": "Class components may use static defaultProps.",
+    "references": [
+      "https://reactjs.org/docs/components-and-props.html#default-props"
+    ],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "react-default-props"
+  },
+  {
+    "id": 4039,
+    "title": "React Strict Mode",
+    "category": "ReactJS",
+    "difficulty": "Intermediate",
+    "question": "What does React.StrictMode do?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Highlights potential problems in application during development",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Enforces stricter bundling", "isCorrect": false },
+      { "id": "c", "text": "Disables old browser support", "isCorrect": false }
+    ],
+    "explanation": "StrictMode checks for unsafe life cycles and side effects.",
+    "interview_tip": "Has no effect in production builds.",
+    "references": ["https://reactjs.org/docs/strict-mode.html"],
+    "timeLimit": 30,
+    "points": 2,
+    "slug": "react-strictmode"
+  },
+  {
+    "id": 4040,
+    "title": "React useMemo Hook",
+    "category": "ReactJS",
+    "difficulty": "Advanced",
+    "question": "What is the main use of the useMemo hook in React?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Memoize the result of expensive computations",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "Memoize callbacks between renders",
+        "isCorrect": false
+      },
+      { "id": "c", "text": "Trigger side-effects", "isCorrect": false }
+    ],
+    "explanation": "useMemo caches computed return values unless dependencies change, improving performance for costly calculations.",
+    "interview_tip": "useMemo should not be overused; only use for performance bottlenecks.",
+    "references": ["https://reactjs.org/docs/hooks-reference.html#usememo"],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "react-usememo"
+  },
+  {
+    "id": 4041,
+    "title": "React Lazy Loading",
+    "category": "ReactJS",
+    "difficulty": "Advanced",
+    "question": "Which React API supports code-splitting by loading components lazily?",
+    "options": [
+      { "id": "a", "text": "React.lazy", "isCorrect": true },
+      { "id": "b", "text": "React.memo", "isCorrect": false },
+      { "id": "c", "text": "React.Fragment", "isCorrect": false }
+    ],
+    "explanation": "React.lazy allows dynamic import() of components for code-splitting and on-demand loading.",
+    "interview_tip": "Wrap lazy-loaded components with <Suspense>.",
+    "references": ["https://reactjs.org/docs/code-splitting.html#reactlazy"],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "react-lazy-suspense"
+  },
+  {
+    "id": 4042,
+    "title": "React Error Boundaries",
+    "category": "ReactJS",
+    "difficulty": "Advanced",
+    "question": "What is a React error boundary?",
+    "options": [
+      {
+        "id": "a",
+        "text": "A component that catches JavaScript errors in its child components",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "A component that prevents side-effects",
+        "isCorrect": false
+      },
+      {
+        "id": "c",
+        "text": "A component that delays rendering",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "Error boundaries catch errors during rendering, in lifecycle methods and constructors of their tree.",
+    "interview_tip": "Error boundaries must be class components.",
+    "references": ["https://reactjs.org/docs/error-boundaries.html"],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "react-error-boundary"
+  },
+  {
+    "id": 4043,
+    "title": "React useReducer Hook",
+    "category": "ReactJS",
+    "difficulty": "Advanced",
+    "question": "What is the useReducer hook best suited for?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Complex state logic with multiple sub-values",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Simple counter state", "isCorrect": false },
+      { "id": "c", "text": "Static configuration", "isCorrect": false }
+    ],
+    "explanation": "useReducer works well for complex or interdependent state updates.",
+    "interview_tip": "Pattern is similar to Redux reducers at component scope.",
+    "references": ["https://reactjs.org/docs/hooks-reference.html#usereducer"],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "react-usereducer"
+  },
+  {
+    "id": 4044,
+    "title": "React Forwarding Refs",
+    "category": "ReactJS",
+    "difficulty": "Advanced",
+    "question": "What is the main benefit of using React.forwardRef?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Pass refs through a component to a DOM node",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "Create higher-order components",
+        "isCorrect": false
+      },
+      { "id": "c", "text": "Memoize variables", "isCorrect": false }
+    ],
+    "explanation": "forwardRef lets a component expose a ref to its child for direct manipulation.",
+    "interview_tip": "Common for reusable UI libraries and input wrappers.",
+    "references": ["https://reactjs.org/docs/forwarding-refs.html"],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "react-forwardref"
+  },
+  {
+    "id": 4045,
+    "title": "React Portals",
+    "category": "ReactJS",
+    "difficulty": "Advanced",
+    "question": "What is the primary use of React portals?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Render children into a DOM node outside the component's hierarchy",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Create scoped styles", "isCorrect": false },
+      { "id": "c", "text": "Add global state", "isCorrect": false }
+    ],
+    "explanation": "Portals let you render children into a different part of the DOM.",
+    "interview_tip": "Portals are useful for modals, tooltips, overlays.",
+    "references": ["https://reactjs.org/docs/portals.html"],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "react-portal"
+  },
+  {
+    "id": 4046,
+    "title": "Higher-Order Components (HOC)",
+    "category": "ReactJS",
+    "difficulty": "Advanced",
+    "question": "What is a Higher-Order Component (HOC) in React?",
+    "options": [
+      {
+        "id": "a",
+        "text": "A function that takes a component and returns an enhanced component",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "A class-based wrapper around hooks",
+        "isCorrect": false
+      },
+      { "id": "c", "text": "A React Context", "isCorrect": false }
+    ],
+    "explanation": "HOCs add cross-cutting behavior by wrapping components.",
+    "interview_tip": "Be careful of prop collisions and refs with HOCs.",
+    "references": ["https://reactjs.org/docs/higher-order-components.html"],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "react-hoc"
+  },
+  {
+    "id": 4047,
+    "title": "React Context Performance",
+    "category": "ReactJS",
+    "difficulty": "Advanced",
+    "question": "What is a potential pitfall of using Context API for frequently changing values?",
+    "options": [
+      {
+        "id": "a",
+        "text": "All consumers re-render on value change",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Provider cannot update value", "isCorrect": false },
+      { "id": "c", "text": "React prevents any re-render", "isCorrect": false }
+    ],
+    "explanation": "Any change to context value forces all consumers to re-render.",
+    "interview_tip": "Split contexts or memoize values to avoid excessive renders.",
+    "references": [
+      "https://reactjs.org/docs/context.html#optimizing-performance"
+    ],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "react-context-performance"
+  },
+  {
+    "id": 4048,
+    "title": "Redux Middleware Signature",
+    "category": "Redux",
+    "difficulty": "Advanced",
+    "question": "A Redux middleware has access to which of the following?",
+    "options": [
+      {
+        "id": "a",
+        "text": "dispatch, getState, next, and action objects",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Reducer functions only", "isCorrect": false },
+      { "id": "c", "text": "Only the store state", "isCorrect": false }
+    ],
+    "explanation": "Middleware is a function with ({dispatch, getState}) => next => action signature.",
+    "interview_tip": "Can intercept actions and dispatch additional ones.",
+    "references": [
+      "https://redux.js.org/understanding/history-and-design/middleware"
+    ],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "redux-middleware-signature"
+  },
+  {
+    "id": 4049,
+    "title": "Redux Store Enhancers",
+    "category": "Redux",
+    "difficulty": "Advanced",
+    "question": "What is a store enhancer in Redux?",
+    "options": [
+      {
+        "id": "a",
+        "text": "A higher-order function that adds capabilities to the store",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "A function for combining reducers",
+        "isCorrect": false
+      },
+      { "id": "c", "text": "A middleware function", "isCorrect": false }
+    ],
+    "explanation": "Enhancers wrap createStore and can enhance store methods or add new ones.",
+    "interview_tip": "applyMiddleware is itself a store enhancer.",
+    "references": ["https://redux.js.org/api/store#store-enhancers"],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "redux-store-enhancer"
+  },
+  {
+    "id": 4050,
+    "title": "Redux DevTools",
+    "category": "Redux",
+    "difficulty": "Advanced",
+    "question": "How do you enable Redux DevTools in your app for state debugging?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Compose store enhancers with window.__REDUX_DEVTOOLS_EXTENSION__",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "Add devtools as Redux middleware",
+        "isCorrect": false
+      },
+      {
+        "id": "c",
+        "text": "Dispatch an action to activate devtools",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "Redux DevTools are enabled by composing with the special browser extension enhancer.",
+    "interview_tip": "Keep DevTools out of production bundles.",
+    "references": ["https://github.com/zalmoxisus/redux-devtools-extension"],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "redux-devtools"
+  },
+  {
+    "id": 4051,
+    "title": "React Custom Hooks",
+    "category": "ReactJS",
+    "difficulty": "Advanced",
+    "question": "What is a custom React hook?",
+    "options": [
+      {
+        "id": "a",
+        "text": "A function using built-in hooks to share logic",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "A hook with different built-in behavior",
+        "isCorrect": false
+      },
+      {
+        "id": "c",
+        "text": "A way to create new lifecycle methods",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "Custom hooks let you extract and reuse component logic as functions.",
+    "interview_tip": "Name must start with 'use'.",
+    "references": ["https://reactjs.org/docs/hooks-custom.html"],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "react-custom-hook"
+  },
+  {
+    "id": 4052,
+    "title": "React Concurrent Mode",
+    "category": "ReactJS",
+    "difficulty": "Advanced",
+    "question": "What is the purpose of React's Concurrent Mode?",
+    "options": [
+      {
+        "id": "a",
+        "text": "To allow React to interrupt and prioritize rendering for better user experience",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "To use multiple CPU cores", "isCorrect": false },
+      {
+        "id": "c",
+        "text": "To handle server-side rendering",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "Concurrent Mode helps React keep the UI responsive by interrupting low-priority updates.",
+    "interview_tip": "Still experimental; use with caution.",
+    "references": ["https://react.dev/reference/react/ConcurrentMode"],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "react-concurrent-mode"
+  },
+  {
+    "id": 4053,
+    "title": "React Code Splitting Benefit",
+    "category": "ReactJS",
+    "difficulty": "Advanced",
+    "question": "What is the benefit of using code splitting in React?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Reduce initial bundle size for faster load times",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Improve code readability", "isCorrect": false },
+      { "id": "c", "text": "Reduce memory usage", "isCorrect": false }
+    ],
+    "explanation": "Code splitting ensures only necessary code is loaded, speeding up the app.",
+    "interview_tip": "Use React.lazy and Suspense for route-based or component-based splitting.",
+    "references": ["https://reactjs.org/docs/code-splitting.html"],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "react-code-splitting"
+  },
+  {
+    "id": 4054,
+    "title": "Redux Reselect Library",
+    "category": "Redux",
+    "difficulty": "Advanced",
+    "question": "Why use the reselect library with Redux selectors?",
+    "options": [
+      {
+        "id": "a",
+        "text": "To memoize derived data and avoid unnecessary recalculations",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "To dispatch actions", "isCorrect": false },
+      { "id": "c", "text": "To combine reducers", "isCorrect": false }
+    ],
+    "explanation": "Reselect memoizes selector outputs to optimize performance.",
+    "interview_tip": "Helps avoid expensive computations on each state change.",
+    "references": ["https://github.com/reduxjs/reselect"],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "redux-reselect"
+  },
+  {
+    "id": 4055,
+    "title": "React Suspense Fallback",
+    "category": "ReactJS",
+    "difficulty": "Advanced",
+    "question": "In React, what is a Suspense fallback used for?",
+    "options": [
+      {
+        "id": "a",
+        "text": "A component or message to display while waiting for lazy-loaded resources",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Error boundary fallback", "isCorrect": false },
+      { "id": "c", "text": "Placeholder for missing props", "isCorrect": false }
+    ],
+    "explanation": "The fallback prop in Suspense provides a UI while loading lazy imports.",
+    "interview_tip": "Can be a spinner, skeleton, or any React element.",
+    "references": ["https://reactjs.org/docs/code-splitting.html#suspense"],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "react-suspense-fallback"
+  },
+  {
+    "id": 4056,
+    "title": "React SSR",
+    "category": "ReactJS",
+    "difficulty": "Advanced",
+    "question": "What does SSR stand for in the React ecosystem?",
+    "options": [
+      { "id": "a", "text": "Server-Side Rendering", "isCorrect": true },
+      { "id": "b", "text": "Single State Reducer", "isCorrect": false },
+      { "id": "c", "text": "Super Suspense Renderer", "isCorrect": false }
+    ],
+    "explanation": "SSR renders React components to HTML on the server before sending to client.",
+    "interview_tip": "Common with frameworks like Next.js.",
+    "references": ["https://react.dev/reference/react-dom/hydrate"],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "react-ssr"
+  },
+  {
+    "id": 4057,
+    "title": "Redux Immutable State",
+    "category": "Redux",
+    "difficulty": "Advanced",
+    "question": "Why must Redux state be treated as immutable?",
+    "options": [
+      {
+        "id": "a",
+        "text": "To enable predictable state updates and time travel debugging",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Performance optimizations", "isCorrect": false },
+      {
+        "id": "c",
+        "text": "Because reducers require side effects",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "Immutability is key for undo/redo, change detection, and debugging.",
+    "interview_tip": "Never mutate objects or arrays directly in reducers.",
+    "references": [
+      "https://redux.js.org/tutorials/fundamentals/part-3-state-actions-reducers"
+    ],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "redux-immutable-state"
+  },
+  {
+    "id": 4058,
+    "title": "React Profiler",
+    "category": "ReactJS",
+    "difficulty": "Advanced",
+    "question": "What does the React Profiler tool allow you to do?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Measure performance and rendering times of React components",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "Check for security vulnerabilities",
+        "isCorrect": false
+      },
+      { "id": "c", "text": "Auto-memoize all components", "isCorrect": false }
+    ],
+    "explanation": "Profiler helps detect unnecessary re-renders and bottlenecks in component trees.",
+    "interview_tip": "Profiling is available in React DevTools browser extension.",
+    "references": ["https://reactjs.org/docs/profiler.html"],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "react-profiler"
+  },
+  {
+    "id": 4059,
+    "title": "React Concurrent Features Scheduling",
+    "category": "ReactJS",
+    "difficulty": "Advanced",
+    "question": "Which React feature allows updates to be paused, interrupted, or abandoned before completion?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Concurrent rendering/scheduling",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "React.lazy", "isCorrect": false },
+      { "id": "c", "text": "React.Fragment", "isCorrect": false }
+    ],
+    "explanation": "Concurrent rendering enables React to make rendering interruptible for pending user interactions.",
+    "interview_tip": "Lands in newer React versions for improved UX.",
+    "references": [
+      "https://react.dev/learn/synchronizing-with-effects#making-effects-respond-to-interactions"
+    ],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "react-concurrent-render"
+  },
+  {
+    "id": 4060,
+    "title": "React Suspense Data Fetching",
+    "category": "ReactJS",
+    "difficulty": "Advanced",
+    "question": "What is an experimental use case of React Suspense in modern applications?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Integrating data fetching with component rendering",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Improving bundle size", "isCorrect": false },
+      { "id": "c", "text": "CSS-in-JS", "isCorrect": false }
+    ],
+    "explanation": "React Suspense can coordinate rendering with async data fetching in modern data frameworks.",
+    "interview_tip": "React Suspense for data is still considered unstable/APIs are experimental.",
+    "references": ["https://react.dev/reference/react/Suspense"],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "react-suspense-data"
+  },
+  {
+    "id": 4061,
+    "title": "React StrictMode Duplicate Effects",
+    "category": "ReactJS",
+    "difficulty": "Advanced",
+    "question": "In development, how does React.StrictMode help identify side-effect issues?",
+    "options": [
+      {
+        "id": "a",
+        "text": "By intentionally double-invoking some lifecycle methods and effects",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "By skipping effect cleanup", "isCorrect": false },
+      { "id": "c", "text": "By blocking state updates", "isCorrect": false }
+    ],
+    "explanation": "StrictMode mounts components twice to reveal side effects and cleanup issues in dev.",
+    "interview_tip": "This does NOT happen in production.",
+    "references": ["https://react.dev/reference/react/StrictMode"],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "react-strictmode-double"
+  },
+  {
+    "id": 4062,
+    "title": "React useLayoutEffect",
+    "category": "ReactJS",
+    "difficulty": "Advanced",
+    "question": "What is the key difference between useEffect and useLayoutEffect?",
+    "options": [
+      {
+        "id": "a",
+        "text": "useLayoutEffect fires synchronously after DOM mutation, before paint",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "useEffect blocks rendering", "isCorrect": false },
+      {
+        "id": "c",
+        "text": "Only useEffect can access the DOM",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "useLayoutEffect runs after all DOM updates, but before the browser repaints.",
+    "interview_tip": "useLayoutEffect is useful for measurements and animations.",
+    "references": ["https://react.dev/reference/react/useLayoutEffect"],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "react-uselayouteffect"
+  },
+  {
+    "id": 4063,
+    "title": "React Controlled vs Uncontrolled Components",
+    "category": "ReactJS",
+    "difficulty": "Advanced",
+    "question": "How do controlled and uncontrolled components differ in React?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Controlled components sync form values with React state",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "Uncontrolled components always use Redux",
+        "isCorrect": false
+      },
+      {
+        "id": "c",
+        "text": "Controlled components can't use useRef",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "In controlled components, the value is bound to React state.",
+    "interview_tip": "Uncontrolled components manage their value via DOM references.",
+    "references": [
+      "https://react.dev/learn/sharing-state-between-components#controlled-and-uncontrolled-components"
+    ],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "react-controlled-vs-uncontrolled"
+  },
+  {
+    "id": 4064,
+    "title": "React Context Value Memoization",
+    "category": "ReactJS",
+    "difficulty": "Advanced",
+    "question": "How can you prevent unnecessary re-renders for consumers of a React Context?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Memoize the context value passed to the provider",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Avoid using Context", "isCorrect": false },
+      { "id": "c", "text": "Never use hooks", "isCorrect": false }
+    ],
+    "explanation": "Memoizing values ensures context only updates when its value truly changes.",
+    "interview_tip": "Wrap context value objects in useMemo.",
+    "references": [
+      "https://react.dev/reference/react/useContext#optimizing-re-renders-when-passing-objects-and-arrays-as-context-values"
+    ],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "react-context-memo"
+  },
+  {
+    "id": 4065,
+    "title": "React useImperativeHandle",
+    "category": "ReactJS",
+    "difficulty": "Advanced",
+    "question": "What is useImperativeHandle used for in React?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Customizing instance values exposed to parent refs",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Managing state", "isCorrect": false },
+      { "id": "c", "text": "Memoizing values", "isCorrect": false }
+    ],
+    "explanation": "useImperativeHandle lets you expose custom functions to parent refs.",
+    "interview_tip": "Use only with forwardRef.",
+    "references": ["https://react.dev/reference/react/useImperativeHandle"],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "react-useimperativehandle"
+  },
+  {
+    "id": 4066,
+    "title": "Redux Middleware Chaining",
+    "category": "Redux",
+    "difficulty": "Advanced",
+    "question": "How are multiple middlewares combined in Redux?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Using applyMiddleware(), which chains them in order",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "By putting them in reducers", "isCorrect": false },
+      { "id": "c", "text": "With combineReducers", "isCorrect": false }
+    ],
+    "explanation": "applyMiddleware applies middlewares, each given access to dispatch, getState, next, and action.",
+    "interview_tip": "Order matters for chained middleware.",
+    "references": ["https://redux.js.org/api/applymiddleware"],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "redux-applymiddleware"
+  },
+  {
+    "id": 4067,
+    "title": "Redux Store Subscription",
+    "category": "Redux",
+    "difficulty": "Advanced",
+    "question": "How does a React component know about Redux store state changes?",
+    "options": [
+      {
+        "id": "a",
+        "text": "It subscribes via react-redux hooks or connect()",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "It polls using setInterval", "isCorrect": false },
+      {
+        "id": "c",
+        "text": "It manually queries localStorage",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "react-redux hooks like useSelector keep components updated with store signals.",
+    "interview_tip": "Directly subscribing in large apps can be tricky—use library abstractions.",
+    "references": ["https://react-redux.js.org/api/hooks"],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "redux-store-subs"
+  },
+  {
+    "id": 4068,
+    "title": "Redux Middleware Async Logic",
+    "category": "Redux",
+    "difficulty": "Advanced",
+    "question": "Which problem does middleware like redux-saga or redux-thunk solve?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Handling asynchronous side-effects",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Combining reducers", "isCorrect": false },
+      { "id": "c", "text": "Serializing state", "isCorrect": false }
+    ],
+    "explanation": "Middlewares like thunk and saga allow dispatching functions or running side-effects in action flow.",
+    "interview_tip": "Choose saga for complex workflows, thunk for simple async.",
+    "references": ["https://redux.js.org/usage/writing-logic-thunks"],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "redux-thunk-vs-saga"
+  },
+  {
+    "id": 4069,
+    "title": "Redux Normalized State",
+    "category": "Redux",
+    "difficulty": "Advanced",
+    "question": "Why normalize Redux state?",
+    "options": [
+      {
+        "id": "a",
+        "text": "To avoid data duplication and make updates efficient",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "To save on reducer code", "isCorrect": false },
+      { "id": "c", "text": "It's required by Redux", "isCorrect": false }
+    ],
+    "explanation": "Normalized state enables fast updates by storing entities by ID.",
+    "interview_tip": "Use libraries like normalizr for large datasets.",
+    "references": [
+      "https://redux.js.org/usage/structuring-reducers/normalizing-state-shape"
+    ],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "redux-normalized"
+  },
+  {
+    "id": 4070,
+    "title": "React Hook Rules",
+    "category": "ReactJS",
+    "difficulty": "Advanced",
+    "question": "Which is a rule for using React Hooks?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Always call hooks at the top level of React functions",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "Call hooks in nested callbacks",
+        "isCorrect": false
+      },
+      { "id": "c", "text": "Use hooks in class components", "isCorrect": false }
+    ],
+    "explanation": "Hooks must be called consistently, never conditionally or in loops.",
+    "interview_tip": "Use react-hooks ESLint plugin for enforcement.",
+    "references": ["https://react.dev/reference/rules/rules-of-hooks"],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "react-hooks-rules"
+  },
+  {
+    "id": 4071,
+    "title": "Redux State Hydration",
+    "category": "Redux",
+    "difficulty": "Advanced",
+    "question": "What is hydration in Redux (and SSR)?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Merging server-rendered state into client store at startup",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Combining reducers", "isCorrect": false },
+      { "id": "c", "text": "Adding store enhancers", "isCorrect": false }
+    ],
+    "explanation": "Hydration ensures initial app UI and store state matches after SSR.",
+    "interview_tip": "Essential for seamless server-to-client transition.",
+    "references": ["https://redux.js.org/usage/server-rendering"],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "redux-hydration"
+  },
+  {
+    "id": 4072,
+    "title": "Redux Selectors with Reselect",
+    "category": "Redux",
+    "difficulty": "Advanced",
+    "question": "What’s an advantage of using Reselect selectors over plain ones?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Selectors are memoized, avoiding redundant recalculation",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Selectors mutate state", "isCorrect": false },
+      { "id": "c", "text": "They allow dispatch", "isCorrect": false }
+    ],
+    "explanation": "Memoized selectors avoid expensive recomputation of derived values.",
+    "interview_tip": "Reselect selectors are composable.",
+    "references": [
+      "https://github.com/reduxjs/reselect#motivation-for-memoized-selectors"
+    ],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "redux-reselect-advantages"
+  },
+  {
+    "id": 4073,
+    "title": "React Suspense List",
+    "category": "ReactJS",
+    "difficulty": "Advanced",
+    "question": "What does React's experimental SuspenseList component do?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Coordinates the order in which multiple Suspense components reveal their content",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Lists all pending fetches", "isCorrect": false },
+      {
+        "id": "c",
+        "text": "Displays fallbacks only for lists",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "SuspenseList lets you control reveal order UX when loading several resources.",
+    "interview_tip": "SuspenseList is not yet stable as of mid-2024.",
+    "references": ["https://react.dev/reference/react/SuspenseList"],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "react-suspense-list"
+  },
+  {
+    "id": 4074,
+    "title": "React Server Components",
+    "category": "ReactJS",
+    "difficulty": "Advanced",
+    "question": "What are React Server Components?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Components rendered and streamed from the server, not shipped to browser JavaScript",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "SSR hydration shell", "isCorrect": false },
+      { "id": "c", "text": "Webpack chunked components", "isCorrect": false }
+    ],
+    "explanation": "Server Components render on the server and never increase client JS bundle size.",
+    "interview_tip": "Available in Next.js 13+ as /app/ route feature.",
+    "references": ["https://react.dev/reference/react-server-components"],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "react-server-components"
+  },
+  {
+    "id": 4075,
+    "title": "Redux Toolkit Purpose",
+    "category": "Redux",
+    "difficulty": "Advanced",
+    "question": "What is the primary aim of Redux Toolkit?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Simplify Redux code and promote best practices",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Replace react-redux", "isCorrect": false },
+      { "id": "c", "text": "Remove all boilerplate", "isCorrect": false }
+    ],
+    "explanation": "Redux Toolkit offers opinionated APIs for reducers, immutability, async, and more.",
+    "interview_tip": "@reduxjs/toolkit is now the recommended standard way to write Redux apps.",
+    "references": ["https://redux-toolkit.js.org/introduction/getting-started"],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "redux-toolkit-purpose"
+  },
+  {
+    "id": 4076,
+    "title": "Redux createSlice",
+    "category": "Redux",
+    "difficulty": "Advanced",
+    "question": "What does createSlice do in Redux Toolkit?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Generates reducers, action creators, and action types for a slice of state",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Memoizes selectors", "isCorrect": false },
+      { "id": "c", "text": "Combines middleware", "isCorrect": false }
+    ],
+    "explanation": "createSlice simplifies reducer logic with generated actions and types.",
+    "interview_tip": "Action creators are attached as methods on the slice object.",
+    "references": ["https://redux-toolkit.js.org/api/createSlice"],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "redux-createslice"
+  },
+  {
+    "id": 4077,
+    "title": "React Profiler API",
+    "category": "ReactJS",
+    "difficulty": "Advanced",
+    "question": "How can you programmatically measure rendering time of a component subtree in React?",
+    "options": [
+      {
+        "id": "a",
+        "text": "With the <Profiler> component and an onRender callback",
+        "isCorrect": true
+      },
+      { "id": "b", "text": "Using Error Boundaries", "isCorrect": false },
+      { "id": "c", "text": "Using SuspenseList", "isCorrect": false }
+    ],
+    "explanation": "React.Profiler triggers onRender for timing and render details.",
+    "interview_tip": "Often used for performance optimization.",
+    "references": ["https://react.dev/reference/react/Profiler"],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "react-profiler-component"
+  },
+  {
+    "id": 4078,
+    "title": "Redux Immer Integration",
+    "category": "Redux",
+    "difficulty": "Advanced",
+    "question": "How does Redux Toolkit use Immer by default?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Allows you to write 'mutating' code that produces immutable state updates",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "Disables mutability in reducers",
+        "isCorrect": false
+      },
+      {
+        "id": "c",
+        "text": "Requires manual spread operations in states",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "With Immer, you can write code as if you mutate state, but Immer produces a new immutable state behind the scenes.",
+    "interview_tip": "Makes writing reducers easier and less error-prone.",
+    "references": ["https://redux-toolkit.js.org/usage/immer-reducers"],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "redux-toolkit-immer"
+  },
+  {
+    "id": 4079,
+    "title": "React useTransition Hook",
+    "category": "ReactJS",
+    "difficulty": "Advanced",
+    "question": "What is the benefit of the useTransition hook in React?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Mark state updates as non-urgent and allow React to interrupt or defer them",
+        "isCorrect": true
+      },
+      {
+        "id": "b",
+        "text": "Batch rerenders for concurrent events",
+        "isCorrect": false
+      },
+      { "id": "c", "text": "Control useEffect timing", "isCorrect": false }
+    ],
+    "explanation": "useTransition enables building UIs that stay responsive during expensive updates.",
+    "interview_tip": "Available in React 18+. Useful for transitions triggered by user actions.",
+    "references": ["https://react.dev/reference/react/useTransition"],
+    "timeLimit": 30,
+    "points": 3,
+    "slug": "react-usetransition"
+  }
+]

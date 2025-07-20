@@ -72,6 +72,7 @@ const enhancedNavigation = [
   { title: 'Messages', href: '/messages', icon: 'MessageSquare', badge: 12 },
   { title: 'Community', href: '/community', icon: 'Users', isNew: true },
   { title: 'Practice', href: '/practice', icon: 'Target', isNew: true },
+  { title: 'Quiz', href: '/quiz', icon: 'Target', isNew: true },
   { title: 'Find Teachers', href: '/teachers', icon: 'Search' },
   { title: 'My Skills', href: '/skills', icon: 'Code' },
   { title: 'Calendar', href: '/calendar', icon: 'Calendar' },

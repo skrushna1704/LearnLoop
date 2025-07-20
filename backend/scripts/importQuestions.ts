@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import fs from 'fs';
 import path from 'path';
-import { Question } from '../models/Practice';
+import { Question } from '../src/models/Practice';
 
 dotenv.config({ path: __dirname + '/../../.env' });
 

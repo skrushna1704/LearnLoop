@@ -22,7 +22,8 @@ import {
   Lightbulb,
   ExternalLink,
   Medal,
-  Flame
+  Flame,
+  HelpCircle
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
@@ -481,11 +482,11 @@ export default function PracticePage() {
           <div className="flex justify-center gap-4 mt-8">
             <Button 
               variant="outline" 
-              onClick={() => router.push('/practice/study')}
+              onClick={() => router.push('/quiz')}
               className="flex items-center gap-2 px-6 py-3 bg-white hover:bg-slate-50 border-2 border-slate-200 hover:border-slate-300 transition-all"
             >
-              <BookOpen className="w-5 h-5" />
-              Study Mode
+              <HelpCircle className="w-5 h-5" />
+              Quiz Mode
             </Button>
           </div>
         </div>
