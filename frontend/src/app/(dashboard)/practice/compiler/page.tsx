@@ -31,6 +31,7 @@ export default function DSACompilerPage() {
   const [timer, setTimer] = useState(30 * 60); // 30 minutes in seconds
   const [showNext, setShowNext] = useState(false);
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
+  const [questionCompletion, setQuestionCompletion] = useState<{[key: number]: {completed: boolean, timeSpent: number}}>({});
 
   // Fetch questions on mount
   useEffect(() => {
@@ -110,12 +111,64 @@ export default function DSACompilerPage() {
   };
 
   const handleNext = useCallback(() => {
+    // Mark current question as completed
+    setQuestionCompletion(prev => ({
+      ...prev,
+      [currentIndex]: {
+        completed: true,
+        timeSpent: 30 * 60 - timer
+      }
+    }));
+
     if (currentIndex < questions.length - 1) {
       setCurrentIndex((i) => i + 1);
     } else {
-      router.push("/practice"); // Or show results page
+      // Calculate completion data
+      const completedQuestions = Object.keys(questionCompletion).length + 1; // +1 for current question
+      const totalTimeSpent = Object.values(questionCompletion).reduce((sum, q) => sum + q.timeSpent, 0) + (30 * 60 - timer);
+      
+      // Prepare session data for results page
+      const sessionData = {
+        sessionId: `dsa-session-${Date.now()}`,
+        questions: questions.map((q, idx) => ({
+          _id: q._id || `q-${idx}`,
+          title: q.title,
+          description: q.description,
+          difficulty: q.difficulty,
+          timeComplexity: q.timeComplexity,
+          spaceComplexity: q.spaceComplexity,
+          completed: idx <= currentIndex,
+          timeSpent: idx === currentIndex ? 30 * 60 - timer : (questionCompletion[idx]?.timeSpent || 0),
+          codeSubmitted: true
+        })),
+        totalQuestions: questions.length,
+        completedQuestions: completedQuestions,
+        totalTimeSpent: totalTimeSpent,
+        averageTimePerQuestion: Math.round(totalTimeSpent / completedQuestions),
+        difficulty: difficulty,
+        category: 'DSA',
+        completedAt: new Date(),
+        performance: {
+          accuracy: Math.round((completedQuestions / questions.length) * 100),
+          efficiency: 75,
+          speed: 60,
+          overall: Math.round((completedQuestions / questions.length) * 100)
+        },
+        achievements: completedQuestions === questions.length ? ['perfect_completion'] : ['first_completion'],
+        nextRecommendations: [
+          'Practice more Medium difficulty problems',
+          'Focus on time complexity optimization',
+          'Try different problem types'
+        ]
+      };
+      
+      // Store session data in localStorage for results page
+      localStorage.setItem('dsa_session_data', JSON.stringify(sessionData));
+      
+      // Navigate to results page
+      router.push('/practice/compiler/results');
     }
-  }, [currentIndex, questions.length, router]);
+  }, [currentIndex, router, questions, timer, difficulty, questionCompletion]);
 
   // Timer logic
   useEffect(() => {
