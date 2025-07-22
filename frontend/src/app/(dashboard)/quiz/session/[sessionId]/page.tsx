@@ -9,7 +9,6 @@ import {
   Clock,
   Trophy,
   Lightbulb,
-  ChevronLeft,
   ChevronRight
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
@@ -147,14 +146,14 @@ export default function QuizSessionPage() {
     }
   };
 
-  const previousQuestion = () => {
-    if (currentQuestionIndex > 0) {
-      setCurrentQuestionIndex(prev => prev - 1);
-      setSelectedOption(null);
-      setShowResult(false);
-      setTimeSpent(0);
-    }
-  };
+  // const previousQuestion = () => {
+  //   if (currentQuestionIndex > 0) {
+  //     setCurrentQuestionIndex(prev => prev - 1);
+  //     setSelectedOption(null);
+  //     setShowResult(false);
+  //     setTimeSpent(0);
+  //   }
+  // };
 
   const completeSession = async () => {
     try {
@@ -342,8 +341,8 @@ export default function QuizSessionPage() {
         </Card>
 
         {/* Navigation */}
-        <div className="flex justify-between">
-          <Button 
+        <div className="flex justify-end">
+          {/* <Button 
             variant="outline" 
             onClick={previousQuestion}
             disabled={currentQuestionIndex === 0}
@@ -351,7 +350,7 @@ export default function QuizSessionPage() {
           >
             <ChevronLeft className="w-4 h-4" />
             Previous
-          </Button>
+          </Button> */}
           
           <Button 
             onClick={nextQuestion}

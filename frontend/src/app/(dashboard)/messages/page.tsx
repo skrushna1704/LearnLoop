@@ -6,6 +6,9 @@ import { useAuth } from '@/context/AuthContext';
 import { useSocket } from '@/context/SocketContext';
 import { useSearchParams } from 'next/navigation';
 import { MessagesSkeleton } from '@/components/common';
+import EmptyState from '@/components/common/EmptyState';
+import { Button } from '@/components/ui/Button';
+import Link from 'next/link';
 import { 
   Search, 
   Send, 
@@ -470,7 +473,36 @@ export default function MessagesPage() {
   }
 
   if (!selectedConversation) {
-    return <div>No conversations found.</div>; // Handle empty state
+    return (
+      <EmptyState
+        title="No Messages Yet"
+        description="Start a skill exchange to begin chatting with other learners and teachers. Once you have an exchange, your conversations will appear here."
+        action={
+          <Link href="/exchanges">
+            <Button variant="default">
+              Start an Exchange
+            </Button>
+          </Link>
+        }
+      />
+    );
+  }
+
+  // Render
+  if (!loading && conversations.length === 0) {
+    return (
+      <EmptyState
+        title="No Messages Yet"
+        description="Start a skill exchange to begin chatting with other learners and teachers. Once you have an exchange, your conversations will appear here."
+        action={
+          <Link href="/exchanges">
+            <Button variant="default">
+              Start an Exchange
+            </Button>
+          </Link>
+        }
+      />
+    );
   }
 
   return (

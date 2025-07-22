@@ -1,12 +1,19 @@
 import { Request, Response } from 'express';
-import OpenAI from 'openai';
+// import OpenAI from 'openai'; // Commented out for now
 import { asyncHandler } from '../utils/asyncHandler';
 import { getProfileAnalysis } from '../services/ai/tools';
 
-// Initialize OpenAI with API key from environment variables
+// OpenRouter API config
+const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
+const OPENROUTER_BASE_URL = 'https://openrouter.ai/api/v1';
+
+// // OpenAI config (commented out)
+/*
+import OpenAI from 'openai';
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
+*/
 
 /**
  * @desc    Get a response from the AI chatbot
@@ -38,6 +45,39 @@ export const getChatCompletion = asyncHandler(async (req: Request, res: Response
   ];
 
   try {
+    // --- OpenRouter API call ---
+    const response = await fetch(`${OPENROUTER_BASE_URL}/chat/completions`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
+        'Content-Type': 'application/json',
+        'HTTP-Referer': 'https://www.learnloop.world/',
+        'X-Title': 'Skill Practice Platform'
+      },
+      body: JSON.stringify({
+        model: 'openai/gpt-3.5-turbo',
+        messages: messages,
+        temperature: 0.7,
+        max_tokens: 150
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`OpenRouter API error: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    const aiResponse = data.choices?.[0]?.message?.content?.trim();
+
+    if (!aiResponse) {
+      res.status(500);
+      throw new Error('AI did not return a response.');
+    }
+
+    res.status(200).json({ response: aiResponse });
+
+    // --- OpenAI code (commented out) ---
+    /*
     const completion = await openai.chat.completions.create({
       model: 'gpt-3.5-turbo', // Efficient and cost-effective model for chat
       messages: messages,
@@ -53,8 +93,9 @@ export const getChatCompletion = asyncHandler(async (req: Request, res: Response
     }
 
     res.status(200).json({ response: aiResponse });
+    */
   } catch (error) {
-    console.error('Error calling OpenAI API:', error);
+    console.error('Error calling OpenRouter API:', error);
     res.status(500);
     throw new Error('Failed to get a response from the AI assistant.');
   }
@@ -95,6 +136,49 @@ export const getDashboardSuggestions = asyncHandler(async (req: Request, res: Re
   `;
 
   try {
+    // --- OpenRouter API call ---
+    const response = await fetch(`${OPENROUTER_BASE_URL}/chat/completions`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
+        'Content-Type': 'application/json',
+        'HTTP-Referer': 'https://www.learnloop.world/', 
+        'X-Title': 'Skill Practice Platform'
+      },
+      body: JSON.stringify({
+        model: 'openai/gpt-3.5-turbo',
+        messages: [
+          {
+            role: 'system',
+            content: 'You are a helpful and encouraging AI Profile Coach for a skill-exchange platform. Your goal is to help users improve their profiles to find better matches.'
+          },
+          { role: 'user', content: prompt }
+        ],
+        temperature: 0.6,
+        max_tokens: 300
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`OpenRouter API error: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    const rawResponse = data.choices[0]?.message?.content;
+    if (!rawResponse) {
+      throw new Error('AI did not return a valid response.');
+    }
+    // Parse the JSON response from the AI
+    const suggestions = JSON.parse(rawResponse);
+    // Format for the frontend
+    const formattedSuggestions = suggestions.map((text: string, index: number) => ({
+      id: index + 1,
+      text,
+    }));
+    res.status(200).json({ suggestions: formattedSuggestions });
+
+    // --- OpenAI code (commented out) ---
+    /*
     const completion = await openai.chat.completions.create({
       model: 'gpt-3.5-turbo',
       messages: [
@@ -106,23 +190,17 @@ export const getDashboardSuggestions = asyncHandler(async (req: Request, res: Re
       ],
       temperature: 0.6,
     });
-    
     const rawResponse = completion.choices[0]?.message?.content;
     if (!rawResponse) {
       throw new Error('AI did not return a valid response.');
     }
-    
-    // Parse the JSON response from the AI
     const suggestions = JSON.parse(rawResponse);
-
-    // Format for the frontend
     const formattedSuggestions = suggestions.map((text: string, index: number) => ({
       id: index + 1,
       text,
     }));
-
     res.status(200).json({ suggestions: formattedSuggestions });
-
+    */
   } catch (error) {
     console.error('Error in getDashboardSuggestions:', error);
     res.status(500).json({ message: "Could not generate AI suggestions at this time." });

@@ -54,12 +54,32 @@ async function importQuizQuestions() {
     await QuizQuestion.deleteMany({});
     console.log('🗑️  Cleared existing quiz questions');
 
-    // Insert in batches to avoid memory issues (following the same pattern as practice import)
+    // Remove duplicate slugs before importing
+    const uniqueQuestions = [];
+    const seenSlugs = new Set();
+    let duplicateCount = 0;
+
+    questions.forEach((question, index) => {
+      if (seenSlugs.has(question.slug)) {
+        duplicateCount++;
+        console.log(`⚠️  Duplicate slug found: ${question.slug} (ID: ${question.id})`);
+        // Generate a unique slug by appending the ID
+        question.slug = `${question.slug}-${question.id}`;
+      }
+      seenSlugs.add(question.slug);
+      uniqueQuestions.push(question);
+    });
+
+    if (duplicateCount > 0) {
+      console.log(`🔄 Fixed ${duplicateCount} duplicate slugs`);
+    }
+
+    // Insert in batches to avoid memory issues
     const batchSize = 100;
-    for (let i = 0; i < questions.length; i += batchSize) {
-      const batch = questions.slice(i, i + batchSize);
+    for (let i = 0; i < uniqueQuestions.length; i += batchSize) {
+      const batch = uniqueQuestions.slice(i, i + batchSize);
       await QuizQuestion.insertMany(batch);
-      console.log(`📦 Imported batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(questions.length / batchSize)}`);
+      console.log(`📦 Imported batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(uniqueQuestions.length / batchSize)}`);
     }
 
     console.log('✅ Successfully imported all quiz questions!');

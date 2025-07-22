@@ -110,8 +110,15 @@ export const updateExchangeStatus = async (exchangeId: string, status: string, u
     if (!exchange.receiver) {
       throw new Error('Exchange receiver is missing');
     }
-    
-    if (exchange.receiver.toString() !== userId) {
+    // Handle both populated and unpopulated receiver
+    let receiverId: string;
+    if (typeof exchange.receiver === 'object' && exchange.receiver !== null && '_id' in exchange.receiver) {
+      receiverId = (exchange.receiver as any)._id.toString();
+    } else {
+      receiverId = exchange.receiver.toString();
+    }
+    console.log('DEBUG: receiverId:', receiverId, 'userId:', userId);
+    if (receiverId !== userId.toString()) {
       throw new Error('Only the receiver can accept or reject exchange proposals');
     }
 

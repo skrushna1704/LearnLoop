@@ -52,6 +52,7 @@ export default function QuizResultsPage() {
   }, [loadResults]);
 
   const formatTime = (seconds: number) => {
+    if (!seconds || isNaN(seconds)) return '0:00';
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
     return `${mins}:${secs.toString().padStart(2, '0')}`;
@@ -154,7 +155,7 @@ export default function QuizResultsPage() {
 
               <div className="flex items-center justify-center gap-2 text-gray-600 mb-6">
                 <Clock className="w-4 h-4" />
-                <span>Time: {formatTime(result.timeSpent)}</span>
+                <span>Time: {formatTime(result.timeSpent || 0)}</span>
               </div>
 
               <Button
@@ -211,7 +212,7 @@ export default function QuizResultsPage() {
                   <span className="text-gray-700">Average Time</span>
                 </div>
                 <span className="font-semibold text-blue-600">
-                  {formatTime(Math.round(result.timeSpent / result.totalQuestions))}
+                  {formatTime(Math.round((result.timeSpent || 0) / result.totalQuestions))}
                 </span>
               </div>
             </div>

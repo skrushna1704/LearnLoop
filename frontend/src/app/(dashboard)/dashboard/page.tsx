@@ -64,8 +64,8 @@ export default function BeautifulDashboard() {
   const userProgress = {
     profileComplete: user?.isProfileComplete || false,
     skillsAdded: (teachingSkills.length + learningSkills.length) || 0,
-    exchangesStarted: 2,
-    messagesSent: 15,
+    exchangesStarted: user?.exchangesStarted || 0,
+    messagesSent: user?.messagesSent || 0,
     communityJoined: true
   };
 

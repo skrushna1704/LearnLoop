@@ -3,6 +3,8 @@ import { AuthRequest } from '../middleware/auth';
 import User, { IUser } from '../models/User';
 import Skill, { ISkill } from '../models/Skill';
 import mongoose from 'mongoose';
+import Exchange from '../models/Exchange';
+import Message from '../models/Message';
 
 interface PopulatedSkillOffered extends Omit<IUser['skills_offered'][0], 'skillId'> {
   _id: mongoose.Types.ObjectId;
@@ -61,8 +63,19 @@ export const getProfile = async (req: AuthRequest, res: Response) => {
     level: skill.skillId?.level
   }));
 
+  // Count exchanges started (as proposer or receiver)
+  const userId = (populatedUser as IUser)._id;
+  const exchangesStarted = await Exchange.countDocuments({
+    $or: [
+      { proposer: userId },
+      { receiver: userId }
+    ]
+  });
+  // Count messages sent
+  const messagesSent = await Message.countDocuments({ senderId: userId });
+
   res.json({
-    id: populatedUser._id,
+    id: userId,
     email: populatedUser.email,
     isProfileComplete: populatedUser.isProfileComplete,
     profile: populatedUser.profile,
@@ -71,6 +84,8 @@ export const getProfile = async (req: AuthRequest, res: Response) => {
     rating: populatedUser.rating,
     createdAt: populatedUser.createdAt,
     updatedAt: populatedUser.updatedAt,
+    exchangesStarted,
+    messagesSent
   });
 };
 

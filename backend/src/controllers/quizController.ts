@@ -195,9 +195,10 @@ export const completeQuizSession = asyncHandler(async (req: Request, res: Respon
     throw new Error('Quiz session not found');
   }
 
-  // Calculate final score
+  // Calculate final score and time
   const correctAnswers = session.questions.filter(q => q.isCorrect).length;
   const totalPoints = session.questions.reduce((sum, q) => sum + q.points, 0);
+  const totalTimeSpent = session.questions.reduce((sum, q) => sum + (q.timeSpent || 0), 0);
   const score = Math.round((correctAnswers / session.totalQuestions) * 100);
 
   session.score = score;
@@ -213,7 +214,7 @@ export const completeQuizSession = asyncHandler(async (req: Request, res: Respon
     totalQuestions: session.totalQuestions,
     correctAnswers,
     totalPoints,
-    session
+    timeSpent: totalTimeSpent
   });
 });
 

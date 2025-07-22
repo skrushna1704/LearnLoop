@@ -8,10 +8,17 @@ import streamifier from 'streamifier';
 
 export const getAllUsers = asyncHandler(async (req: Request, res: Response) => {
   const { search } = req.query;
-  let query = {};
+  // @ts-ignore
+  const loggedInUserId = req.user?._id?.toString();
+  let query: any = {};
 
   if (search) {
     query = { 'profile.name': { $regex: search, $options: 'i' } };
+  }
+
+  // Exclude the logged-in user from the results
+  if (loggedInUserId) {
+    query._id = { $ne: loggedInUserId };
   }
 
   const users = await User.find(query, 'profile.name profile.profilePicture skills_offered skills_needed');

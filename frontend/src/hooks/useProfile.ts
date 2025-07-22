@@ -37,6 +37,8 @@ export interface ProfileData {
   rating?: Rating;
   createdAt?: string;
   updatedAt?: string;
+  exchangesStarted?: number;
+  messagesSent?: number;
 }
 
 export function useProfile() {
